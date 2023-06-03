@@ -1,0 +1,15 @@
+// Bootstrap
+@import '../bootstrap-5.0.2/scss/bootstrap.scss';
+
+@import 'global';
+@import 'fonts';
+@import 'navbar';
+
+@import 'pages/home';
+@import 'pages/grafik';
+@import 'pages/gallery';
+@import 'pages/profil';
+@import 'pages/document';
+
+@import 'component/button';
+@import 'component/footer';

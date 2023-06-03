@@ -1,0 +1,75 @@
+.document {
+  margin-top: 100px;
+
+  .container {
+    @media (min-width: 991px) {
+      max-width: 1220px;
+    }
+
+    .content {
+      h2 {
+        text-align: center;
+        font-family: 'Roboto Slab', serif;
+        font-weight: 500;
+        color: #5064bd;
+        display: inline-block;
+        border-bottom: 4px solid #5064bd;
+        padding-bottom: 5px;
+      }
+
+      .search {
+        width: 100%;
+
+        input {
+          background: #eee;
+          padding: 10px;
+          border-radius: 5px 0 0 5px;
+        }
+
+        button {
+          background: #5064bd;
+          width: 15%;
+          border: none;
+          color: #fff;
+
+          &:hover {
+            background: #3c4e9e;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .download {
+        .card {
+          margin-top: 20px;
+
+          .card-body {
+            .title {
+              i {
+                font-size: 17px;
+                color: #5064bd;
+              }
+              h5 {
+                font-size: 17px;
+                line-height: 28px;
+              }
+              span {
+                font-size: 12px;
+              }
+            }
+            .btn-download {
+              background: #5064bd;
+              border: none;
+              color: #fff;
+
+              &:hover {
+                background: #3c4e9e;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
