@@ -22,15 +22,12 @@
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
-            @include('includes.admin.sidebar')
-
-
             <!-- Layout container -->
+            @include('includes.admin.sidebar')
             <div class="layout-page">
+                @include('includes.admin.navbar')
                 <!-- Navbar -->
                 @yield('content')
-
-
             </div>
             <!-- / Layout page -->
         </div>

@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\BidangController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DataAnggotaController;
+use App\Http\Controllers\Admin\FotoKsbController;
+use App\Http\Controllers\Admin\JabatanController;
+use App\Http\Controllers\Admin\PengurusController;
 use App\Http\Controllers\Admin\RenunganHarianController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\DocumentController;
@@ -38,6 +43,11 @@ Route::prefix('admin')
         Route::get('/dashboard', [DashboardController::class, 'index'])
             ->name('dashboard');
         Route::resource('renungan-harian', RenunganHarianController::class);
+        Route::resource('foto-ksb', FotoKsbController::class);
+        Route::resource('pengurus', PengurusController::class);
+        Route::resource('jabatan', JabatanController::class);
+        Route::resource('bidang', BidangController::class);
+        Route::resource('data-anggota', DataAnggotaController::class);
     });
 
 Auth::routes();

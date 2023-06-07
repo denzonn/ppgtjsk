@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\RenunganHarian;
 use Illuminate\Http\Request;
 
 class RenunganHarianController extends Controller
@@ -14,7 +15,10 @@ class RenunganHarianController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.renungan.index');
+        $renungan = RenunganHarian::all();
+        return view('pages.admin.renungan.index', [
+            'renungan' => $renungan,
+        ]);
     }
 
     /**
@@ -57,7 +61,11 @@ class RenunganHarianController extends Controller
      */
     public function edit($id)
     {
-        //
+        $renungan = RenunganHarian::findOrFail($id);
+
+        return view('pages.admin.renungan.edit', [
+            'renungan' => $renungan,
+        ]);
     }
 
     /**
@@ -69,7 +77,12 @@ class RenunganHarianController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = RenunganHarian::findOrFail($id);
+        $renungan = $request->all();
+
+        $data->update($renungan);
+
+        return redirect()->route('renungan-harian.index');
     }
 
     /**
