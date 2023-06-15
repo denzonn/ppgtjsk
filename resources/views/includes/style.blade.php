@@ -9,6 +9,10 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!-- Owl Carousel -->
 
+<script type="module" crossorigin src="{{ asset('carousel/assets/index.ef4fdc7a.js') }}"></script>
+<link rel="modulepreload" href="{{ asset('carousel/assets/vendor.8992d2a8.js') }}">
+<link rel="stylesheet" href="{{ asset('carousel/assets/index.3e4e39bd.css') }}">
+
 <!-- Fontawesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -16,3 +20,5 @@
 
 <!-- Data Aos -->
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />

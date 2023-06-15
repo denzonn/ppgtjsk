@@ -8,7 +8,10 @@
     <div class="pages">
         <div class="card">
             <div class="card-header">
-                <h4>Renungan Harian</h4>
+                <a href="{{ route('renungan-harian.index') }}" class="back">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+                <span class="title">Renungan Harian</span>
             </div>
             <div class="card-body">
                 @if ($errors->any())

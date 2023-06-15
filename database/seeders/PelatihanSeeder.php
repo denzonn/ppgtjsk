@@ -17,6 +17,11 @@ class PelatihanSeeder extends Seeder
     {
         DB::table('pelatihans')->insert([
             [
+                'nama_pelatihan' => 'Belum Pernah Ikut',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
                 'nama_pelatihan' => 'LKPD',
                 'created_at' => now(),
                 'updated_at' => now(),

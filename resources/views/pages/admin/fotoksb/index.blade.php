@@ -24,7 +24,6 @@
                         </thead>
                         <tbody>
                             @foreach ($data as $item)
-                                <tr></tr>
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->jabatan }}</td>
                                 <td>{!! $item->motto !!}</td>

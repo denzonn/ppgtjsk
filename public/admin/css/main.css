@@ -1,6 +1,6 @@
 @media (min-width: 767px) {
   .pages {
-    padding: 50px 20px;
+    padding: 20px 20px;
   }
 }
 
@@ -26,9 +26,9 @@
   object-fit: cover;
 }
 
-.row {
+/* .row {
   width: 100%;
-}
+} */
 
 .pages .icon {
   color: rgb(105, 108, 255);
@@ -60,4 +60,15 @@
 
 .dataAnggota .row {
   width: auto;
+}
+
+.dt-button {
+  background-color: rgb(105, 108, 255) !important;
+  color: #fff !important;
+  border: none !important;
+  transition: transform 0.3s ease-in-out;
+}
+
+.dt-button:hover {
+  transform: scale(1.1);
 }

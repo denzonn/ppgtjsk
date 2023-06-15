@@ -8,7 +8,10 @@
     <div class="pages">
         <div class="card">
             <div class="card-header">
-                <h4>Tambahkan Anggota</h4>
+                <a href="{{ route('data-anggota.index') }}" class="back">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+                <span class="title">Edit Anggota</span>
             </div>
             <div class="card-body dataAnggota">
                 @if ($errors->any())
@@ -204,6 +207,9 @@
                             <div class="form-group mb-4">
                                 <label for="kaderisasi" class="mb-2">Kaderisasi <span
                                         class="star">*</span></label><br>
+                                <div id="checkbox-error" class="text-danger" style="display: none">
+                                    Minimal pilih satu kaderisasi
+                                </div>
                                 @foreach ($pelatihan as $index => $item)
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="kaderisasi[]"
@@ -212,7 +218,7 @@
                                             {{ $kaderisasi->contains('pelatihan_id', $item->id) ? 'checked' : '' }}>
                                         <label class="form-check-label"
                                             for="{{ $item->id }}">{{ $item->nama_pelatihan }}</label>
-                                        @if ($kaderisasi->contains('pelatihan_id', $item->id))
+                                        @if ($kaderisasi->contains('pelatihan_id', $item->id) && $item->id != 1)
                                             <input type="number" class="form-control w-lg-25 w-100" name="tahun[]"
                                                 id="tahun_{{ $item->id }}"
                                                 value="{{ $kaderisasi->where('pelatihan_id', $item->id)->first()->tahun }}"
@@ -224,8 +230,6 @@
                                         @endif
                                     </div>
                                 @endforeach
-
-
                             </div>
                         </div>
                     </div>
@@ -240,19 +244,34 @@
 @push('addon-script')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var lkpdCheckbox = document.getElementById('1');
-            var lkplCheckbox = document.getElementById('2');
-            var lkpaCheckbox = document.getElementById('3');
-            var totCheckbox = document.getElementById('4');
+            var noCheckbox = document.getElementById('1');
+            var lkpdCheckbox = document.getElementById('2');
+            var lkplCheckbox = document.getElementById('3');
+            var lkpaCheckbox = document.getElementById('4');
+            var totCheckbox = document.getElementById('5');
 
-            var tahunLkpdInput = document.getElementById('tahun_1');
-            var tahunLkplInput = document.getElementById('tahun_2');
-            var tahunLkpaInput = document.getElementById('tahun_3');
-            var tahunTotInput = document.getElementById('tahun_4');
+            var tahunLkpdInput = document.getElementById('tahun_2');
+            var tahunLkplInput = document.getElementById('tahun_3');
+            var tahunLkpaInput = document.getElementById('tahun_4');
+            var tahunTotInput = document.getElementById('tahun_5');
+
+            noCheckbox.addEventListener('change', function() {
+                if (this.checked) {
+                    lkpdCheckbox.checked = false;
+                    lkplCheckbox.checked = false;
+                    lkpaCheckbox.checked = false;
+                    totCheckbox.checked = false;
+                    tahunLkpdInput.style.display = 'none';
+                    tahunLkplInput.style.display = 'none';
+                    tahunLkpaInput.style.display = 'none';
+                    tahunTotInput.style.display = 'none';
+                }
+            });
 
 
             lkpdCheckbox.addEventListener('change', function() {
                 if (this.checked) {
+                    noCheckbox.checked = false;
                     tahunLkpdInput.style.display = 'block';
                 } else {
                     tahunLkpdInput.style.display = 'none';
@@ -261,6 +280,7 @@
 
             lkplCheckbox.addEventListener('change', function() {
                 if (this.checked) {
+                    noCheckbox.checked = false;
                     lkpdCheckbox.checked = true;
                     tahunLkpdInput.style.display = 'block';
                     tahunLkplInput.style.display = 'block';
@@ -273,6 +293,7 @@
 
             lkpaCheckbox.addEventListener('change', function() {
                 if (this.checked) {
+                    noCheckbox.checked = false;
                     lkpdCheckbox.checked = true;
                     lkplCheckbox.checked = true;
                     tahunLkplInput.style.display = 'block';
@@ -295,6 +316,7 @@
 
             totCheckbox.addEventListener('change', function() {
                 if (this.checked) {
+                    noCheckbox.checked = false;
                     lkpdCheckbox.checked = true;
                     lkplCheckbox.checked = true;
                     tahunLkplInput.style.display = 'block';
@@ -308,6 +330,40 @@
                     tahunTotInput.style.display = 'none';
                 }
             });
+        });
+    </script>
+
+    <script>
+        const checkboxes = document.querySelectorAll('input[name="kaderisasi[]"]');
+        const checkboxError = document.getElementById('checkbox-error');
+
+        function validateCheckboxes() {
+            let checkedCount = 0;
+            checkboxes.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    checkedCount++;
+                }
+            });
+
+            if (checkedCount === 0) {
+                checkboxError.style.display = 'block';
+                return false;
+            } else {
+                checkboxError.style.display = 'none';
+                return true;
+            }
+        }
+
+        // Mendaftarkan event listener pada setiap checkbox
+        checkboxes.forEach((checkbox) => {
+            checkbox.addEventListener('change', validateCheckboxes);
+        });
+
+        // Validasi saat mengirimkan formulir
+        document.querySelector('form').addEventListener('submit', (e) => {
+            if (!validateCheckboxes()) {
+                e.preventDefault(); // Menghentikan pengiriman formulir jika validasi gagal
+            }
         });
     </script>
 @endpush

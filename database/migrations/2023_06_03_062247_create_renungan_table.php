@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('judul');
             $table->string('ayat');
-            $table->string('isi');
+            $table->longText('isi');
             $table->string('url_youtube');
             $table->timestamps();
         });

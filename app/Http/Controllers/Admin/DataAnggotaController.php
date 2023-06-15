@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DataAnggotaRequest;
 use App\Models\DataAnggota;
 use App\Models\Kaderisasi;
 use App\Models\Pelatihan;
@@ -44,7 +45,7 @@ class DataAnggotaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DataAnggotaRequest $request)
     {
         $data = $request->all();
         $tahun = [];
@@ -81,19 +82,31 @@ class DataAnggotaController extends Controller
         ]);
 
         $kaderisasi = $data['kaderisasi'];
-
-        // Simpan data pelatihan
         $pelatihan = [];
-        foreach ($tahun as $index => $item) {
-            $pelatihan[] = [
-                'tahun' => $item,
-                'anggota_id' => $dataAnggota->id,
-                'pelatihan_id' => $kaderisasi[$index], // Menggunakan indeks loop untuk mengakses nilai yang sesuai dari $kaderisasi
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
-        }
 
+        if ($kaderisasi[0] === "1") {
+            foreach ($kaderisasi as $index => $item) {
+                $dataPelatihan = [
+                    'tahun' => 0,
+                    'anggota_id' => $dataAnggota->id,
+                    'pelatihan_id' => $item, // Menggunakan nilai dari $kaderisasi langsung
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+                $pelatihan[] = $dataPelatihan;
+            }
+        } else {
+            foreach ($tahun as $index => $item) {
+                $dataPelatihan = [
+                    'tahun' => $item,
+                    'anggota_id' => $dataAnggota->id,
+                    'pelatihan_id' => $kaderisasi[$index], // Menggunakan indeks loop untuk mengakses nilai yang sesuai dari $kaderisasi
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+                $pelatihan[] = $dataPelatihan;
+            }
+        }
         Kaderisasi::insert($pelatihan);
 
         return redirect()->route('data-anggota.index');
@@ -242,7 +255,7 @@ class DataAnggotaController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
-
+        $tahun = $data['tahun'];
         // Update data anggota
         $anggota = DataAnggota::findOrFail($id);
 
@@ -269,26 +282,35 @@ class DataAnggotaController extends Controller
             'wilayah' => $data['wilayah'],
         ]);
 
-        // Update data kaderisasi
         $kaderisasi = $data['kaderisasi'];
-
-        // Simpan data pelatihan
         $pelatihan = [];
 
-        // Hapus data kaderisasi yang lama
-        Kaderisasi::where('anggota_id', $id)->delete();
-
-        // Tambahkan data kaderisasi yang baru
-        foreach ($kaderisasi as $index => $item) {
-            $pelatihan[] = [
-                'tahun' => $data['tahun'][$index],
-                'anggota_id' => $id,
-                'pelatihan_id' => $item,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
+        if ($kaderisasi[0] === "1") {
+            foreach ($kaderisasi as $item) {
+                $dataPelatihan = [
+                    'tahun' => 0,
+                    'anggota_id' => $anggota->id,
+                    'pelatihan_id' => $item,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+                $pelatihan[] = $dataPelatihan;
+            }
+        } else {
+            foreach ($kaderisasi as $index => $item) {
+                $dataPelatihan = [
+                    'tahun' => $tahun[$index + 1], // Menggunakan nilai tahun yang sesuai
+                    'anggota_id' => $anggota->id,
+                    'pelatihan_id' => $item,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+                $pelatihan[] = $dataPelatihan;
+            }
         }
 
+        //Delete yang lama
+        Kaderisasi::where('anggota_id', $id)->delete();
         Kaderisasi::insert($pelatihan);
 
         return redirect()->route('data-anggota.index');
@@ -305,5 +327,29 @@ class DataAnggotaController extends Controller
         DataAnggota::findOrFail($id)->delete();
 
         return redirect()->route('data-anggota.index');
+    }
+
+    public function print()
+    {
+        $anggota = DataAnggota::all();
+
+        // Ambil data kaderisasi dari masing-masing anggota
+        $kaderisasi = [];
+
+        foreach ($anggota as $item) {
+            $kaderisasi[] = Kaderisasi::where('anggota_id', $item->id)->get();
+        }
+
+        // Ambil nama kaderisasinya 
+        foreach ($kaderisasi as $index => $kaderisasiAnggota) {
+            foreach ($kaderisasiAnggota as $kader) {
+                $kader->pelatihan_id = Pelatihan::where('id', $kader->pelatihan_id)->first()->nama_pelatihan;
+            }
+        }
+
+        return view('pages.admin.anggota.print', [
+            'anggota' => $anggota,
+            'kaderisasi' => $kaderisasi,
+        ]);
     }
 }

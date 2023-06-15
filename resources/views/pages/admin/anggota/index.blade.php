@@ -13,6 +13,7 @@
             <div class="card-header">
                 <h4>Data Anggota</h4>
                 <a href="{{ route('data-anggota.create') }}" class="btn btn-primary">Tambah Anggota</a>
+                <a href="{{ route('data-anggota.print') }}" class="btn btn-secondary">Print</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -30,23 +31,24 @@
                         </thead>
                         <tbody>
                             @foreach ($anggota as $item)
-                                <tr></tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->nik }}</td>
-                                <td>{{ $item->nama }}</td>
-                                <td>{{ $item->no_hp }}</td>
-                                <td>{{ $item->jenis_kelamin }}</td>
-                                <td>{{ $item->golongan_darah }}</td>
-                                <td class="text-center">
-                                    <a href="{{ route('data-anggota.edit', $item->id) }}"
-                                        class="btn btn-sm btn-warning">Edit</a>
-                                    <form action="{{ route('data-anggota.destroy', $item->id) }}" method="POST"
-                                        class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
-                                    </form>
-                                </td>
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->nik }}</td>
+                                    <td>{{ $item->nama }}</td>
+                                    <td>{{ $item->no_hp }}</td>
+                                    <td>{{ $item->jenis_kelamin }}</td>
+                                    <td>{{ $item->golongan_darah }}</td>
+                                    <td class="text-center">
+                                        <a href="{{ route('data-anggota.edit', $item->id) }}"
+                                            class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                        <form action="{{ route('data-anggota.destroy', $item->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger"><i
+                                                    class="fas fa-trash"></i></button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -11,14 +11,13 @@
             <div class="container">
                 <div class="text-page">
                     <h1 data-aos="fade-up" data-aos-duration="1500">
-                        PENGURUS PPGT 2020 - 2022
+                        <span id="home"></span>
                     </h1>
                     <div class="text" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="500">
-                        1 Korintus 3:11 (TB) Karena tidak ada seorang pun yang dapat
-                        meletakkan dasar lain dari pada dasar yang telah diletakkan, yaitu
-                        Yesus Kristus.
+                        1 Korintus 3:11 (TB) Karena tidak ada seorang pun yang dapat meletakkan dasar lain dari pada dasar
+                        yang telah diletakkan, yaitu Yesus Kristus.
                     </div>
-                    <a href="#" class="activities btn mt-2" data-aos="fade-up" data-aos-duration="1500"
+                    <a href="#kegiatan" class="activities btn mt-2" data-aos="fade-up" data-aos-duration="1500"
                         data-aos-delay="500">
                         INFO KEGIATAN
                     </a>
@@ -35,42 +34,17 @@
                 <h2>Renungan Pagi</h2>
             </div>
             <div class="text text-justify">
-                <div class="video-container">
-                    <iframe height="300" src="https://www.youtube.com/embed/KPlDkZhFPis" frameborder="0"
-                        allowfullscreen></iframe>
-                </div>
-                <div class="description">
-                    <h4 class="sub">PAKEI TU PAREANA PUANG (Pakailah Senjata Allah)</h3>
+                @foreach ($renungan as $item)
+                    <div class="video-container">
+                        <iframe height="300" src="{{ $item->url_youtube }}" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="description">
+                        <h4 class="sub">{{ $item->judul }} ({{ $item->ayat }})</h4>
                         <p>
-                            Buda tau ussattuan kabattaranna apa ro’pok bangsia, den duka tu
-                            mukkun ka’tu rannu na tibambang pissan. Tae’ gai’na tu ussattuan
-                            kale belanna iatu ditingayo tannia apa “mentolino” sangadinna
-                            “petua’ ba’tangna deata bulituk”(ay.11b) sia “pangulunnan parenta
-                            kamalillinan sola mintu’ kuasa masussuk dao langi’ (ay.12).
-                            Manassa inang mawatang tu uali tatingayo belanna inang masussuk
-                            (jahat), sia bulituk (licik). senga’pito misa’ apa tang nakita
-                            mata belanna ma’paren lan kamallinan. Apamo la dipogau’? Kadanna
-                            Puang nakua, batta’komi lan Puang sia ke’de’ko mengea sisola
-                            Puang. Manassa sisolapiki’ Puang anta belai bendan matoto’
-                            untingayoi tu uali tang payan na tiro mata iamotu deata bulituk,
-                            ondongpiraka, napakinalloimiki’ Puang pa’buno (senjata) sundun
-                            susi parea (alat) napake surodadu lan kapararian.Ia tu Pa’buno lu
-                            diomai Puang iamotu:Umpotambeke’ kamanapparan, umpokararran
-                            kamaloloan, umpolapik kamatinurusan, umpobalulang kapatonganan,
-                            songko’ bassi kamakarimmanan, sia pa’dang Penaa. Puang umbenki’
-                            kawatangan sia IA umpasakka’i tu pa’buno la dipake parari.
-                            Tapatongan siaraka sia la morai tongan siaki’raka sisola sia la
-                            napake Puang? Pembudaki’ tu ussattuan kaleta, nenne’ki’ tu mataku’
-                            dolo napakataku’ penanta sia pa’peranginta belanna tae’mo na lu
-                            lako Puang tu penaanta sia tanga’ta, belanna nakuasaimo a’gan lino
-                            moiraka na mukkun bang tu pudukta unsa’bu sanganNa Puang. Ta
-                            mengkatoba’mo belanna, tontong ma’dioren tu Puang umba’rui
-                            katuoanta,mepamatoto’ sia na pakinalloi sanda parea mendadi
-                            pa’buno la untingayoi mintu’na a’gan lan te lino. Nakua londe
-                            Toraya “To mentiruranki’ kita, to lumio’ lan lino, Ta toyanganmi
-                            iluanna pa’kalean” (Londe-londe toraya no.1122) amin
+                            {!! $item->isi !!}
                         </p>
-                </div>
+                    </div>
+                @endforeach
             </div>
             <div class="creator">
                 <hr>
@@ -84,40 +58,24 @@
     <!-- Renungan -->
 
     <!-- All Acitivity -->
-    <section class="activity mb-5">
+    <section class="activity mb-5" id="kegiatan">
         <div class="container">
             <div class="content ">
                 <h2>Kegiatan PPGT</h2>
             </div>
             <div class="row">
-                <div class="col-12 col-md-6 col-lg-4 mt-2">
-                    <div class="card">
-                        <img src="/assets/images/badminton.jpg" alt="">
-                        <div class="description">
-                            <h3>Badminton</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Numquam dolore unde illum, autem
-                                ducimus illo
-                                deleniti minima reprehenderit tenetur. Sit, consequatur ipsa. Laboriosam modi repellat
-                                voluptatum sunt
-                                id cupiditate hic! lore</p>
-                            <a href="#">Read More</a>
+                @foreach ($kegiatan as $item)
+                    <div class="col-12 col-md-6 col-lg-4 mt-2">
+                        <div class="card">
+                            <img src="{{ Storage::url($item->photo) }}" alt="">
+                            <div class="description">
+                                <h3>{{ $item->name }}</h3>
+                                <p>{!! $item->description !!}</p>
+                                <a href="#">Read More</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4 mt-2">
-                    <div class="card">
-                        <img src="/assets/images/pengurus.jpg" alt="">
-                        <div class="description">
-                            <h3>Badminton</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Numquam dolore unde illum, autem
-                                ducimus illo
-                                deleniti minima reprehenderit tenetur. Sit, consequatur ipsa. Laboriosam modi repellat
-                                voluptatum sunt
-                                id cupiditate hic! lore</p>
-                            <a href="#">Read More</a>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -132,25 +90,25 @@
             <p class="text-muted text-center">
                 "Jangan lewatkan momen spesial kami! Lihat galeri foto kegiatan kami
                 dan saksikan betapa serunya kami dalam melakukan berbagai aktivitas
-                yang pasti akan membuat Anda terinspirasi."
+                yang pasti akan membuat Anda terinspirasi." <a href="{{ route('gallery') }}"
+                    style="text-decoration: none">Liat Semua......</a>
             </p>
         </div>
-        <div class="owl-carousel owl-theme" id="owl-carousel2">
-            <a href="#" class="item">
-                <img src="/assets/images/badminton.jpg" alt="Gambar Gallery" />
-            </a>
-            <a href="#" class="item">
-                <img src="/assets/images/badminton.jpg" alt="Gambar Gallery" />
-            </a>
-            <a href="#" class="item">
-                <img src="/assets/images/badminton.jpg" alt="Gambar Gallery" />
-            </a>
-            <a href="#" class="item">
-                <img src="/assets/images/badminton.jpg" alt="Gambar Gallery" />
-            </a>
-            <a href="#" class="item">
-                <img src="/assets/images/badminton.jpg" alt="Gambar Gallery" />
-            </a>
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                @foreach ($gallery as $item)
+                    <div class="swiper-slide">
+                        <!-- elements with  "swiper-carousel-animate-opacity" class will have animated opacity -->
+                        <div class="swiper-carousel-animate-opacity">
+                            <img src="{{ Storage::url($item->photo) }}" alt="">
+                            <div class="slide-content" style="color: #fff">
+                                <h2>{{ $item->kegiatan->name }}</h2>
+                                <p>{!! $item->kegiatan->description !!}</p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         </div>
     </section>
     <!-- Gallery -->
@@ -170,77 +128,25 @@
                     </div>
                     <div class="details">
                         <div class="row">
-                            <div class="col-6 col-md-6 col-lg-4 mb-3">
-                                <div class="pic" data-tilt data-tilt-max="10" data-tilt-speed="400"
-                                    data-tilt-perspective="700">
-                                    <img src="/assets/images/resky.jpg" alt="">
-                                </div>
-                                <div class="desc">
-                                    <div class="name">Resky Palimbinan</div>
-                                    <div class="position">Ketua</div>
-                                    <div class="motto">"Engkau harus takut akan TUHAN, Allahmu; kepada Dia haruslah engkau
-                                        beribadah dan
-                                        demi nama-Nya haruslah engkau
-                                        bersumpah."</div>
-                                    <div class="socialmedia">
-                                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                                        <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
-                                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                            @foreach ($ksb as $index => $item)
+                                <div
+                                    class="col-6 col-md-6 col-lg-4 mb-3 {{ $index === $ksb->count() - 1 ? ' offset-lg-4' : '' }}">
+                                    <div class="pic" data-tilt data-tilt-max="10" data-tilt-speed="400"
+                                        data-tilt-perspective="700">
+                                        <img src="{{ Storage::url($item->foto) }}" alt="">
+                                    </div>
+                                    <div class="desc">
+                                        <div class="name">{{ $item->nama }}</div>
+                                        <div class="position">{{ $item->jabatan }}</div>
+                                        <div class="motto">"{{ $item->motto }}"</div>
+                                        <div class="socialmedia">
+                                            <a href="{{ $item->instagram }}"><i class="fa-brands fa-instagram"></i></a>
+                                            <a href="{{ $item->whatsapp }}"><i class="fa-brands fa-whatsapp"></i></a>
+                                            <a href="{{ $item->facebook }}"><i class="fa-brands fa-facebook"></i></a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-6 col-md-6 col-lg-4 mb-3">
-                                <div class="pic" data-tilt data-tilt-max="10" data-tilt-speed="400"
-                                    data-tilt-perspective="700">
-                                    <img src="/assets/images/pic1.jpg" alt="">
-                                </div>
-                                <div class="desc">
-                                    <div class="name">Hardianto Tandi Seno</div>
-                                    <div class="position">Sekretaris</div>
-                                    <div class="motto">"Carilah dahulu kerajaan Allah maka semuanya akan ditambahkan
-                                        kepadamu "</div>
-                                    <div class="socialmedia">
-                                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                                        <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
-                                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-6 col-lg-4 mb-3">
-                                <div class="pic" data-tilt data-tilt-max="10" data-tilt-speed="400"
-                                    data-tilt-perspective="700">
-                                    <img src="/assets/images/pic1.jpg" alt="">
-                                </div>
-                                <div class="desc">
-                                    <div class="name">Anggun Chelseani Kati</div>
-                                    <div class="position">Wakil Sekretaris</div>
-                                    <div class="motto">"God is our refuge and strength, a very present help in trouble."
-                                    </div>
-                                    <div class="socialmedia">
-                                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                                        <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
-                                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class=" col-6 col-md-6 col-lg-4 offset-lg-4 mt-lg-5">
-                                <div class="pic" data-tilt data-tilt-max="10" data-tilt-speed="400"
-                                    data-tilt-perspective="700">
-                                    <img src="/assets/images/ireneb.jpg" alt="">
-                                </div>
-                                <div class="desc">
-                                    <div class="name">Irene Aprianti Baan</div>
-                                    <div class="position">Bendahara</div>
-                                    <div class="motto">"Grateful for everything"</div>
-                                    <div class="socialmedia">
-                                        <a href="https://www.instagram.com/ireneaprianti/"><i
-                                                class="fa-brands fa-instagram"></i></a>
-                                        <a href="https://wa.me/6285242856033"><i class="fa-brands fa-whatsapp"></i></a>
-                                        <a href="https://www.facebook.com/ireneaprt"><i
-                                                class="fa-brands fa-facebook"></i></a>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                     <hr class="mt-5">
@@ -252,111 +158,59 @@
                     </div>
                     <div class="details">
                         <div class="row">
-                            <div class="col-12 col-md-6 col-lg-4">
-                                <div class="image" data-tilt data-tilt-max="10" data-tilt-speed="400"
-                                    data-tilt-perspective="700">
-                                    <img src="/assets/images/badminton.jpg" alt="">
+                            @foreach ($manajement as $item)
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="image" data-tilt data-tilt-max="10" data-tilt-speed="400"
+                                        data-tilt-perspective="700">
+                                        <img src="{{ Storage::url($item->foto_bidang) }}" alt="">
+                                    </div>
+                                    <div class="description">
+                                        <div class="sector">{{ $item->nama_bidang }}</div>
+                                        @foreach ($manajementPengurus as $item)
+                                            @foreach ($item as $item)
+                                                <div class="name">{{ $item->jabatan->nama_jabatan }} :
+                                                    {{ $item->nama_anggota }}</div>
+                                            @endforeach
+                                        @endforeach
+                                    </div>
                                 </div>
-                                <div class="description">
-                                    <div class="sector">Bidang Manajement</div>
-                                    <div class="name">Ketua : Resky Palimbinan</div>
-                                    <div class="name">Sekretaris : Hardianto Tandiseno</div>
-                                    <div class="name">Wakil Sekretaris : Anggun Chelseani K.</div>
-                                    <div class="name">Bendahara : Irene Aprianti Baan</div>
+                            @endforeach
+                            @foreach ($bidang as $item)
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="image" data-tilt data-tilt-max="10" data-tilt-speed="400"
+                                        data-tilt-perspective="700">
+                                        <img src="{{ Storage::url($item->foto_bidang) }}" alt="">
+                                    </div>
+                                    <div class="description">
+                                        <div class="sector">{{ $item->nama_bidang }}</div>
+                                        @foreach ($pengurus[$loop->index] as $anggota)
+                                            @if ($anggota->jabatan->nama_jabatan == 'Koordinator')
+                                                <div class="name">Koordinator: {{ $anggota->nama_anggota }}</div>
+                                            @elseif ($anggota->jabatan->nama_jabatan == 'Koordinator Kelompok')
+                                                <div class="name">Koordinator Kelompok: {{ $anggota->nama_anggota }}
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                        <div class="name">Anggota:</div>
+                                        <ol>
+                                            @foreach ($pengurus[$loop->index] as $anggota)
+                                                @if ($anggota->jabatan->nama_jabatan == 'Koordinator')
+                                                @elseif ($anggota->jabatan->nama_jabatan == 'Koordinator Kelompok')
+
+                                                @elseif ($anggota->jabatan->nama_jabatan == 'Wakil Koordinator')
+                                                    <li>
+                                                        <div class="name">{{ $anggota->nama_anggota }}</div>
+                                                    </li>
+                                                @else
+                                                    <li>
+                                                        <div class="name">{{ $anggota->nama_anggota }}</div>
+                                                    </li>
+                                                @endif
+                                            @endforeach
+                                        </ol>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-4">
-                                <div class="image" data-tilt data-tilt-max="10" data-tilt-speed="400"
-                                    data-tilt-perspective="700">
-                                    <img src="/assets/images/badminton.jpg" alt="">
-                                </div>
-                                <div class="description">
-                                    <div class="sector">Bidang Pengakaran dan Spiritualitas</div>
-                                    <div class="name">Koordinator : Ega Yuni Betony</div>
-                                    <div class="name">Anggota : </div>
-                                    <ol>
-                                        <li>
-                                            <div class="name">Holy Rumpun Bato</div>
-                                        </li>
-                                        <li>
-                                            <div class="name">Roland Deavid Benyamin</div>
-                                        </li>
-                                        <li>
-                                            <div class="name">Vingky Maisel Tianglangi</div>
-                                        </li>
-                                    </ol>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-4">
-                                <div class="image" data-tilt data-tilt-max="10" data-tilt-speed="400"
-                                    data-tilt-perspective="700">
-                                    <img src="/assets/images/badminton.jpg" alt="">
-                                </div>
-                                <div class="description">
-                                    <div class="sector">Bidang Organisasi</div>
-                                    <div class="name">Koordinator : Yefta Tolla</div>
-                                    <div class="name">Anggota : </div>
-                                    <ol>
-                                        <li>
-                                            <div class="name">Vicci Juanito P.</div>
-                                        </li>
-                                        <li>
-                                            <div class="name">Sheryl Maria T.</div>
-                                        </li>
-                                    </ol>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-4">
-                                <div class="image" data-tilt data-tilt-max="10" data-tilt-speed="400"
-                                    data-tilt-perspective="700">
-                                    <img src="/assets/images/badminton.jpg" alt="">
-                                </div>
-                                <div class="description">
-                                    <div class="sector">Bidang SDM</div>
-                                    <div class="name">Koordinator : Gabriel Sihow P.</div>
-                                    <div class="name">Anggota : </div>
-                                    <ol>
-                                        <li>
-                                            <div class="name">Lopinta Sarungallo</div>
-                                        </li>
-                                        <li>
-                                            <div class="name">Yogi Limbong</div>
-                                        </li>
-                                    </ol>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-4">
-                                <div class="image" data-tilt data-tilt-max="10" data-tilt-speed="400"
-                                    data-tilt-perspective="700">
-                                    <img src="/assets/images/badminton.jpg" alt="">
-                                </div>
-                                <div class="description">
-                                    <div class="sector">Bidang Pelsos</div>
-                                    <div class="name">Koordinator : Irene Lolongan</div>
-                                    <div class="name">Anggota : </div>
-                                    <ol>
-                                        <li>
-                                            <div class="name">Nio Bungkudapun</div>
-                                        </li>
-                                        <li>
-                                            <div class="name">Advendito Patanduk</div>
-                                        </li>
-                                    </ol>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-4">
-                                <div class="image" data-tilt data-tilt-max="10" data-tilt-speed="400"
-                                    data-tilt-perspective="700">
-                                    <img src="/assets/images/badminton.jpg" alt="">
-                                </div>
-                                <div class="description">
-                                    <div class="sector">Koodinator Kelompok</div>
-                                    <div class="name">Koord. Kel 1 : Devyanto Ambasalu S.</div>
-                                    <div class="name">Wakoord. Kel 1 : Krismato Restan U.</div>
-                                    <div class="name">Koord. Kel 2 : Euro Angelo B.</div>
-                                    <div class="name">Wakoord. Kel 2 : Elvin Tulungalo</div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -400,7 +254,7 @@
                                 Buat teman-teman yang ingin berbagi kasih dapat mengirimkan ke rekening PPGT Jemaat Satria
                                 Kasih
                                 <br>
-                                <img src="/assets/images/bca.png" alt=""> 548-513132-6
+                                <img src="{{ asset('images/bca.png') }}" alt=""> 548-513132-6
                                 <br>
                                 a/n Irene Aprianti Baan
                             </p>
@@ -423,14 +277,15 @@
             </p>
             <div class="row">
                 <div class="col-12 col-lg-8">
-                    <form action="">
+                    <form action="{{ route('user.saran') }}" method="post">
+                        @csrf
                         <div class="form-group">
-                            <label>Nama</label>
-                            <input type="text" class="form-control" />
+                            <label style="font-family: 'Poppins', sans-serif">Nama</label>
+                            <input type="text" name="nama" class="form-control" />
                         </div>
                         <div class="form-group">
                             <label class="mt-3">Saran</label>
-                            <textarea></textarea>
+                            <textarea name="saran"></textarea>
                         </div>
                         <button class="btn btn-primary w-100 mt-3">Kirim</button>
                     </form>
@@ -483,5 +338,18 @@
                 },
             },
         })
+    </script>
+    {{-- tYPED --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.16/typed.umd.js"
+        integrity="sha512-+2pW8xXU/rNr7VS+H62aqapfRpqFwnSQh9ap6THjsm41AxgA0MhFRtfrABS+Lx2KHJn82UOrnBKhjZOXpom2LQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        var typed = new Typed('#home', {
+            strings: ['PENGURUS PPGT 2022 - 2024'],
+            typeSpeed: 130,
+            typeDelay: 100,
+            loop: false,
+            startDelay: 300,
+        });
     </script>
 @endpush

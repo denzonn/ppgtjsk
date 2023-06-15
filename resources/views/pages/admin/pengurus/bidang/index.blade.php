@@ -39,12 +39,14 @@
                                 </td>
                                 <td>{{ $item->nama_bidang }}</td>
                                 <td class="text-center">
-                                    <a href="{{ route('bidang.edit', $item->id) }}" class="btn btn-warning">Edit</a>
+                                    <a href="{{ route('bidang.edit', $item->id) }}" class="btn btn-warning"><i
+                                            class="fas fa-edit"></i></a>
                                     <form action="{{ route('bidang.destroy', $item->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger"
-                                            onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Hapus</button>
+                                            onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"><i
+                                                class="fas fa-trash"></i></button>
                                     </form>
                                 </td>
                                 </tr>

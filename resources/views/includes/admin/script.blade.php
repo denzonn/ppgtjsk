@@ -10,25 +10,26 @@
 
 <script src="{{ asset('admin/vendor/js/menu.js') }}"></script>
 <!-- endbuild -->
+
 <!-- Main JS -->
 <script src="{{ asset('admin/js/main.js') }}"></script>
 
 <!-- Page JS -->
-<script src="{{ asset('admin/js/dashboards-analytics.js') }}"></script>
-
-<script src="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.js"></script>
-
 <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="{{ asset('datatable/DataTables-1.13.4/js/jquery.dataTables.min.js') }}"></script>
+
 
 <script>
     $(document).ready(function() {
         $('#datatable').DataTable({
-            // Add the following options for searching
             searching: true,
-            searchDelay: 500, // Delay in milliseconds before searching
+            searchDelay: 500,
             search: {
-                smart: true // Enable smart search for advanced searching options
-            }
+                smart: true
+            },
         });
     });
 </script>
