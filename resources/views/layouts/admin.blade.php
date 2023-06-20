@@ -28,12 +28,34 @@
                 @include('includes.admin.navbar')
                 <!-- Navbar -->
                 @yield('content')
+                {{-- tampilkan hanya ketika sudah login dan hanya 1 kali saja di baca --}}
+                @if (Auth::user() && Auth::user()->role == 'ADMIN')
+                    @php
+                        $user = Auth::user()->name ?? 'Admin';
+                        
+                        // Periksa apakah pesan selamat datang sudah ditampilkan sebelumnya
+                        if (!session('welcome_back')) {
+                            echo '
+                                <div class="notification">
+                                    <p>Welcome back, ' .
+                                $user .
+                                ' 👋</p>
+                                    <span class="notification__progress"></span>
+                                </div>
+                            ';
+                        
+                            // Set variabel session 'welcome_back' agar pesan hanya ditampilkan sekali saat login
+                            session(['welcome_back' => true]);
+                        }
+                    @endphp
+                @endif
             </div>
             <!-- / Layout page -->
         </div>
 
         <!-- Overlay -->
         <div class="layout-overlay layout-menu-toggle"></div>
+
     </div>
     <!-- / Layout wrapper -->
 

@@ -51,6 +51,8 @@ class KegiatanController extends Controller
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:3072',
         ]);
 
+        $data['slug'] = \Str::slug($request->name);
+
         if ($request->hasFile('photo')) {
             $images = $request->file('photo');
 
@@ -104,6 +106,8 @@ class KegiatanController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
+
+        $data['slug'] = \Str::slug($request->name);
 
         if ($request->hasFile('photo')) {
             $images = $request->file('photo');

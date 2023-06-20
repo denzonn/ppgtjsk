@@ -19,105 +19,41 @@
             <div class="dropdownFill">
                 <a class="btn-primary">Pilih Kegiatan</a>
                 <div class="dropdownFill-content">
-                    <a href="#" onclick="showPage('badminton')">Badminton</a>
-                    <a href="#" onclick="showPage('ibadah')">Ibadah</a>
+                    @foreach ($kegiatan as $item)
+                        <a href="#" onclick="showPage('{{ $item->name }}')">{{ $item->name }}</a>
+                    @endforeach
                 </div>
             </div>
 
             <div class="gallery-photo">
                 <div class="row">
-                    <div id="badminton" class="page active ">
-                        <div class="row">
-                            <div class="description mt-4">
-                                <h4>Deskripsi Kegiatan</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, fugiat! Dolorum et
-                                    corrupti
-                                    laborum
-                                    doloribus harum, nemo eum dolore accusamus veritatis natus maxime, suscipit ex! Quas
-                                    cupiditate in
-                                    nesciunt
-                                    ducimus?</p>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-4 mt-2">
-                                <div class="card">
-                                    <a href="/assets/images/badminton.jpg" data-lightbox="roadtrip" data-title="Badminton"
-                                        class="card-image">
-                                        <img src="/assets/images/badminton.jpg" alt="Gambar Card" />
-                                    </a>
+                    @foreach ($kegiatan as $index => $kegiatanItem)
+                        <div id="{{ $kegiatanItem->name }}" class="page {{ $index === 0 ? 'active' : '' }}">
+                            <div class="row">
+                                <div class="description mt-4">
+                                    <h3 class="text-center">{{ $kegiatanItem->name }}</h2>
                                 </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-4 mt-2">
-                                <div class="card">
-                                    <a href="/assets/images/pengurus.jpg" data-lightbox="roadtrip" data-title="Badminton"
-                                        class="card-image">
-                                        <img src="/assets/images/pengurus.jpg" alt="Gambar Card" />
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-4 mt-2">
-                                <div class="card">
-                                    <a href="/assets/images/badminton.jpg" data-lightbox="roadtrip" data-title="Badminton"
-                                        class="card-image">
-                                        <img src="/assets/images/badminton.jpg" alt="Gambar Card" />
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-4 mt-2">
-                                <div class="card">
-                                    <a href="/assets/images/pengurus.jpg" data-lightbox="roadtrip" data-title="Badminton"
-                                        class="card-image">
-                                        <img src="/assets/images/pengurus.jpg" alt="Gambar Card" />
-                                    </a>
+                                @foreach ($gallery[$kegiatanItem->id] as $galleryItem)
+                                    <div class="col-12 col-md-6 col-lg-4 mt-2">
+                                        <div class="card">
+                                            <a href="{{ Storage::url($galleryItem->photo) }}" data-lightbox="roadtrip"
+                                                data-title="{{ $galleryItem->kegiatan->name }}" class="card-image">
+                                                <img src="{{ Storage::url($galleryItem->photo) }}" alt="Gambar Card" />
+                                            </a>
+                                        </div>
+                                    </div>
+                                @endforeach
+                                <div class="col-12 col-md-6 col-lg-4 mt-2">
+                                    <div class="card">
+                                        <a href="{{ Storage::url($kegiatanItem->photo) }}" data-lightbox="roadtrip"
+                                            class="card-image">
+                                            <img src="{{ Storage::url($kegiatanItem->photo) }}" alt="Gambar Card" />
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div id="ibadah" class="page ">
-                        <div class="row">
-                            <div class="description mt-4">
-                                <h4>Deskripsi Kegiatan</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, fugiat! Dolorum et
-                                    corrupti
-                                    laborum
-                                    doloribus harum, nemo eum dolore accusamus veritatis natus maxime, suscipit ex! Quas
-                                    cupiditate in
-                                    nesciunt
-                                    ducimus?</p>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-4 mt-2">
-                                <div class="card">
-                                    <a href="/assets/images/logo.png" data-lightbox="roadtrip" data-title="Badminton"
-                                        class="card-image">
-                                        <img src="/assets/images/logo.png" alt="Gambar Card" />
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-4 mt-2">
-                                <div class="card">
-                                    <a href="/assets/images/pengurus.jpg" data-lightbox="roadtrip" data-title="Badminton"
-                                        class="card-image">
-                                        <img src="/assets/images/pengurus.jpg" alt="Gambar Card" />
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-4 mt-2">
-                                <div class="card">
-                                    <a href="/assets/images/badminton.jpg" data-lightbox="roadtrip" data-title="Badminton"
-                                        class="card-image">
-                                        <img src="/assets/images/badminton.jpg" alt="Gambar Card" />
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-4 mt-2">
-                                <div class="card">
-                                    <a href="/assets/images/pengurus.jpg" data-lightbox="roadtrip" data-title="Badminton"
-                                        class="card-image">
-                                        <img src="/assets/images/pengurus.jpg" alt="Gambar Card" />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
 
                 </div>
             </div>

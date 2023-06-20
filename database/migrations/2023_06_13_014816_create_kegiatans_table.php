@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('program_id')->constrained('program_kerjas')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('description');
+            $table->longText('description');
             $table->string('photo');
             $table->timestamps();
         });

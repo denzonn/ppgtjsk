@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\AnggotaBidang;
 use App\Models\Bidang;
+use App\Models\faq;
 use App\Models\FotoKsb;
 use App\Models\GalleryKegiatan;
 use App\Models\Kegiatan;
+use App\Models\KegiatanMingguan;
 use App\Models\RenunganHarian;
 use Illuminate\Http\Request;
 
@@ -16,7 +18,7 @@ class BerandaController extends Controller
     {
         $renungan = RenunganHarian::all();
         $kegiatan = Kegiatan::take(6)->get();
-        $gallery = GalleryKegiatan::take(10)->get();
+        $gallery = GalleryKegiatan::take(10)->latest()->get();
         $ksb = FotoKsb::all();
 
         $bidang = Bidang::all()->except(1, 'Koordinator Kelompok');
@@ -33,6 +35,10 @@ class BerandaController extends Controller
             $pengurus[] = AnggotaBidang::where('bidangs_id', $item->id)->get();
         }
 
+        $faq = faq::all();
+
+        $kegiatanMingguan = KegiatanMingguan::all();
+
 
         return view('pages.home', [
             'renungan' => $renungan,
@@ -42,7 +48,9 @@ class BerandaController extends Controller
             'pengurus' => $pengurus,
             'bidang' => $bidang,
             'manajement' => $manajement,
-            'manajementPengurus' => $manajementPengurus
+            'manajementPengurus' => $manajementPengurus,
+            'faq' => $faq,
+            'kegiatanMingguan' => $kegiatanMingguan
         ]);
     }
 }

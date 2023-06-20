@@ -1,3 +1,23 @@
+<script>
+    const menuContent = document.querySelector("#menuContent");
+
+    const menuButtons = document.querySelectorAll(".menu-buttons button");
+
+    const menuHeight = getComputedStyle(document.documentElement).getPropertyValue(
+        "--menu-height"
+    );
+
+    const toggleMenuOpen = (value) => {
+        document.body.classList.toggle("open", value);
+    };
+
+    const toggleMenuBlock = (event, index) => {
+        menuButtons.forEach((button) => button.classList.remove("active"));
+        event.classList.toggle("active");
+        menuContent.style.translate = `0 calc(0px - ${menuHeight} * ${index})`;
+    };
+</script>
+
 <!-- Bootstrap -->
 <script type="text/javascript" src="{{ asset('/bootstrap-5.0.2/dist/js/bootstrap.min.js') }}"></script>
 

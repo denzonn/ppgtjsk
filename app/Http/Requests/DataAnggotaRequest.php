@@ -32,7 +32,6 @@ class DataAnggotaRequest extends FormRequest
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required|string|max:255',
             'jenis_kelamin' => 'required|string',
-            'golongan_darah', 'required|string',
             'rhesus' => 'required',
             'bersedia' => 'required',
             'status' => 'required',

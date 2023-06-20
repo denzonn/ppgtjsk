@@ -25,7 +25,8 @@
         </li>
 
         <!-- Layouts -->
-        <li class="menu-item {{ request()->is('admin/renungan-harian*') ? 'active' : '' }}">
+        <li
+            class="menu-item {{ request()->is('admin/renungan-harian*', 'admin/kegiatan-mingguan*', 'admin/faq*') ? 'active' : '' }}">
             <a href="#" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
                 <div data-i18n="Layouts">Home</div>
@@ -35,6 +36,16 @@
                 <li class="menu-item">
                     <a href="{{ route('renungan-harian.index') }}" class="menu-link">
                         <div data-i18n="Without menu">Renungan</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="{{ route('kegiatan-mingguan.index') }}" class="menu-link">
+                        <div data-i18n="Without menu">Kegiatan Mingguan</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="{{ route('faq.index') }}" class="menu-link">
+                        <div data-i18n="Without menu">FAQ</div>
                     </a>
                 </li>
             </ul>
@@ -47,7 +58,7 @@
         <li
             class="menu-item {{ request()->is('admin/foto-ksb*', 'admin/pengurus*', 'admin/program-kerja*', 'admin/notulensi-rapat*') ? 'active' : '' }}">
             <a href="#" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                <i class="menu-icon tf-icons bx bx-user-circle"></i>
                 <div data-i18n="Misc">Pengurus</div>
             </a>
             <ul class="menu-sub">
@@ -75,23 +86,13 @@
         </li>
         <li class="menu-item {{ request()->is('admin/data-anggota*') ? 'active' : '' }}">
             <a href="#" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <i class="menu-icon tf-icons bx bx-user"></i>
                 <div data-i18n="Account Settings">Keanggotaan</div>
             </a>
             <ul class="menu-sub">
                 <li class="menu-item">
                     <a href="{{ route('data-anggota.index') }}" class="menu-link">
                         <div data-i18n="Account">Data Anggota</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="pages-account-settings-notifications.html" class="menu-link">
-                        <div data-i18n="Notifications">Data Keuangan</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="pages-account-settings-connections.html" class="menu-link">
-                        <div data-i18n="Connections">Iuran Anggota</div>
                     </a>
                 </li>
             </ul>
@@ -103,7 +104,7 @@
             </a>
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="auth-login-basic.html" class="menu-link">
+                    <a href="{{ route('profil-ppgt.index') }}" class="menu-link">
                         <div data-i18n="Basic">Profil</div>
                     </a>
                 </li>
@@ -114,9 +115,10 @@
                 </li>
             </ul>
         </li>
-        <li class="menu-item {{ request()->is('admin/kegiatan*', 'admin/gallery-kegiatan*') ? 'active' : '' }}">
+        <li class="menu-item {{ request()->is('admin/kegiatan', 'admin/gallery-kegiatan*') ? 'active' : '' }}">
             <a href="#" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                <i class="menu-icon tf-icons bx bx-task"></i>
+
                 <div data-i18n="Misc">Kegiatan</div>
             </a>
             <ul class="menu-sub">
@@ -132,7 +134,8 @@
                 </li>
             </ul>
         </li>
-        <li class="menu-item {{ request()->is('admin/inventaris*') ? 'active' : '' }}">
+        <li
+            class="menu-item {{ request()->is('admin/inventaris*', 'admin/keuangan*', 'admin/iuran*') ? 'active' : '' }}">
             <a href="#" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-cube-alt"></i>
                 <div data-i18n="Misc">Asset</div>
@@ -143,31 +146,49 @@
                         <div data-i18n="Basic">Inventaris</div>
                     </a>
                 </li>
+                <li class="menu-item">
+                    <a href="{{ route('keuangan') }}" class="menu-link">
+                        <div data-i18n="Notifications">Data Keuangan</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="{{ route('iuran.index') }}" class="menu-link">
+                        <div data-i18n="Connections">Iuran Anggota</div>
+                    </a>
+                </li>
             </ul>
         </li>
         <li class="menu-item ">
             <a href="#" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                <i class="menu-icon tf-icons bx bx-store"></i>
                 <div data-i18n="Misc">Unit Usaha</div>
             </a>
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="pages-misc-error.html" class="menu-link">
-                        <div data-i18n="Error">Error</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="pages-misc-under-maintenance.html" class="menu-link">
-                        <div data-i18n="Under Maintenance">Under Maintenance</div>
+                    <a href="#" class="menu-link">
+                        <div data-i18n="Error">Coming Soon</div>
                     </a>
                 </li>
             </ul>
         </li>
         <li class="menu-item {{ request()->is('admin/saran*') ? 'active' : '' }}">
             <a href="{{ route('saran.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <i class="menu-icon tf-icons bx bx-bell"></i>
                 <div data-i18n="Analytics">Saran</div>
             </a>
+        </li>
+        {{-- Logout --}}
+        <li class="menu-item">
+            <a href="{{ route('logout') }}" class="menu-link"
+                onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();">
+                <i class="menu-icon tf-icons bx bx-log-out-circle"></i>
+                <div data-i18n="Analytics">Logout</div>
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+                <button type="submit" class="btn btn-primary">Logout</button>
+            </form>
         </li>
     </ul>
 </aside>

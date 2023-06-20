@@ -56,7 +56,9 @@
 @push('addon-script')
     <script>
         ClassicEditor
-            .create(document.querySelector('#description'))
+            .create(document.querySelector('#description'), {
+                //tambahkan plugin upload gambar
+            })
             .catch(error => {
                 console.error(error);
             });

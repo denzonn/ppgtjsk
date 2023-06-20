@@ -4,6 +4,12 @@
     PPGT Jemaat Satria Kasih
 @endsection
 
+@push('prepend-style')
+    <script type="module" crossorigin src="{{ asset('carousel/assets/index.ef4fdc7a.js') }}"></script>
+    <link rel="modulepreload" href="{{ asset('carousel/assets/vendor.8992d2a8.js') }}">
+    <link rel="stylesheet" href="{{ asset('carousel/assets/index.3e4e39bd.css') }}">
+@endpush
+
 @section('content')
     <!-- Activity Information -->
     <section class="activity-info">
@@ -70,8 +76,8 @@
                             <img src="{{ Storage::url($item->photo) }}" alt="">
                             <div class="description">
                                 <h3>{{ $item->name }}</h3>
-                                <p>{!! $item->description !!}</p>
-                                <a href="#">Read More</a>
+                                <p>{!! substr($item->description, 0, 50) !!}...</p>
+                                <a href="{{ route('kegiatan-detail', $item->slug) }}">Read More</a>
                             </div>
                         </div>
                     </div>
@@ -80,6 +86,44 @@
         </div>
     </section>
     <!-- All Acitivity -->
+
+    {{-- Activity Weekend --}}
+    <section class="activityWeekend">
+        <div class="container">
+            <div class="content">
+                <h2>Kegiatan Seminggu</h2>
+            </div>
+            <div class="card mt-4" style="border: none">
+                <div class="card-body">
+                    {{-- Datatable --}}
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="datatable">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%">Hari/Tanggal</th>
+                                    <th style="width: 30%">Kegiatan</th>
+                                    <th style="width: 20%">Waktu</th>
+                                    <th style="width: 30%">Tempat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($kegiatanMingguan as $item)
+                                    <tr>
+                                        <td>{{ \Carbon\Carbon::parse($item->tanggal)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}
+                                        </td>
+                                        <td>{{ $item->kegiatan->name }}</td>
+                                        <td>{{ $item->waktu }}</td>
+                                        <td>{!! $item->tempat !!}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {{-- Activity Weekend --}}
 
     <!-- Gallery -->
     <section class="gallery">
@@ -103,7 +147,6 @@
                             <img src="{{ Storage::url($item->photo) }}" alt="">
                             <div class="slide-content" style="color: #fff">
                                 <h2>{{ $item->kegiatan->name }}</h2>
-                                <p>{!! $item->kegiatan->description !!}</p>
                             </div>
                         </div>
                     </div>
@@ -119,7 +162,7 @@
             <div class="content">
                 <div class="row">
                     <div class="title text-center mb-4">
-                        <h2>K S W B
+                        <h2 class="kswb">K S W B
                             <br>
                             2022 - 2024
                             <br>
@@ -138,7 +181,7 @@
                                     <div class="desc">
                                         <div class="name">{{ $item->nama }}</div>
                                         <div class="position">{{ $item->jabatan }}</div>
-                                        <div class="motto">"{{ $item->motto }}"</div>
+                                        <div class="motto">{!! $item->motto !!}</div>
                                         <div class="socialmedia">
                                             <a href="{{ $item->instagram }}"><i class="fa-brands fa-instagram"></i></a>
                                             <a href="{{ $item->whatsapp }}"><i class="fa-brands fa-whatsapp"></i></a>
@@ -266,34 +309,86 @@
     </div>
     <!-- Contact -->
 
-    <!-- Suggestion -->
-    <section class="suggestion">
+
+    <section class="sugf">
+        <!-- Suggestion -->
         <div class="container">
-            <div class="content mt-5 mb-3">
-                <h2>Saran</h2>
-            </div>
-            <p class="text-muted">
-                Berikan saran anda untuk membuat website ini lebih baik lagi!
-            </p>
             <div class="row">
-                <div class="col-12 col-lg-8">
-                    <form action="{{ route('user.saran') }}" method="post">
-                        @csrf
-                        <div class="form-group">
-                            <label style="font-family: 'Poppins', sans-serif">Nama</label>
-                            <input type="text" name="nama" class="form-control" />
+                <div class="col-12 col-lg-6">
+                    <section class="suggestion">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12 col-lg-10 offset-lg-1">
+                                    <div class="content ">
+                                        <h2>Saran</h2>
+                                    </div>
+                                    <p class="text-muted">
+                                        Berikan saran anda untuk membuat PPGT Jemaat Satria Kasih lebih baik lagi!
+                                    </p>
+                                    <form action="{{ route('user.saran') }}" method="post">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label style="font-family: 'Poppins', sans-serif">Nama</label>
+                                            <input type="text" name="nama" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="mt-3">Saran</label>
+                                            <textarea name="saran"></textarea>
+                                        </div>
+                                        <button class="btn btn-primary w-100 mt-3">Kirim</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label class="mt-3">Saran</label>
-                            <textarea name="saran"></textarea>
+                    </section>
+                    <!-- Suggestion -->
+
+
+                </div>
+                <div class="col-12 col-lg-6">
+                    <section class="faq-section">
+                        <div class="container">
+                            <div class="row">
+                                <!-- ***** FAQ Start ***** -->
+                                <div class="col-md-12">
+
+                                    <div class="faq-title text-center pb-3">
+                                        <h2>FAQ</h2>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="faq" id="accordion">
+                                        @foreach ($faq as $index => $item)
+                                            <div class="card">
+                                                <div class="card-header" id="faqHeading-{{ $index }}">
+                                                    <div class="mb-0">
+                                                        <h5 class="faq-title" data-toggle="collapse"
+                                                            data-target="#faqCollapse-{{ $index }}"
+                                                            data-aria-expanded="true"
+                                                            data-aria-controls="faqCollapse-{{ $index }}">
+                                                            <i class="fa-solid fa-plus" style="color: #006eff"></i>
+                                                            {{ $item->pertanyaan }}
+                                                        </h5>
+                                                    </div>
+                                                </div>
+                                                <div id="faqCollapse-{{ $index }}" class="collapse"
+                                                    aria-labelledby="faqHeading-{{ $index }}"
+                                                    data-parent="#accordion">
+                                                    <div class="card-body">
+                                                        <p>{!! $item->jawaban !!}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <button class="btn btn-primary w-100 mt-3">Kirim</button>
-                    </form>
+                    </section>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Suggestion -->
 @endsection
 
 @push('addon-script')
@@ -350,6 +445,24 @@
             typeDelay: 100,
             loop: false,
             startDelay: 300,
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Menambahkan event listener pada elemen dengan class .faq-title
+            $('.faq-title').click(function() {
+                // Mengambil atribut data-target yang berisi ID dari elemen yang akan dikompres atau diperluas
+                var target = $(this).attr('data-target');
+
+                // Memeriksa apakah elemen target sedang dalam keadaan terkompres atau diperluas
+                if ($(target).hasClass('show')) {
+                    // Jika sedang dalam keadaan terkompres, maka diperluas
+                    $(target).collapse('hide');
+                } else {
+                    // Jika sedang dalam keadaan diperluas, maka dikompres
+                    $(target).collapse('show');
+                }
+            });
         });
     </script>
 @endpush
