@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="login">
-        <div class="container" id="container">
+        <div class="container" id="container" data-aos="fade-up" data-aos-duration="1000">
             <div class="form-container sign-up-container">
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
@@ -91,12 +91,12 @@
                 <div class="overlay">
                     <div class="overlay-panel overlay-left">
                         <h1>Welcome Back!</h1>
-                        <p>To keep connected with us please login with your personal info</p>
+                        <p>Silahkan membuat akun untuk dapat memiliki akses!</p>
                         <button class="ghost" id="signIn">Sign In</button>
                     </div>
                     <div class="overlay-panel overlay-right">
                         <h1>Hello, Friend!</h1>
-                        <p>Enter your personal details and start the journey with us</p>
+                        <p>Selamat Datang di Website Resmi PPGT Jemaat Satria Kasih. Silahkan Masukkan Akun Anda!</p>
                         <button class="ghost" id="signUp">Sign Up</button>
                     </div>
                 </div>

@@ -14,7 +14,7 @@
 
                 </div>
             </div>
-            <div class="col-12 col-lg-3 mt-lg-0 mt-5">
+            <div class="col-12 col-lg-3 mt-lg-0 mt-4">
                 <div class="content">
                     <div class="row">
                         <div class="maps">
@@ -27,20 +27,22 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-3 mt-lg-0 mt-5">
-                <div class="contact">
+            <div class="col-12 col-lg-3 mt-lg-0 mt-4">
+                <div class="contact" style="margin-bottom: 0">
                     <h2>Hubungi Kami</h2>
                     <p>
-                        <i class="fa-solid fa-phone"></i> Ketua : Resky Palimbinan ( <a
-                            href="https://wa.me/6282346484775">082346484775</a>
+                        <i class="fa-solid fa-phone"></i> Ketua : Resky Palimbinan
+                        <br>
+                        ( <a href="https://wa.me/6282346484775">082346484775</a>
                         )
                         <br>
-                        <i class="fa-solid fa-phone"></i> Sekretaris : Hardianto Tandiseno ( <a
-                            href="https://wa.me/6285155032260">082346484775</a> )
+                        <i class="fa-solid fa-phone"></i> Sekretaris : Hardianto Tandiseno
+                        <br>
+                        ( <a href="https://wa.me/6285155032260">082346484775</a> )
                     </p>
                 </div>
             </div>
-            <div class="col-12 col-lg-3 mt-lg-0 mt-5">
+            <div class="col-12 col-lg-3 mt-lg-0 mt-4">
                 <div class="social-media">
                     <h2>Media Sosial</h2>
                     <p>

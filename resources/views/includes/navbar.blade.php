@@ -16,8 +16,12 @@
                         href="{{ route('home') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('keanggotaan*') ? 'active' : '' }}"
-                        href="{{ route('keanggotaan') }}">Keanggotaan</a>
+                    <a class="nav-link {{ request()->is('form-anggota*') ? 'active' : '' }}"
+                        href="{{ route('form-anggota') }}">Keanggotaan</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('iuran*') ? 'active' : '' }}"
+                        href="{{ route('iuran') }}">Iuran</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('unit-usaha*') ? 'active' : '' }}"
@@ -35,7 +39,7 @@
                         </svg>
                     </a>
                     <div onmouseenter="toggleMenuOpen(true)" onmouseleave="toggleMenuOpen(false)" class="menu">
-                        <div class="menu-buttons">
+                        <div class="menu-buttons d-none d-lg-flex">
                             <button class="active" onclick="toggleMenuBlock(this, 0)">
                                 PPGT
                             </button>
@@ -54,6 +58,7 @@
                         </div>
                     </div>
                 </li>
+
                 {{-- Jika sdh auth maka tidak usah tampilkan --}}
                 @guest
                     <li class="nav-item">

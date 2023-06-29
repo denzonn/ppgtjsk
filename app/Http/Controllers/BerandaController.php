@@ -18,7 +18,7 @@ class BerandaController extends Controller
     {
         $renungan = RenunganHarian::all();
         $kegiatan = Kegiatan::take(6)->get();
-        $gallery = GalleryKegiatan::take(10)->latest()->get();
+        $gallery = GalleryKegiatan::take(5)->latest()->get();
         $ksb = FotoKsb::all();
 
         $bidang = Bidang::all()->except(1, 'Koordinator Kelompok');

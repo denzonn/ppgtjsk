@@ -8,7 +8,7 @@
     <div class="pages">
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('kegiatan.index') }}" class="back">
+                <a href="{{ route('document.index') }}" class="back">
                     <i class="fa-solid fa-arrow-left"></i>
                 </a>
                 <span class="title">Dokumen PPGT</span>

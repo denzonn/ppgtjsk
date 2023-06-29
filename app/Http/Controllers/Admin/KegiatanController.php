@@ -62,6 +62,7 @@ class KegiatanController extends Controller
 
             $data['photo'] = $images->storeAs('photo', $file_name, 'public');
         }
+        $data['bidang_id'] = ProgramKerja::findOrFail($request->program_id)->bidang_id;
 
         Kegiatan::create($data);
 
@@ -120,6 +121,7 @@ class KegiatanController extends Controller
         } else {
             unset($data['photo']);
         }
+        $data['bidang_id'] = ProgramKerja::findOrFail($request->program_id)->bidang_id;
 
         $kegiatan = Kegiatan::findOrFail($id);
 

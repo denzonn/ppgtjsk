@@ -15,6 +15,7 @@ class Kegiatan extends Model
         'name',
         'slug',
         'program_id',
+        'bidang_id',
         'description',
         'photo'
     ];

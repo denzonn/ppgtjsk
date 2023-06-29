@@ -16,7 +16,11 @@
                         href="{{ route('home') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="{{ route('keanggotaan') }}">Keanggotaan</a>
+                    <a class="nav-link {{ request()->is('form-anggota*') ? 'active' : '' }}"
+                        href="{{ route('form-anggota') }}">Keanggotaan</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="{{ route('iuran') }}">Iuran</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('unit-usaha') }}">Unit Usaha</a>

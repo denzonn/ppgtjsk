@@ -9,7 +9,7 @@
     <!-- Content -->
     <div class="document">
         <div class="container">
-            <div class="content text-center">
+            <div class="content text-center" data-aos="fade-up" data-aos-duration="1000">
                 <img src="{{ asset('images/comingsoon.jpg') }}" alt="" style="width: 70vw; height: auto">
             </div>
         </div>

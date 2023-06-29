@@ -13,28 +13,29 @@
     <!-- Detail Kegiatan -->
     <section class="kegiatan">
         <div class="container">
-            <div class="content mt-5 mb-3">
+            <div class="content mt-5 mb-3" data-aos="fade-up" data-aos-duration="1000">
                 <h2>{{ $kegiatan->name }}</h2>
             </div>
-            <div class="kegiatan-photo">
+            <div class="kegiatan-photo" data-aos="fade-up" data-aos-duration="2000">
                 <div class="image">
                     <img src="{{ Storage::url($kegiatan->photo) }}" class="w-100"
                         style="height: 250px; object-fit: cover; border-radius: 5px">
                 </div>
                 <div class="description">
-                    <div style="font-family: 'Poppins', sans-serif; font-size: 1.3rem; font-weight: 600">Deskripsi
+                    <div style="font-family: 'Poppins', sans-serif; font-size: 1.3rem; font-weight: 600" data-aos="fade-up"
+                        data-aos-duration="1500">Deskripsi
                         Kegiatan : </div>
-                    <p>
+                    <p data-aos="fade-up" data-aos-duration="2000">
                         {!! $kegiatan->description !!}
                     </p>
                 </div>
             </div>
         </div>
         <div class="gallery">
-            <h4>Gallery Kegiatan</h4>
+            <h4 data-aos="fade-up" data-aos-duration="1000">Gallery Kegiatan</h4>
             <div id="app">
                 <!-- Panorama slider -->
-                <div class="panorama-slider">
+                <div class="panorama-slider" data-aos="zoom-out" data-aos-duration="2000">
                     <div class="swiper">
                         <div class="swiper-pagination"></div>
                         <div class="swiper-wrapper">

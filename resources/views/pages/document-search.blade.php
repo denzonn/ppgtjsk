@@ -9,14 +9,14 @@
     <!-- Content -->
     <div class="document">
         <div class="container">
-            <div class="content">
+            <div class="content" data-aos="fade-up" data-aos-duration="1000">
                 <h2>Dokument PPGT</h2>
                 <p class="text-muted">
                     "Silahkan download dokumen PPGT dibawah ini"
                 </p>
 
                 <!-- Search -->
-                <div class="search">
+                <div class="search" data-aos="fade-up" data-aos-duration="2000">
                     <form action="{{ route('document.search') }}" method="GET">
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" name="search" placeholder="Cari Dokumen">
@@ -29,8 +29,12 @@
                 <!-- Document -->
                 <div class="download">
                     <div class="row">
+                        @php
+                            $increment = 2000;
+                        @endphp
                         @foreach ($documents as $item)
-                            <div class="col-12 col-md-6 col-lg-4">
+                            <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up"
+                                data-aos-duration="{{ $increment += 500 }}">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="title">

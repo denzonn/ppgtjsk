@@ -26,6 +26,8 @@ use App\Http\Controllers\Admin\ProfilController as AdminProfilController;
 use App\Http\Controllers\Admin\SaranController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\formDataAnggota;
+use App\Http\Controllers\formDataAnggotaController;
 use App\Http\Controllers\GalleryActivityController;
 use App\Http\Controllers\KegiatanController as ControllersKegiatanController;
 use App\Http\Controllers\MemberController;
@@ -54,8 +56,8 @@ Route::get('/dokument', [DocumentController::class, 'index'])
     ->name('document');
 Route::get('/dokument/search', [DocumentController::class, 'search'])
     ->name('document.search');
-Route::get('/keanggotaan', [MemberController::class, 'index'])
-    ->name('keanggotaan');
+Route::get('/iuran', [MemberController::class, 'index'])
+    ->name('iuran');
 Route::get('/profil-ppgt', [ProfilController::class, 'index'])
     ->name('profil');
 Route::get('/kegiatan', [ControllersKegiatanController::class, 'index'])
@@ -66,6 +68,10 @@ Route::get('/kegiatan/detail/{slug}', [ControllersKegiatanController::class, 'de
     ->name('kegiatan-detail');
 Route::post('/', [SaranCon::class, 'store'])
     ->name('user.saran');
+Route::get('/form-anggota', [formDataAnggotaController::class, 'index'])
+    ->name('form-anggota');
+Route::post('/form-anggota/create', [formDataAnggotaController::class, 'store'])
+    ->name('form-anggota-store');
 
 Route::prefix('admin')
     ->middleware(['auth', 'isAdmin'])

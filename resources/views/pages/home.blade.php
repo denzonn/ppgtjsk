@@ -4,6 +4,10 @@
     PPGT Jemaat Satria Kasih
 @endsection
 
+@push('addon-style')
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet" />
+@endpush
+
 @push('prepend-style')
     <script type="module" crossorigin src="{{ asset('carousel/assets/index.ef4fdc7a.js') }}"></script>
     <link rel="modulepreload" href="{{ asset('carousel/assets/vendor.8992d2a8.js') }}">
@@ -36,10 +40,10 @@
     <!-- Renungan -->
     <section class="renungan">
         <div class="container">
-            <div class="content mt-5 mb-3">
+            <div class="content mt-5 mb-3" data-aos="fade-up" data-aos-duration="1000">
                 <h2>Renungan Pagi</h2>
             </div>
-            <div class="text text-justify">
+            <div class="text text-justify" data-aos="fade-up" data-aos-duration="2000">
                 @foreach ($renungan as $item)
                     <div class="video-container">
                         <iframe height="300" src="{{ $item->url_youtube }}" frameborder="0" allowfullscreen></iframe>
@@ -52,7 +56,7 @@
                     </div>
                 @endforeach
             </div>
-            <div class="creator">
+            <div class="creator" data-aos="fade-up" data-aos-duration="2500">
                 <hr>
                 <div class="text">
                     Penulis : Tim Renungan Harian GT
@@ -65,21 +69,37 @@
 
     <!-- All Acitivity -->
     <section class="activity mb-5" id="kegiatan">
+        <div class="shape" data-aos="fade-up" data-aos-duration="1000"></div>
         <div class="container">
-            <div class="content ">
+            <div class="content " data-aos="fade-up" data-aos-duration="1000">
                 <h2>Kegiatan PPGT</h2>
             </div>
             <div class="row">
+                @php
+                    $increment = 0;
+                @endphp
                 @foreach ($kegiatan as $item)
-                    <div class="col-12 col-md-6 col-lg-4 mt-2">
-                        <div class="card">
-                            <img src="{{ Storage::url($item->photo) }}" alt="">
-                            <div class="description">
-                                <h3>{{ $item->name }}</h3>
-                                <p>{!! substr($item->description, 0, 50) !!}...</p>
-                                <a href="{{ route('kegiatan-detail', $item->slug) }}">Read More</a>
+                    <div class="col-12 col-lg-6 mt-3 mt-lg-0" data-aos="fade-up"
+                        data-aos-duration="{{ $increment += 1000 }}">
+                        <article class="blog-post p-4 p-lg-0">
+                            <div class="blog-post__img">
+                                <img src="{{ Storage::url($item->photo) }}" alt="" />
                             </div>
-                        </div>
+                            <div class="blog-post__info">
+                                <div class="blog-post__date">
+                                    <span>{{ $item->program->name }}</span>
+                                </div>
+                                <h2 class="blog-post__title">{{ $item->name }}</h2>
+                                @if (strlen($item->description) > 100)
+                                    <p>{!! substr($item->description, 0, 100) !!}....</p>
+                                @else
+                                    <p>{!! $item->description !!}</p>
+                                @endif
+
+                                <div><a href="{{ route('kegiatan-detail', $item->slug) }}" class="blog-post__cta">Read
+                                        More</a></div>
+                            </div>
+                        </article>
                     </div>
                 @endforeach
             </div>
@@ -90,13 +110,13 @@
     {{-- Activity Weekend --}}
     <section class="activityWeekend">
         <div class="container">
-            <div class="content">
+            <div class="content" data-aos="fade-up" data-aos-duration="1000">
                 <h2>Kegiatan Seminggu</h2>
             </div>
             <div class="card mt-4" style="border: none">
                 <div class="card-body">
                     {{-- Datatable --}}
-                    <div class="table-responsive">
+                    <div class="table-responsive" data-aos="fade-up" data-aos-duration="2000">
                         <table class="table table-striped" id="datatable">
                             <thead>
                                 <tr>
@@ -106,16 +126,23 @@
                                     <th style="width: 30%">Tempat</th>
                                 </tr>
                             </thead>
+                            @php
+                                $increment2 = 1000;
+                            @endphp
                             <tbody>
-                                @foreach ($kegiatanMingguan as $item)
-                                    <tr>
+                                @forelse ($kegiatanMingguan as $item)
+                                    <tr data-aos="fade-up" data-aos-duration="{{ $increment2 += 500 }}">
                                         <td>{{ \Carbon\Carbon::parse($item->tanggal)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}
                                         </td>
                                         <td>{{ $item->kegiatan->name }}</td>
                                         <td>{{ $item->waktu }}</td>
                                         <td>{!! $item->tempat !!}</td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="4" class="text-center">Tidak ada kegiatan minggu ini</td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -128,17 +155,17 @@
     <!-- Gallery -->
     <section class="gallery">
         <div class="container">
-            <div class="content mb-3">
+            <div class="content mb-3" data-aos="fade-up" data-aos-duration="1000">
                 <h2>Dokumentasi Kegiatan</h2>
             </div>
-            <p class="text-muted text-center">
+            <p class="text-muted text-center" data-aos="fade-up" data-aos-duration="2000">
                 "Jangan lewatkan momen spesial kami! Lihat galeri foto kegiatan kami
                 dan saksikan betapa serunya kami dalam melakukan berbagai aktivitas
                 yang pasti akan membuat Anda terinspirasi." <a href="{{ route('gallery') }}"
                     style="text-decoration: none">Liat Semua......</a>
             </p>
         </div>
-        <div class="swiper">
+        <div class="swiper" data-aos="zoom-in" data-aos-duration="2000">
             <div class="swiper-wrapper">
                 @foreach ($gallery as $item)
                     <div class="swiper-slide">
@@ -157,11 +184,11 @@
     <!-- Gallery -->
 
     <!-- Pengurus -->
-    <div class="administrator">
+    <div class="administrator mt-3">
         <div class="container">
             <div class="content">
                 <div class="row">
-                    <div class="title text-center mb-4">
+                    <div class="title text-center mb-4" data-aos="fade-up" data-aos-duration="2000">
                         <h2 class="kswb">K S W B
                             <br>
                             2022 - 2024
@@ -169,31 +196,25 @@
                             <span>Ketua - Sekretaris - Wakil Sekretaris - Bendahara</span>
                         </h2>
                     </div>
-                    <div class="details">
-                        <div class="row">
-                            @foreach ($ksb as $index => $item)
-                                <div
-                                    class="col-6 col-md-6 col-lg-4 mb-3 {{ $index === $ksb->count() - 1 ? ' offset-lg-4' : '' }}">
-                                    <div class="pic" data-tilt data-tilt-max="10" data-tilt-speed="400"
-                                        data-tilt-perspective="700">
-                                        <img src="{{ Storage::url($item->foto) }}" alt="">
-                                    </div>
-                                    <div class="desc">
-                                        <div class="name">{{ $item->nama }}</div>
-                                        <div class="position">{{ $item->jabatan }}</div>
+                    <section class="kswb container" data-aos="fade-up" data-aos-duration="1000">
+                        <div class="gallery-wrapper">
+                            @foreach ($ksb as $key => $item)
+                                <figure class="gallery-item{{ $key === 0 ? ' large' : '' }}">
+                                    <img src="{{ Storage::url($item->foto) }}" alt="" class="item-image" />
+                                    <figcaption class="item-description">
+                                        <h2 class="name">{{ $item->nama }}</h2>
+                                        <br>
+                                        <div class="role">{{ $item->jabatan }}</div>
+                                        <br>
                                         <div class="motto">{!! $item->motto !!}</div>
-                                        <div class="socialmedia">
-                                            <a href="{{ $item->instagram }}"><i class="fa-brands fa-instagram"></i></a>
-                                            <a href="{{ $item->whatsapp }}"><i class="fa-brands fa-whatsapp"></i></a>
-                                            <a href="{{ $item->facebook }}"><i class="fa-brands fa-facebook"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
+                                    </figcaption>
+                                </figure>
                             @endforeach
                         </div>
-                    </div>
+                    </section>
                     <hr class="mt-5">
-                    <div class="title text-center mt-5 mb-4">
+                    <div class="title text-center mt-5 mb-4" data-aos="fade-up" data-aos-duration="1000">
+                        <div class="shape2" data-aos="fade-up" data-aos-duration="1000"></div>
                         <h2>Pengurus PPGT
                             <br>
                             <span>Jemaat Satria Kasih</span>
@@ -201,8 +222,12 @@
                     </div>
                     <div class="details">
                         <div class="row">
+                            @php
+                                $increment4 = 0;
+                            @endphp
                             @foreach ($manajement as $item)
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up"
+                                    data-aos-duration="{{ $increment4 += 1000 }}">
                                     <div class="image" data-tilt data-tilt-max="10" data-tilt-speed="400"
                                         data-tilt-perspective="700">
                                         <img src="{{ Storage::url($item->foto_bidang) }}" alt="">
@@ -219,7 +244,8 @@
                                 </div>
                             @endforeach
                             @foreach ($bidang as $item)
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up"
+                                    data-aos-duration="{{ $increment4 += 1500 }}">
                                     <div class="image" data-tilt data-tilt-max="10" data-tilt-speed="400"
                                         data-tilt-perspective="700">
                                         <img src="{{ Storage::url($item->foto_bidang) }}" alt="">
@@ -267,12 +293,12 @@
         <div class="container">
             <hr>
             <div class="content">
-                <div class="content mb-3">
+                <div class="content mb-3" data-aos="fade-up" data-aos-duration="1000">
                     <h2>Kontak</h2>
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 col-md-6 col-lg-6">
+                <div class="col-12 col-md-6 col-lg-6" data-aos="fade-up" data-aos-duration="2000">
                     <div class="card">
                         <div class="card-body">
                             <h6>Info Selanjutnya</h6>
@@ -286,7 +312,7 @@
                 </div>
                 <div class="col-12 col-md-6 col-lg-6">
                     <div class="card">
-                        <div class="card-body mt-4 mt-md-0 mt-lg-0">
+                        <div class="card-body mt-4 mt-md-0 mt-lg-0" data-aos="fade-up" data-aos-duration="3000">
                             <h6>Sekilas Anggota</h6>
                             <p>Buat teman-teman yang rindu untuk mendapatkan layanan kasih (ibadah PPGT) dapat menghubungi
                                 pengurus
@@ -319,13 +345,14 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-12 col-lg-10 offset-lg-1">
-                                    <div class="content ">
+                                    <div class="content " data-aos="fade-up" data-aos-duration="1000">
                                         <h2>Saran</h2>
                                     </div>
-                                    <p class="text-muted">
+                                    <p class="text-muted" data-aos="fade-up" data-aos-duration="1500">
                                         Berikan saran anda untuk membuat PPGT Jemaat Satria Kasih lebih baik lagi!
                                     </p>
-                                    <form action="{{ route('user.saran') }}" method="post">
+                                    <form action="{{ route('user.saran') }}" method="post" data-aos="fade-up"
+                                        data-aos-duration="25000">
                                         @csrf
                                         <div class="form-group">
                                             <label style="font-family: 'Poppins', sans-serif">Nama</label>
@@ -352,14 +379,18 @@
                                 <!-- ***** FAQ Start ***** -->
                                 <div class="col-md-12">
 
-                                    <div class="faq-title text-center pb-3">
+                                    <div class="faq-title text-center pb-3" data-aos="fade-up" data-aos-duration="1000">
                                         <h2>FAQ</h2>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="faq" id="accordion">
+                                    <div class="faq" id="accordion" data-aos="fade-up" data-aos-duration="2000">
+                                        @php
+                                            $increment5 = 0;
+                                        @endphp
                                         @foreach ($faq as $index => $item)
-                                            <div class="card">
+                                            <div class="card" data-aos="fade-up"
+                                                data-aos-duration="{{ $increment5 += 1000 }}">
                                                 <div class="card-header" id="faqHeading-{{ $index }}">
                                                     <div class="mb-0">
                                                         <h5 class="faq-title" data-toggle="collapse"
@@ -392,48 +423,6 @@
 @endsection
 
 @push('addon-script')
-    <script>
-        $('#owl-carousel1').owlCarousel({
-            loop: true,
-            margin: 10,
-            dots: false,
-            autoplay: false,
-            autoplayTimeout: 5000,
-            autoplayHoverPause: true,
-            nav: false,
-            responsive: {
-                0: {
-                    items: 1,
-                },
-                600: {
-                    items: 1,
-                },
-                1000: {
-                    items: 1,
-                },
-            },
-        })
-        $('#owl-carousel2').owlCarousel({
-            loop: true,
-            margin: 15,
-            dots: false,
-            autoplay: true,
-            autoplayTimeout: 5000,
-            autoplayHoverPause: true,
-            nav: true,
-            responsive: {
-                0: {
-                    items: 1,
-                },
-                600: {
-                    items: 3,
-                },
-                1000: {
-                    items: 4,
-                },
-            },
-        })
-    </script>
     {{-- tYPED --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.16/typed.umd.js"
         integrity="sha512-+2pW8xXU/rNr7VS+H62aqapfRpqFwnSQh9ap6THjsm41AxgA0MhFRtfrABS+Lx2KHJn82UOrnBKhjZOXpom2LQ=="

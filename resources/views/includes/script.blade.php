@@ -50,19 +50,40 @@
 <!-- Data Aos -->
 
 <script>
-    // <!-- Navbar Scroll -->
-    const navbar = document.querySelector('.navbar')
+    // Navbar Scroll
+    const navbar = document.querySelector('.navbar');
+    // Navbar Toggler
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    let expanded = navbarToggler.getAttribute('aria-expanded');
 
-    window.addEventListener('scroll', () => {
-        if (window.scrollY === 0) {
-            navbar.classList.add('navbar-transparent')
-            navbar.classList.remove('bg-dark')
+    // Toggle behavior
+    navbarToggler.addEventListener('click', () => {
+        navbarToggler.classList.toggle('bg-dark');
+        expanded = expanded === 'true' ? 'false' : 'true';
+        navbarToggler.setAttribute('aria-expanded', expanded);
+
+        if (expanded === 'false') {
+            navbar.classList.add('navbar-transparent');
+            navbar.classList.remove('bg-dark');
         } else {
-            navbar.classList.remove('navbar-transparent')
-            navbar.classList.add('bg-dark')
+            navbar.classList.remove('navbar-transparent');
+            navbar.classList.add('bg-dark');
         }
-    })
+    });
 
+    // Scroll behavior
+    window.addEventListener('scroll', () => {
+        if (window.scrollY === 0 && expanded === 'false') {
+            navbar.classList.add('navbar-transparent');
+            navbar.classList.remove('bg-dark');
+        } else if (window.scrollY === 0 && expanded === 'true') {
+            navbar.classList.remove('navbar-transparent');
+            navbar.classList.add('bg-dark');
+        } else {
+            navbar.classList.remove('navbar-transparent');
+            navbar.classList.add('bg-dark');
+        }
+    });
     // <!-- Navbar Toggler -->
     document
         .querySelector('.navbar-toggler')
