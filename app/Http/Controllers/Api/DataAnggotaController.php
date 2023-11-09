@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DataAnggotaRequest;
@@ -9,27 +9,15 @@ use App\Models\Kaderisasi;
 use App\Models\Pelatihan;
 use Illuminate\Http\Request;
 
-class DataAnggotaController extends Controller
+class DataAnggotaController extends BaseController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $anggota = DataAnggota::all();
 
-        return view('pages.admin.anggota.index', [
-            'anggota' => $anggota,
-        ]);
+        return $this->sendResponse($anggota, 'Successfully get all data anggota');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $pelatihan = Pelatihan::all();
@@ -39,12 +27,6 @@ class DataAnggotaController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(DataAnggotaRequest $request)
     {
         $data = $request->all();
@@ -58,7 +40,7 @@ class DataAnggotaController extends Controller
             array_push($tahun, $value);
         }
 
-        $dataAnggota = ([
+        $dataAnggota = DataAnggota::create([
             'nik' => $data['nik'],
             'nama' => $data['nama'],
             'email' => $data['email'],
@@ -88,7 +70,7 @@ class DataAnggotaController extends Controller
             foreach ($kaderisasi as $index => $item) {
                 $dataPelatihan = [
                     'tahun' => 0,
-                    'anggota_id' => 1,
+                    'anggota_id' => $dataAnggota->id,
                     'pelatihan_id' => $item, // Menggunakan nilai dari $kaderisasi langsung
                     'created_at' => now(),
                     'updated_at' => now(),
@@ -99,7 +81,7 @@ class DataAnggotaController extends Controller
             foreach ($tahun as $index => $item) {
                 $dataPelatihan = [
                     'tahun' => $item,
-                    'anggota_id' => 1,
+                    'anggota_id' => $dataAnggota->id,
                     'pelatihan_id' => $kaderisasi[$index], // Menggunakan indeks loop untuk mengakses nilai yang sesuai dari $kaderisasi
                     'created_at' => now(),
                     'updated_at' => now(),
@@ -109,26 +91,9 @@ class DataAnggotaController extends Controller
         }
         Kaderisasi::insert($pelatihan);
 
-        return redirect()->route('data-anggota.index');
+        return $this->sendResponse($dataAnggota, 'Successfully create data anggota');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $anggota = DataAnggota::findOrFail($id);
@@ -216,46 +181,29 @@ class DataAnggotaController extends Controller
 
         $pelatihan = Pelatihan::all();
 
-        return view('pages.admin.anggota.edit', [
+        $data = [
             'anggota' => $anggota,
             'jenis_kelamin_options' => $jenis_kelamin_options,
-            'jenis_kelamin_database' => $jenis_kelamin_database,
-            'golongan_darah_database' => $golongan_darah_database,
             'golongan_darah_options' => $golongan_darah_options,
-            'rhesus_database' => $rhesus_database,
             'rhesus_options' => $rhesus_options,
-            'bersedia_database' => $bersedia_database,
             'bersedia_options' => $bersedia_options,
-            'status_database' => $status_database,
             'status_options' => $status_options,
-            'keanggotaan_database' => $keanggotaan_database,
             'keanggotaan_options' => $keanggotaan_options,
-            'pendidikan_database' => $pendidikan_database,
             'pendidikan_options' => $pendidikan_options,
-            'pekerjaan_database' => $pekerjaan_database,
             'pekerjaan_options' => $pekerjaan_options,
-            'domisili_database' => $domisili_database,
             'domisili_options' => $domisili_options,
-            'keterangan_tinggal_database' => $keterangan_tinggal_database,
             'keterangan_tinggal_options' => $keterangan_tinggal_options,
-            'wilayah_database' => $wilayah_database,
             'wilayah_options' => $wilayah_options,
             'kaderisasi' => $kaderisasi,
             'pelatihan' => $pelatihan,
-        ]);
+        ];
+    
+        return $this->sendResponse($data, 'Successfully get data anggota');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $data = $request->all();
-        dd($data);
         $tahun = $data['tahun'];
         // Update data anggota
         $anggota = DataAnggota::findOrFail($id);
@@ -314,43 +262,14 @@ class DataAnggotaController extends Controller
         Kaderisasi::where('anggota_id', $id)->delete();
         Kaderisasi::insert($pelatihan);
 
-        return redirect()->route('data-anggota.index');
+        return $this->sendResponse($anggota, 'Successfully update data anggota');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        DataAnggota::findOrFail($id)->delete();
+        $data = DataAnggota::findOrFail($id);
+        $data->delete();
 
-        return redirect()->route('data-anggota.index');
-    }
-
-    public function print()
-    {
-        $anggota = DataAnggota::all();
-
-        // Ambil data kaderisasi dari masing-masing anggota
-        $kaderisasi = [];
-
-        foreach ($anggota as $item) {
-            $kaderisasi[] = Kaderisasi::where('anggota_id', $item->id)->get();
-        }
-
-        // Ambil nama kaderisasinya 
-        foreach ($kaderisasi as $index => $kaderisasiAnggota) {
-            foreach ($kaderisasiAnggota as $kader) {
-                $kader->pelatihan_id = Pelatihan::where('id', $kader->pelatihan_id)->first()->nama_pelatihan;
-            }
-        }
-
-        return view('pages.admin.anggota.print', [
-            'anggota' => $anggota,
-            'kaderisasi' => $kaderisasi,
-        ]);
+        return $this->sendResponse($data, 'Successfully delete data anggota');
     }
 }

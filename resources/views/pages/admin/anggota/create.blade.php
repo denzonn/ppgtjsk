@@ -29,18 +29,18 @@
 
                     <label for="nik" class="mb-2">NIK <span class="star">*</span></label>
                     <input type="text" name="nik" id="nik" class="form-control mb-4"
-                        placeholder="Masukkan NIK anda" value="{{ old('nik') }}" required>
+                        placeholder="Masukkan NIK anda" value="{{ old('nik') }}" >
 
                     <div class="row">
                         <div class="col-12 col-lg-6">
                             <label for="nama" class="mb-2">Nama <span class="star">*</span></label>
                             <input type="text" name="nama" id="nama" class="form-control mb-4"
-                                placeholder="Masukkan Nama Anda" value="{{ old('nama') }}" required>
+                                placeholder="Masukkan Nama Anda" value="{{ old('nama') }}" >
                         </div>
                         <div class="col-12 col-lg-6">
                             <label for="email" class="mb-2">Email <span class="star">*</span></label>
                             <input type="email" name="email" id="email" class="form-control mb-4"
-                                placeholder="Masukkan Email Anda" value="{{ old('email') }}" required>
+                                placeholder="Masukkan Email Anda" value="{{ old('email') }}" >
                         </div>
                     </div>
 
@@ -48,22 +48,22 @@
                         <div class="col-12 col-lg-6">
                             <label for="no_hp" class="mb-2">No HP <span class="star">*</span></label>
                             <input type="number" name="no_hp" id="no_hp" class="form-control mb-4"
-                                placeholder="Masukkan No HP Anda" value="{{ old('no_hp') }}" required>
+                                placeholder="Masukkan No HP Anda" value="{{ old('no_hp') }}" >
                         </div>
                         <div class="col-12 col-lg-6">
                             <label for="tempat_lahir" class="mb-2">Tempat Lahir <span class="star">*</span></label>
                             <input type="text" name="tempat_lahir" id="tempat_lahir" class="form-control mb-4"
-                                placeholder="Masukkan Tempat Lahir Anda" value="{{ old('tempat_lahir') }}" required>
+                                placeholder="Masukkan Tempat Lahir Anda" value="{{ old('tempat_lahir') }}" >
                         </div>
                     </div>
 
                     <label for="tanggal_lahir" class="mb-2">Tanggal Lahir <span class="star">*</span></label>
                     <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control mb-4"
-                        value="{{ old('tangga_lahir') }}" required>
+                        value="{{ old('tangga_lahir') }}" >
 
                     <label for="alamat" class="mb-2">Alamat <span class="star">*</span></label>
                     <textarea name="alamat" id="alamat" cols="30" rows="5" class="form-control mb-4"
-                        placeholder="Masukkan Alamat Anda" required>{{ old('alamat') }}</textarea>
+                        placeholder="Masukkan Alamat Anda" >{{ old('alamat') }}</textarea>
 
 
                     <div class="row">
@@ -179,12 +179,12 @@
                         <div class="col-12 col-lg-4">
                             <label for="nama_ayah" class="mb-2">Nama Ayah <span class="star">*</span></label>
                             <input type="text" name="nama_ayah" id="nama_ayah" class="form-control mb-4"
-                                placeholder="Masukkan Nama Ayah" value="{{ old('nama_ayah') }}" required>
+                                placeholder="Masukkan Nama Ayah" value="{{ old('nama_ayah') }}" >
                         </div>
                         <div class="col-12 col-lg-4">
                             <label for="nama_ibu" class="mb-2">Nama Ibu <span class="star">*</span></label>
                             <input type="text" name="nama_ibu" id="nama_ibu" class="form-control mb-4"
-                                placeholder="Masukkan Nama Ibu" value="{{ old('nama_ibu') }}" required>
+                                placeholder="Masukkan Nama Ibu" value="{{ old('nama_ibu') }}" >
                         </div>
                         <div class="col-12 col-lg-4">
                             <label for="keterangan_tinggal" class="mb-2">Keterangan Tinggal <span
