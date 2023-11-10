@@ -58,7 +58,7 @@ class DataAnggotaController extends Controller
             array_push($tahun, $value);
         }
 
-        $dataAnggota = DataAnggota::create([
+        $dataAnggota = ([
             'nik' => $data['nik'],
             'nama' => $data['nama'],
             'email' => $data['email'],
@@ -88,7 +88,7 @@ class DataAnggotaController extends Controller
             foreach ($kaderisasi as $index => $item) {
                 $dataPelatihan = [
                     'tahun' => 0,
-                    'anggota_id' => $dataAnggota->id,
+                    'anggota_id' => 1,
                     'pelatihan_id' => $item, // Menggunakan nilai dari $kaderisasi langsung
                     'created_at' => now(),
                     'updated_at' => now(),
@@ -99,7 +99,7 @@ class DataAnggotaController extends Controller
             foreach ($tahun as $index => $item) {
                 $dataPelatihan = [
                     'tahun' => $item,
-                    'anggota_id' => $dataAnggota->id,
+                    'anggota_id' => 1,
                     'pelatihan_id' => $kaderisasi[$index], // Menggunakan indeks loop untuk mengakses nilai yang sesuai dari $kaderisasi
                     'created_at' => now(),
                     'updated_at' => now(),
@@ -255,6 +255,7 @@ class DataAnggotaController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
+        dd($data);
         $tahun = $data['tahun'];
         // Update data anggota
         $anggota = DataAnggota::findOrFail($id);

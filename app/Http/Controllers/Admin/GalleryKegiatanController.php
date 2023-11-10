@@ -54,6 +54,7 @@ class GalleryKegiatanController extends Controller
             'photo' => 'required',
             'photo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:3072'
         ]);
+        dd($data);
 
         if ($request->hasFile('photo')) {
             $images = $request->file('photo');
