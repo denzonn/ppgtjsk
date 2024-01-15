@@ -8,7 +8,7 @@
     <div class="pages">
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('profil-ppgt.index') }}" class="back">
+                <a href="{{ route('profil-ppgt.store') }}" class="back">
                     <i class="fa-solid fa-arrow-left"></i>
                 </a>
                 <span class="title">Profil</span>
@@ -23,21 +23,18 @@
                         </ul>
                     </div>
                 @endif
-                <form action="{{ route('profil-ppgt.update', $profil->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('profil-ppgt.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    @method('PUT')
                     <label for="periode" class="mb-2">Periode Kepengurusan <span class="star">*</label>
-                    <input type="text" name="periode" id="periode" class="form-control mb-4"
-                        value="{{ $profil->periode }}">
+                        <input type="text" name="periode" id="periode" class="form-control mb-4">
 
                     <label for="content" class="mb-2">Sejarah Kepengurusan</label>
-                    <textarea name="content" id="content" cols="30" rows="10" class="form-control">{!! $profil->content !!}</textarea>
+                    <textarea name="content" id="content" cols="30" rows="10" class="form-control"></textarea>
 
-                    <label for="photo" class="mt-4">Foto Kepengurusan</label>
-                    <div class="star mb-2">Tidak perlu upload klaw tidak ingin mengganti</div>
-                    <input type="file" name="photo" class="form-control">
+                    <label for="photo" class="mt-4 mb-2">Foto Kepengurusan <span class="star">*</label>
+                        <input type="file" name="photo" class="form-control">
 
-                    <button type="submit" class="btn btn-primary btn-block w-100 mt-4">Ubah</button>
+                    <button type="submit" class="btn btn-primary btn-block w-100 mt-4">Simpan</button>
                 </form>
             </div>
         </div>

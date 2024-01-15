@@ -15,6 +15,8 @@ class Profil extends Model implements HasMedia
     protected $table = 'profils';
 
     protected $fillable = [
-        'content'
+        'periode',
+        'content',
+        'photo'
     ];
 }

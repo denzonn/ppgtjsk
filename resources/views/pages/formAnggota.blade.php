@@ -281,7 +281,9 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    <input type="text" name="keterangan_anggota" id="keterangan_anggota"
+                                        class="form-control mb-4 d-none" placeholder="Masukkan keterangan_anggota anda"
+                                        value="Aktif">
                                     <button type="submit" class="btn btn-primary w-100">Submit</button>
                                 </form>
                             </div>

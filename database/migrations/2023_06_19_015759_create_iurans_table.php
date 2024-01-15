@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('kelompok');
             $table->string('keterangan');
             $table->string('jumlah');
+            $table->string('catatan')->nullable();
             $table->timestamps();
         });
     }

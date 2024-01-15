@@ -41,7 +41,10 @@
                     <label for="description" class="mb-2">Deskripsi Kegiatan <span class="star">*</label>
                     <textarea name="description" id="description" cols="30" rows="10" class="form-control">{!! $kegiatan->description !!}</textarea>
 
-                    <label for="photo" class="mt-4 mb-2">Foto Kegiatan </label>
+                    <label for="link_drive" class="mt-4 mb-2">Link Drive </label>
+                        <input type="text" name="link_drive" id="link_drive" class="form-control mb-4" value={{ $kegiatan->link_drive }}>
+
+                    <label for="photo" class=" mb-2">Foto Kegiatan </label>
                     <p style="color: red; font-size: 0.8rem"><span class="star">* Tidak Perlu Upload Foto Jika Tidak Ingin
                             Ganti</p>
                     <input type="file" name="photo" class="form-control">

@@ -26,7 +26,8 @@
                         data-aos-duration="1500">Deskripsi
                         Kegiatan : </div>
                     <p data-aos="fade-up" data-aos-duration="2000">
-                        {!! $kegiatan->description !!}
+                        {!! $kegiatan->description !!} <a class="activityLink" target="_blank" style="font-size: smaller;" href={{ $kegiatan->link_drive }}>(Cek Keseluruhan
+                            Foto)</a>
                     </p>
                 </div>
             </div>
@@ -57,7 +58,8 @@
 @endsection
 
 @push('prepend-script')
-    <script type="module" crossorigin src="{{ asset('panorama-slider.uiinitiative.com/assets/index.3cc42008.js') }}"></script>
+    <script type="module" crossorigin src="{{ asset('panorama-slider.uiinitiative.com/assets/index.3cc42008.js') }}">
+    </script>
 @endpush
 
 

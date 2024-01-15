@@ -136,7 +136,11 @@
                                         </td>
                                         <td>{{ $item->kegiatan->name }}</td>
                                         <td>{{ $item->waktu }}</td>
-                                        <td>{!! $item->tempat !!}</td>
+                                        <td>
+                                            <a class="activityLink" target="_blank" href={{ $item->maps }}>
+                                                {!! $item->tempat !!}
+                                            </a>
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
@@ -253,8 +257,8 @@
                                     <div class="description">
                                         <div class="sector">{{ $item->nama_bidang }}</div>
                                         @foreach ($pengurus[$loop->index] as $anggota)
-                                            @if ($anggota->jabatan->nama_jabatan == 'Koordinator')
-                                                <div class="name">Koordinator: {{ $anggota->nama_anggota }}</div>
+                                            @if ($anggota->jabatan->nama_jabatan == 'Ketua Bidang')
+                                                <div class="name">Ketua Bidang: {{ $anggota->nama_anggota }}</div>
                                             @elseif ($anggota->jabatan->nama_jabatan == 'Koordinator Kelompok')
                                                 <div class="name">Koordinator Kelompok: {{ $anggota->nama_anggota }}
                                                 </div>
@@ -263,7 +267,7 @@
                                         <div class="name">Anggota:</div>
                                         <ol>
                                             @foreach ($pengurus[$loop->index] as $anggota)
-                                                @if ($anggota->jabatan->nama_jabatan == 'Koordinator')
+                                                @if ($anggota->jabatan->nama_jabatan == 'Ketua Bidang')
                                                 @elseif ($anggota->jabatan->nama_jabatan == 'Koordinator Kelompok')
 
                                                 @elseif ($anggota->jabatan->nama_jabatan == 'Wakil Koordinator')

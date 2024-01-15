@@ -61,6 +61,7 @@ class DataAnggotaController extends BaseController
             'nama_ibu' => $data['nama_ibu'],
             'keterangan_tinggal' => $data['keterangan_tinggal'],
             'wilayah' => $data['wilayah'],
+            'keterangan_anggota' => $data['keterangan_anggota'],
         ]);
 
         $kaderisasi = $data['kaderisasi'];
@@ -229,6 +230,7 @@ class DataAnggotaController extends BaseController
             'nama_ibu' => $data['nama_ibu'],
             'keterangan_tinggal' => $data['keterangan_tinggal'],
             'wilayah' => $data['wilayah'],
+            'keterangan_anggota' => $data['keterangan_anggota'],
         ]);
 
         $kaderisasi = $data['kaderisasi'];

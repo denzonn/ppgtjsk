@@ -233,7 +233,11 @@
                             </div>
                         </div>
                     </div>
-
+                    <label for="keterangan_anggota" class="mb-2">Keterangan Anggota<span class="star">*</span></label>
+                    <select name="keterangan_anggota" id="keterangan_anggota" class="form-control mb-4">
+                        <option value="Aktif">Aktif</option>
+                        <option value="Tidak Aktif">Tidak Aktif</option>
+                    </select>
                     <button type="submit" class="btn btn-primary btn-block w-100">Ubah</button>
                 </form>
             </div>

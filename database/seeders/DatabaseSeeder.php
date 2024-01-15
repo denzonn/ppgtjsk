@@ -27,7 +27,6 @@ class DatabaseSeeder extends Seeder
             PelatihanSeeder::class,
             BidangSeeder::class,
             AdminSeeder::class,
-            ProfilSeeder::class,
         ]);
     }
 }

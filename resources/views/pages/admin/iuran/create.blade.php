@@ -27,7 +27,7 @@
                     @csrf
 
                     <label for="nama" class="mb-2">Nama Anggota <span class="star">*</label>
-                    <input type="text" name="nama" id="nama" class="form-control mb-4">
+                    <input type="text" name="nama" id="nama" class="form-control mb-4" placeholder="Masukkan Nama Anggota">
 
                     <label for="kelompok" class="mb-2">Kelompok <span class="star">*</label>
                     <select name="kelompok" id="" class="form-select mb-4">
@@ -53,6 +53,10 @@
 
                     <label for="jumlah" class="mb-2">Nominal <span class="star">*</label>
                     <input type="number" class="form-control" name="jumlah">
+
+                    <label for="catatan" class="mb-2 mt-2">Catatan </label>
+                    <textarea name="catatan" id="catatan" cols="30" rows="5" class="form-control mb-4"
+                        placeholder="Masukkan Catatan Anda">{{ old('catatan') }}</textarea>
 
                     <button type="submit" class="btn btn-primary btn-block w-100 mt-4">Simpan</button>
                 </form>

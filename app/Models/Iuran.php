@@ -16,5 +16,6 @@ class Iuran extends Model
         'kelompok',
         'keterangan',
         'jumlah',
+        'catatan',
     ];
 }

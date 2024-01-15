@@ -17,7 +17,8 @@ class Kegiatan extends Model
         'program_id',
         'bidang_id',
         'description',
-        'photo'
+        'photo',
+        'link_drive',
     ];
 
     public function program()

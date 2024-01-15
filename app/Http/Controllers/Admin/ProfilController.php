@@ -29,7 +29,7 @@ class ProfilController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.admin.profil.create');
     }
 
     /**
@@ -40,7 +40,21 @@ class ProfilController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        if ($request->hasFile('photo')) {
+            $images = $request->file('photo');
+
+            $extension = $images->getClientOriginalExtension();
+
+            $file_name = "periode-" . $data['periode'] . "." . $extension;
+
+            $data['photo'] = $images->storeAs('photo', $file_name, 'public');
+        }
+
+        Profil::create($data);
+
+        return redirect()->route('profil-ppgt.index');
     }
 
     /**
@@ -78,9 +92,23 @@ class ProfilController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Profil::findOrFail($id)->update([
-            'content' => $request->content,
-        ]);
+        $data = $request->all();
+
+        if ($request->hasFile('photo')) {
+            $images = $request->file('photo');
+
+            $extension = $images->getClientOriginalExtension();
+
+            $file_name = "periode-" . $data['periode'] . "." . $extension;
+
+            $data['photo'] = $images->storeAs('photo', $file_name, 'public');
+        }else {
+            unset($data['photo']);
+        }
+
+        $profil = Profil::findOrFail($id);
+
+        $profil->update($data);
 
         return redirect()->route('profil-ppgt.index');
     }

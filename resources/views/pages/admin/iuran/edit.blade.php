@@ -49,6 +49,10 @@
                     <label for="jumlah" class="mb-2">Nominal <span class="star">*</label>
                     <input type="number" class="form-control" name="jumlah" value="{{ $iuran->jumlah }}">
 
+                    <label for="catatan" class="mb-2 mt-2">Catatan </label>
+                    <textarea name="catatan" id="catatan" cols="30" rows="5" class="form-control mb-4"
+                        placeholder="Masukkan Catatan Anda">{!! $iuran->catatan !!}</textarea>
+
                     <button type="submit" class="btn btn-primary btn-block w-100 mt-4">Simpan</button>
                 </form>
             </div>

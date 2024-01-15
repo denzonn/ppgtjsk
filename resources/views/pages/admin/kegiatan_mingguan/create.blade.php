@@ -39,6 +39,9 @@
                     <label for="waktu" class="mb-2">Waktu <span class="star">*</label>
                     <input type="time" name="waktu" id="waktu" class="form-control mb-4">
 
+                    <label for="maps" class="mb-2">Link Maps <span class="star">*</label>
+                    <input type="text" name="maps" id="maps" class="form-control mb-4">
+
                     <label for="tempat" class="mb-2">Tempat <span class="star">*</label>
                     <textarea name="tempat" id="tempat" cols="30" rows="10"></textarea>
 

@@ -97,7 +97,6 @@
                     <div class="overlay-panel overlay-right">
                         <h1>Hello, Friend!</h1>
                         <p>Selamat Datang di Website Resmi PPGT Jemaat Satria Kasih. Silahkan Masukkan Akun Anda!</p>
-                        <button class="ghost" id="signUp">Sign Up</button>
                     </div>
                 </div>
             </div>
@@ -108,34 +107,3 @@
     </div>
 @endsection
 
-@push('addon-script')
-    <script>
-        const signUpButton = document.getElementById('signUp');
-        const signInButton = document.getElementById('signIn');
-        const container = document.getElementById('container');
-        const signUpContainer = document.querySelector('.sign-up-container');
-
-        signUpButton.addEventListener('click', () => {
-            container.classList.add("right-panel-active");
-        });
-
-        signInButton.addEventListener('click', () => {
-            container.classList.remove("right-panel-active");
-        });
-    </script>
-
-    <script>
-        const change = document.getElementById('change');
-
-        // Ketika di klik maka ubah opacity dan zIndex klaw di click lagi maka kembalikan nilai awalnya
-        change.addEventListener('click', () => {
-            if (signUpContainer.style.opacity == 0) {
-                signUpContainer.style.opacity = 1;
-                signUpContainer.style.zIndex = 99;
-            } else {
-                signUpContainer.style.opacity = 0;
-                signUpContainer.style.zIndex = 1;
-            }
-        });
-    </script>
-@endpush

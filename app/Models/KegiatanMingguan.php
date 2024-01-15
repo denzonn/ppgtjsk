@@ -16,6 +16,7 @@ class KegiatanMingguan extends Model
         'kegiatan_id',
         'waktu',
         'tempat',
+        'maps',
     ];
 
     public function kegiatan()

@@ -14,7 +14,7 @@
             <div class="fill" data-aos="fade-up" data-aos-duration="1000">
                 <button class="btn" onclick="toggleDropdown()"><span>Pilih Bidang</span><i
                         class="material-icons">public</i>
-                    <ul class="dropdown drops" style="z-index: 99">
+                    <ul class="profil dropdown drops" style="z-index: 99">
                         @foreach ($bidang as $item)
                             <li>
                                 <a href="#"
@@ -65,8 +65,6 @@
     </section>
     <!-- Gallery -->
 @endsection
-
-
 
 @push('addon-script')
     <!-- Pages -->

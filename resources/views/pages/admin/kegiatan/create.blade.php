@@ -38,7 +38,10 @@
                     <label for="description" class="mb-2">Deskripsi Kegiatan <span class="star">*</label>
                     <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
 
-                    <label for="photo" class="mt-4 mb-2">Foto Kegiatan <span class="star">*</label>
+                    <label for="link_drive" class="mt-4 mb-2">Link Drive</label>
+                    <input type="text" name="link_drive" id="link_drive" class="form-control mb-4">
+
+                    <label for="photo" class=" mb-2">Foto Kegiatan <span class="star">*</label>
                     <input type="file" name="photo" class="form-control">
 
                     <button type="submit" class="btn btn-primary btn-block w-100 mt-4">Simpan</button>

@@ -58,7 +58,7 @@ class DataAnggotaController extends Controller
             array_push($tahun, $value);
         }
 
-        $dataAnggota = ([
+        $dataAnggota = DataAnggota::create([
             'nik' => $data['nik'],
             'nama' => $data['nama'],
             'email' => $data['email'],
@@ -79,6 +79,7 @@ class DataAnggotaController extends Controller
             'nama_ibu' => $data['nama_ibu'],
             'keterangan_tinggal' => $data['keterangan_tinggal'],
             'wilayah' => $data['wilayah'],
+            'keterangan_anggota' => $data['keterangan_anggota'],
         ]);
 
         $kaderisasi = $data['kaderisasi'];
@@ -88,7 +89,7 @@ class DataAnggotaController extends Controller
             foreach ($kaderisasi as $index => $item) {
                 $dataPelatihan = [
                     'tahun' => 0,
-                    'anggota_id' => 1,
+                    'anggota_id' => $dataAnggota->id,
                     'pelatihan_id' => $item, // Menggunakan nilai dari $kaderisasi langsung
                     'created_at' => now(),
                     'updated_at' => now(),
@@ -99,7 +100,7 @@ class DataAnggotaController extends Controller
             foreach ($tahun as $index => $item) {
                 $dataPelatihan = [
                     'tahun' => $item,
-                    'anggota_id' => 1,
+                    'anggota_id' => $dataAnggota->id,
                     'pelatihan_id' => $kaderisasi[$index], // Menggunakan indeks loop untuk mengakses nilai yang sesuai dari $kaderisasi
                     'created_at' => now(),
                     'updated_at' => now(),
@@ -255,7 +256,6 @@ class DataAnggotaController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
-        dd($data);
         $tahun = $data['tahun'];
         // Update data anggota
         $anggota = DataAnggota::findOrFail($id);
@@ -281,6 +281,7 @@ class DataAnggotaController extends Controller
             'nama_ibu' => $data['nama_ibu'],
             'keterangan_tinggal' => $data['keterangan_tinggal'],
             'wilayah' => $data['wilayah'],
+            'keterangan_anggota' => $data['keterangan_anggota'],
         ]);
 
         $kaderisasi = $data['kaderisasi'];

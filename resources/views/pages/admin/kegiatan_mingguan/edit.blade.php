@@ -44,6 +44,9 @@
                     <input type="time" name="waktu" id="waktu" class="form-control mb-4"
                         value="{{ $kegiatanMingguan->waktu }}">
 
+                        <label for="maps" class="mb-2">Link Maps <span class="star">*</label>
+                            <input type="text" name="maps" id="maps" class="form-control mb-4"  value="{{ $kegiatanMingguan->maps }}">
+
                     <label for="tempat" class="mb-2">Tempat <span class="star">*</label>
                     <textarea name="tempat" id="tempat" cols="30" rows="10">{!! $kegiatanMingguan->tempat !!}</textarea>
 

@@ -12864,3 +12864,19 @@ button:focus {
     flex-basis: 100%;
   }
 }
+
+.activityLink {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+
+#profil {
+    position: relative;
+    z-index: 1;
+}
+
+.profil.dropdown.drops {
+  position: relative;
+  z-index: 99;
+}

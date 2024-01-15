@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('bidang_id')->constrained('bidangs')->onDelete('cascade')->onUpdate('cascade');
             $table->longText('description');
             $table->string('photo');
+            $table->string('link_drive')->nullable();
             $table->timestamps();
         });
     }
