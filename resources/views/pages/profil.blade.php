@@ -12,7 +12,7 @@
                 <h2>Profil PPGT</h2>
             </div>
             <div class="fill" data-aos="fade-up" data-aos-duration="1000">
-                <button class="btn" onclick="toggleDropdown()"><span>Pilih Bidang</span><i class="material-icons">public</i>
+                <button class="btn" onclick="toggleDropdown()"><span>Pilih Periode</span><i class="material-icons">public</i>
                     <ul class="dropdown drops" style="z-index: 99">
                         @foreach ($profil as $item)
                             <li>
