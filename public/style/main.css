@@ -12880,3 +12880,8 @@ button:focus {
   position: relative;
   z-index: 99;
 }
+
+  .imageProfil {
+    width: 70vw !important;
+    height: auto !important;
+  }

@@ -27,7 +27,7 @@
                     <div id="{{ $item->periode }}" class="page {{ $index === 0 ? ' active' : '' }}" data-aos="fade-up" >
                         <div class="pt-2 w-full text-center " style="font-size: 22px">{{ $item->periode }}</div>
                         <div class="w-full text-center">
-                            <img src="{{ Storage::url($item->photo) }}" alt="" style="height: 250px; width: auto" />
+                            <img src="{{ Storage::url($item->photo) }}" alt="" class="imageProfil" />
                         </div>
                         <div>{!! $item->content !!}</div>
                     </div>
