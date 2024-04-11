@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Dokument;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DokumentController extends Controller
 {
@@ -97,8 +98,13 @@ class DokumentController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
+        $document = Dokument::findOrFail($id);
 
         if ($request->hasFile('file')) {
+            if($document->file){
+                Storage::disk('public')->delete($document->file);
+            }
+
             $images = $request->file('file');
 
             $extension = $images->getClientOriginalExtension();
@@ -110,7 +116,6 @@ class DokumentController extends Controller
             unset($data['file']);
         }
 
-        $document = Dokument::findOrFail($id);
 
         $document->update($data);
 
@@ -125,7 +130,11 @@ class DokumentController extends Controller
      */
     public function destroy($id)
     {
-        Dokument::findOrFail($id)->delete();
+        $document = Dokument::findOrFail($id);
+
+        Storage::disk('public')->delete($document->file);
+        
+        $document->delete();
 
         return redirect()->route('document.index');
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Bidang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BidangController extends Controller
 {
@@ -56,7 +57,7 @@ class BidangController extends Controller
 
             $file_name = "foto_bidang" . $random . "." . $extension;
 
-            $data['foto_bidang'] = $images->storeAs('assets/foto_bidang', $file_name, 'public');
+            $data['foto_bidang'] = $images->storeAs('foto_bidang', $file_name, 'public');
         }
 
         Bidang::create($data);
@@ -103,24 +104,28 @@ class BidangController extends Controller
         $this->validate($request, [
             'foto_bidang' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5120'
         ]);
-
+        $bidang = Bidang::findOrFail($id);
         $data = $request->all();
 
         if ($request->hasFile('foto_bidang')) {
+
+            if ($bidang->foto_bidang) {
+                Storage::disk('public')->delete($bidang->foto_bidang);
+            }
+        
             $images = $request->file('foto_bidang');
-
+        
             $extension = $images->getClientOriginalExtension();
-
+        
             $random = mt_rand(100, 999);
-
-            $file_name = "foto_bidang" . $data['foto_bidang'] . "." . $extension;
-
-            $data['foto_bidang'] = $images->storeAs('assets/foto_bidang', $file_name, 'public');
+        
+            $file_name = "foto_bidang" . $random . "." . $extension;
+        
+            $data['foto_bidang'] = $images->storeAs('foto_bidang', $file_name, 'public');
         } else {
             unset($data['foto_bidang']);
         }
-
-        $bidang = Bidang::findOrFail($id);
+        
 
         $bidang->update($data);
 
@@ -137,6 +142,8 @@ class BidangController extends Controller
     {
         // Cari data berdasarkan id
         $bidang = Bidang::findOrFail($id);
+
+        Storage::disk('public')->delete($bidang->foto_bidang);
 
         // Hapus data
         $bidang->delete();

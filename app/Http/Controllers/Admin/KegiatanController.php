@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Kegiatan;
 use App\Models\ProgramKerja;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class KegiatanController extends Controller
 {
@@ -109,8 +110,13 @@ class KegiatanController extends Controller
         $data = $request->all();
 
         $data['slug'] = \Str::slug($request->name);
+        $kegiatan = Kegiatan::findOrFail($id);
 
         if ($request->hasFile('photo')) {
+            if($kegiatan->photo){
+                Storage::disk('public')->delete($kegiatan->photo);
+            }
+            
             $images = $request->file('photo');
 
             $extension = $images->getClientOriginalExtension();
@@ -123,7 +129,6 @@ class KegiatanController extends Controller
         }
         $data['bidang_id'] = ProgramKerja::findOrFail($request->program_id)->bidang_id;
 
-        $kegiatan = Kegiatan::findOrFail($id);
 
         $kegiatan->update($data);
 

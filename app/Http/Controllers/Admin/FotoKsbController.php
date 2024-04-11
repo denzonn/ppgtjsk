@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\KsbRequest;
 use App\Models\FotoKsb;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FotoKsbController extends Controller
 {
@@ -82,13 +83,16 @@ class FotoKsbController extends Controller
         $ksb = FotoKsb::findOrFail($id);
 
         if ($request->hasFile('foto')) {
+            if($ksb->foto){
+                Storage::disk('public')->delete($ksb->foto);
+            }
             $images = $request->file('foto');
 
             $extension = $images->getClientOriginalExtension();
 
             $file_name = "foto-ksb" . $ksb->jabatan . "." . $extension;
 
-            $data['foto'] = $images->storeAs('assets/foto-ksb', $file_name, 'public');
+            $data['foto'] = $images->storeAs('foto-ksb', $file_name, 'public');
         } else {
             unset($data['foto']);
         }

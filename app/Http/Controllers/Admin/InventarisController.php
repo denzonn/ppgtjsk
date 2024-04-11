@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Inventaris;
 use App\Models\JenisInventaris;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class InventarisController extends Controller
 {
@@ -58,7 +59,7 @@ class InventarisController extends Controller
 
             $file_name = "inventaris-" . $data['nama'] . "." . $extension;
 
-            $data['photo'] = $images->storeAs('photo', $file_name, 'public');
+            $data['photo'] = $images->storeAs('inventaris', $file_name, 'public');
         }
 
         Inventaris::create($data);
@@ -114,20 +115,23 @@ class InventarisController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
+        $inventaris = Inventaris::findOrFail($id);
 
         if ($request->hasFile('photo')) {
+            if($inventaris->photo){
+                Storage::disk('public')->delete($inventaris->photo);
+            }
             $images = $request->file('photo');
 
             $extension = $images->getClientOriginalExtension();
 
             $file_name = "inventaris-" . $data['nama'] . "." . $extension;
 
-            $data['photo'] = $images->storeAs('photo', $file_name, 'public');
+            $data['photo'] = $images->storeAs('inventaris', $file_name, 'public');
         } else {
             unset($data['photo']);
         }
 
-        $inventaris = Inventaris::findOrFail($id);
 
         $inventaris->update($data);
 
@@ -142,7 +146,11 @@ class InventarisController extends Controller
      */
     public function destroy($id)
     {
-        Inventaris::findOrFail($id)->delete();
+        $inventaris = Inventaris::findOrFail($id);
+
+        Storage::disk('public')->delete($inventaris->photo);
+
+        $inventaris->delete();
 
         return redirect()->route('inventaris.index');
     }
