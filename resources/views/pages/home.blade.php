@@ -41,20 +41,29 @@
     <section class="renungan">
         <div class="container">
             <div class="content mt-5 mb-3" data-aos="fade-up" data-aos-duration="1000">
-                <h2>Renungan Pagi</h2>
+                <h2>Renungan Harian</h2>
             </div>
             <div class="text text-justify" data-aos="fade-up" data-aos-duration="2000">
-                @foreach ($renungan as $item)
-                    <div class="video-container">
-                        <iframe height="300" src="{{ $item->url_youtube }}" frameborder="0" allowfullscreen></iframe>
+                <div class="video-container">
+                    <iframe height="300" src="{{ $renungan[0]->url_youtube }}" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="description renDesc">
+                    <h4 class="sub">{{ $renungan[0]->judul }} ({{ $renungan[0]->ayat }})</h4>
+                    <div class="short-text">
+                        <p>{!! Illuminate\Support\Str::limit($renungan[0]->isi, 1030) !!} <button class="read-more-btn btn px-3 py-0 "
+                                style="font-style: italic; text-decoration: underline; font-size: 12px; color: #b6b6b6">Read
+                                more</button></p>
                     </div>
-                    <div class="description">
-                        <h4 class="sub">{{ $item->judul }} ({{ $item->ayat }})</h4>
-                        <p>
-                            {!! $item->isi !!}
-                        </p>
-                    </div>
-                @endforeach
+                    @if (strlen($renungan[0]->isi) > 1030)
+                        <div class="more-text" style="display:none;">
+                            <p>{!! $renungan[0]->isi !!}
+                                <button class="read-less-btn btn w-full py-0"
+                                    style="font-style: italic; text-decoration: underline; font-size: 12px; color: #b6b6b6">Read
+                                    Less</button>
+                            </p>
+                        </div>
+                    @endif
+                </div>
             </div>
             <div class="creator" data-aos="fade-up" data-aos-duration="2500">
                 <hr>
@@ -259,28 +268,27 @@
                                         @foreach ($pengurus[$loop->index] as $anggota)
                                             @if ($anggota->jabatan->nama_jabatan == 'Ketua Bidang')
                                                 <div class="name">Ketua Bidang: {{ $anggota->nama_anggota }}</div>
-                                            @elseif ($anggota->jabatan->nama_jabatan == 'Koordinator Kelompok')
-                                                <div class="name">Koordinator Kelompok: {{ $anggota->nama_anggota }}
-                                                </div>
                                             @endif
                                         @endforeach
-                                        <div class="name">Anggota:</div>
-                                        <ol>
+                                        @if ($item->nama_bidang === 'Kelompok-Kelompok')
                                             @foreach ($pengurus[$loop->index] as $anggota)
-                                                @if ($anggota->jabatan->nama_jabatan == 'Ketua Bidang')
-                                                @elseif ($anggota->jabatan->nama_jabatan == 'Koordinator Kelompok')
-
-                                                @elseif ($anggota->jabatan->nama_jabatan == 'Wakil Koordinator')
-                                                    <li>
-                                                        <div class="name">{{ $anggota->nama_anggota }}</div>
-                                                    </li>
-                                                @else
-                                                    <li>
-                                                        <div class="name">{{ $anggota->nama_anggota }}</div>
-                                                    </li>
-                                                @endif
+                                                <div class="name">{{ $anggota->jabatan->nama_jabatan }} :
+                                                    {{ $anggota->nama_anggota }}</div>
                                             @endforeach
-                                        </ol>
+                                        @else
+                                            <div class="name">Anggota:</div>
+                                            <ol>
+                                                @foreach ($pengurus[$loop->index] as $anggota)
+                                                    @if ($anggota->jabatan->nama_jabatan == 'Anggota Bidang')
+                                                        <li>
+                                                            <div class="name">{{ $anggota->nama_anggota }}</div>
+                                                        </li>
+                                                    @else
+                                                    @endif~
+                                                @endforeach
+                                            </ol>
+                                        @endif
+
                                     </div>
                                 </div>
                             @endforeach
@@ -318,10 +326,11 @@
                     <div class="card">
                         <div class="card-body mt-4 mt-md-0 mt-lg-0" data-aos="fade-up" data-aos-duration="3000">
                             <h6>Sekilas Anggota</h6>
-                            <p>Buat teman-teman yang rindu untuk mendapatkan layanan kasih (ibadah PPGT) dapat menghubungi
-                                pengurus
-                                Kelompok 1 <a href="https://wa.me/6282195679171">Dave</a> dan Kelompok 2 <a
-                                    href="https://wa.me/6289686772915">Euro Angelo</a></p>
+                            <p>
+                                @foreach ($sekilasAnggota as $item)
+                                    {!! $item->description !!}
+                                @endforeach
+                            </p>
                             <h6 class="mt-lg-5">Pundi Kasih</h6>
                             <p>
                                 Buat teman-teman yang ingin berbagi kasih dapat mengirimkan ke rekening PPGT Jemaat Satria
@@ -442,20 +451,36 @@
     </script>
     <script>
         $(document).ready(function() {
-            // Menambahkan event listener pada elemen dengan class .faq-title
             $('.faq-title').click(function() {
-                // Mengambil atribut data-target yang berisi ID dari elemen yang akan dikompres atau diperluas
                 var target = $(this).attr('data-target');
 
-                // Memeriksa apakah elemen target sedang dalam keadaan terkompres atau diperluas
                 if ($(target).hasClass('show')) {
-                    // Jika sedang dalam keadaan terkompres, maka diperluas
                     $(target).collapse('hide');
                 } else {
-                    // Jika sedang dalam keadaan diperluas, maka dikompres
                     $(target).collapse('show');
                 }
             });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var readMoreBtn = document.querySelector('.read-more-btn');
+            var readLessBtn = document.querySelector('.read-less-btn');
+            var shortText = document.querySelector('.short-text');
+            var moreText = document.querySelector('.more-text');
+
+            readMoreBtn.addEventListener('click', function() {
+                toggleTextVisibility(true);
+            });
+
+            readLessBtn.addEventListener('click', function() {
+                toggleTextVisibility(false);
+            });
+
+            function toggleTextVisibility(showMore) {
+                shortText.style.display = showMore ? 'none' : 'block';
+                moreText.style.display = showMore ? 'block' : 'none';
+            }
         });
     </script>
 @endpush

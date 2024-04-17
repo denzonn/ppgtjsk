@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\NotulensiRapat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class NotulensiRapatController extends Controller
 {
@@ -93,8 +94,13 @@ class NotulensiRapatController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
+        $notulen = NotulensiRapat::findOrFail($id);
 
         if ($request->hasFile('file')) {
+            if($notulen->file){
+                Storage::disk('public')->delete($notulen->file);
+            }
+
             $images = $request->file('file');
 
             $extension = $images->getClientOriginalExtension();
@@ -105,8 +111,6 @@ class NotulensiRapatController extends Controller
         } else {
             unset($data['file']);
         }
-
-        $notulen = NotulensiRapat::findOrFail($id);
 
         $notulen->update($data);
 
@@ -122,6 +126,7 @@ class NotulensiRapatController extends Controller
     public function destroy($id)
     {
         $notulen = NotulensiRapat::findOrFail($id);
+        Storage::disk('public')->delete($notulen->file);
 
         $notulen->delete();
 

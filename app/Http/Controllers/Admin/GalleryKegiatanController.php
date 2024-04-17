@@ -52,9 +52,8 @@ class GalleryKegiatanController extends Controller
 
         $this->validate($request, [
             'photo' => 'required',
-            'photo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:3072'
+            'photo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5012'
         ]);
-        dd($data);
 
         if ($request->hasFile('photo')) {
             $images = $request->file('photo');

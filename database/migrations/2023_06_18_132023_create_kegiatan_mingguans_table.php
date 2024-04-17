@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('kegiatan_id')->constrained('kegiatans')->onDelete('cascade')->onUpdate('cascade');
             $table->time('waktu');
             $table->string('tempat');
-            $table->string('maps');
+            $table->string('maps')->nullable();
             $table->timestamps();
         });
     }

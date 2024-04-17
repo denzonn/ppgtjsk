@@ -10527,7 +10527,7 @@ link {
   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
     url(../images/pengurus.jpg);
   background-attachment: fixed;
-  background-position: top;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   color: #fff;
@@ -12885,3 +12885,11 @@ button:focus {
     width: 70vw !important;
     height: auto !important;
   }
+
+  .more-text {
+    display: none;
+}
+
+.more-text.show {
+    display: block;
+}

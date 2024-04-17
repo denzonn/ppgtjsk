@@ -7,6 +7,7 @@ use App\Models\AnggotaBidang;
 use App\Models\Bidang;
 use App\Models\JabatanBidang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PengurusController extends Controller
 {
@@ -119,6 +120,10 @@ class PengurusController extends Controller
         $pengurus = AnggotaBidang::findOrFail($id);
 
         if ($request->hasFile('foto')) {
+            if($pengurus->foto){
+                Storage::disk('public')->delete($pengurus->foto);
+            }
+
             $images = $request->file('foto');
 
             $extension = $images->getClientOriginalExtension();
@@ -144,6 +149,7 @@ class PengurusController extends Controller
     public function destroy($id)
     {
         $pengurus = AnggotaBidang::findOrFail($id);
+        Storage::disk('public')->delete($pengurus->foto);
 
         $pengurus->delete();
 

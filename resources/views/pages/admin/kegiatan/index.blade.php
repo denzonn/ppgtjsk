@@ -23,32 +23,39 @@
                                 <th style="width: 10%">Foto</th>
                                 <th style="width: 20%">Nama</th>
                                 <th style="width: 10%">Program Kerja</th>
-                                <th style="width: 30%">Deskripsi</th>
+                                <th style="width: 25%">Deskripsi</th>
+                                <th style="width: 5%">
+                                    <button type="button" id="checkedActivity" class="btn bg-primary text-white">Checked</button>
+                                </th>
                                 <th class="text-center" style="width: 20%">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($kegiatan as $item)
-                                <td>{{ $loop->iteration }}</td>
-                                <td>
-                                    <img src="{{ Storage::url($item->photo) }}" alt="foto" class="img-fluid"
-                                        style="width: 100px; height: 100px; object-fit: cover; object-position: center;">
-                                </td>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->program->name }}</td>
-                                <td>{!! $item->description !!}</td>
-                                <td class="text-center">
-                                    <a href="{{ route('kegiatan.edit', $item->id) }}" class="btn btn-warning btn-sm"><i
-                                            class="fas fa-edit"></i></a>
-                                    <form action="{{ route('kegiatan.destroy', $item->id) }}" method="POST"
-                                        class="d-inline">
-                                        @csrf
-                                        @method('delete')
-                                        <button class="btn btn-danger btn-sm"
-                                            onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"><i
-                                                class="fas fa-trash"></i></button>
-                                    </form>
-                                </td>
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>
+                                        <img src="{{ Storage::url($item->photo) }}" alt="foto" class="img-fluid"
+                                            style="width: 100px; height: 100px; object-fit: cover; object-position: center;">
+                                    </td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->program->name }}</td>
+                                    <td>{!! $item->description !!}</td>
+                                    <td>
+                                        <input type="checkbox" name="selectedIds[]" value="{{ $item->id }}" class="checkbox" {{ $item->checked ? 'checked' : '' }}>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('kegiatan.edit', $item->id) }}" class="btn btn-warning btn-sm"><i
+                                                class="fas fa-edit"></i></a>
+                                        <form action="{{ route('kegiatan.destroy', $item->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('delete')
+                                            <button class="btn btn-danger btn-sm"
+                                                onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"><i
+                                                    class="fas fa-trash"></i></button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -57,4 +64,33 @@
             </div>
         </div>
     </div>
+    <form action="{{ route('checked-activity') }}" method="POST" id="deleteForm" class="hidden">
+        @csrf
+        @method('DELETE')
+        <input type="hidden" name="selectedIdsToDelete">
+    </form>
 @endsection
+
+@push('addon-script')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#checkedActivity').on('click', function () {
+                var selectedIds = [];
+                $('input.checkbox:checked').each(function () {
+                    selectedIds.push($(this).val());
+                });
+
+                if (selectedIds.length === 0) {
+                    alert('Tidak ada kegiatan yang dipilih.');
+                } else if (selectedIds.length > 6) {
+                    alert('Maksimal hanya boleh memilih 6 kegiatan.');
+                } else {
+                    $('#deleteForm input[name="selectedIdsToDelete"]').val(selectedIds.join(','));
+                    $('#deleteForm').submit();
+                }
+            });
+        });
+    </script>
+
+@endpush

@@ -48,6 +48,16 @@
                         <div data-i18n="Without menu">FAQ</div>
                     </a>
                 </li>
+                <li class="menu-item">
+                    <a href="{{ route('sekilas-anggota.index') }}" class="menu-link">
+                        <div data-i18n="Without menu">Sekilas Anggota</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="{{ route('link-terkait.index') }}" class="menu-link">
+                        <div data-i18n="Without menu">Link Terkait</div>
+                    </a>
+                </li>
             </ul>
         </li>
 

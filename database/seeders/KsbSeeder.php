@@ -29,7 +29,7 @@ class KsbSeeder extends Seeder
                 [
                     'foto' => 'foto-ksb.jpg',
                     'nama' => 'Denson',
-                    'jabatan' => 'Ketua',
+                    'jabatan' => 'Sekretaris',
                     'motto' => 'Hidup itu indah',
                     'instagram' => 'https://www.instagram.com/denson/',
                     'facebook' => 'https://www.facebook.com/denson/',
@@ -38,7 +38,7 @@ class KsbSeeder extends Seeder
                 [
                     'foto' => 'foto-ksb.jpg',
                     'nama' => 'Denson',
-                    'jabatan' => 'Ketua',
+                    'jabatan' => 'Wakil Sekretaris',
                     'motto' => 'Hidup itu indah',
                     'instagram' => 'https://www.instagram.com/denson/',
                     'facebook' => 'https://www.facebook.com/denson/',
@@ -47,7 +47,7 @@ class KsbSeeder extends Seeder
                 [
                     'foto' => 'foto-ksb.jpg',
                     'nama' => 'Denson',
-                    'jabatan' => 'Ketua',
+                    'jabatan' => 'Bendahara',
                     'motto' => 'Hidup itu indah',
                     'instagram' => 'https://www.instagram.com/denson/',
                     'facebook' => 'https://www.facebook.com/denson/',

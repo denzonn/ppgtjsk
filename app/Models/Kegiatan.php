@@ -19,6 +19,7 @@ class Kegiatan extends Model
         'description',
         'photo',
         'link_drive',
+        'checked'
     ];
 
     public function program()

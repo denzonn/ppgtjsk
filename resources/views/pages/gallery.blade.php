@@ -55,14 +55,9 @@
                                             </a>
                                         </div>
                                     </div>
-                                    @if ($index === count($gallery[$kegiatanItem->id]) - 1)
-                                        @php
-                                            $lastIncrementProduct = $incrementProduct;
-                                        @endphp
-                                    @endif
                                 @endforeach
                                 <div class="col-12 col-md-4 col-lg-3 mt-2" data-aos="fade-up"
-                                    data-aos-delay="{{ $lastIncrementProduct += 100 }}">
+                                    >
                                     <div class="card">
                                         <a href="{{ Storage::url($kegiatanItem->photo) }}" data-lightbox="roadtrip"
                                             class="card-image">

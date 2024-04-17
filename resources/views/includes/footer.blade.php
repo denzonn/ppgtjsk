@@ -46,19 +46,24 @@
                 <div class="social-media">
                     <h2>Media Sosial</h2>
                     <p>
-                        <a href="https://www.instagram.com/namaakun/"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="https://www.instagram.com/namaakun/"><i class="fa-brands fa-youtube"></i></a>
-                        <a href="https://www.instagram.com/namaakun/"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/ppgtsatriakasih?igsh=MWh0Y2lxdmp6YjB5eA==" target="_blank"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/@ppgtsatriakasih1038" target="_blank"><i
+                                class="fa-brands fa-youtube"></i></a>
                     </p>
                 </div>
+                @php
+                    $linkTerkait = App\Models\LinkTerkait::all();
+                @endphp
                 <div class="link-terkait">
                     <h2>Link Terkait</h2>
                     <p>
-                        <a href="https://www.instagram.com/namaakun/">PPGT Jemaat Satria Kasih</a>
-                        <br>
-                        <a href="https://www.instagram.com/namaakun/">PPGT Jemaat Satria Kasih</a>
-                        <br>
-                        <a href="https://www.instagram.com/namaakun/">PPGT Jemaat Satria Kasih</a>
+                        @forelse ($linkTerkait as $item)
+                            <a href="{{ $item->link }}">{{ $item->label }}</a>
+                            <br>
+                        @empty
+                            No Data
+                        @endforelse
                     </p>
                 </div>
             </div>

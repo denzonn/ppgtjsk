@@ -4,6 +4,14 @@
     Keanggotaan - PPGT Jemaat Satria Kasih
 @endsection
 
+@push('addon-style')
+    <link href="{{ asset('datatable/DataTables-1.13.4/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('datatable/Buttons-2.3.6/css/buttons.bootstrap5.min.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('datatable/DataTables-1.13.4/css/jquery.dataTables.css') }}">
+    <link rel="stylesheet" href="{{ asset('datatable/DataTables-1.13.4/css/dataTables.jqueryui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('datatable/Buttons-2.3.6/css/buttons.dataTables.min.css') }}">
+@endpush
+
 @section('content')
     <!-- History -->
     <section class="keanggotaan">
@@ -13,7 +21,6 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    {{-- Datatable --}}
                     <div class="table-responsive" data-aos="fade-up" data-aos-duration="2000">
                         <table class="table table-striped" id="datatable">
                             <thead>
@@ -45,3 +52,20 @@
     </section>
     <!-- History -->
 @endsection
+
+@push('addon-script')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="{{ asset('datatable/DataTables-1.13.4/js/jquery.dataTables.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#datatable').DataTable({
+                searching: true,
+                searchDelay: 500,
+                search: {
+                    smart: true
+                },
+            });
+        });
+    </script>
+@endpush

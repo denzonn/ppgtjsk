@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\DataAnggotaController;
 use App\Http\Controllers\Admin\FotoKsbController;
 use App\Http\Controllers\Admin\GalleryKegiatanController;
 use App\Http\Controllers\Admin\JabatanController;
-use App\Http\Controllers\Admin\KegiatanController;
+use App\Http\Controllers\Admin\KegiatanController as KegiatanControllerAdmin;
 use App\Http\Controllers\Admin\PengurusController;
 use App\Http\Controllers\Admin\ProgramKerjaController;
 use App\Http\Controllers\Admin\RenunganHarianController;
@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\IuranController;
 use App\Http\Controllers\Admin\JenisInventarisController;
 use App\Http\Controllers\Admin\KegiatanMingguanController;
 use App\Http\Controllers\Admin\KeuanganController;
+use App\Http\Controllers\Admin\LinkTerkaitController;
 use App\Http\Controllers\Admin\NotulensiRapat;
 use App\Http\Controllers\Admin\NotulensiRapatController;
 use App\Http\Controllers\Admin\PemasukkanController;
@@ -33,6 +34,7 @@ use App\Http\Controllers\KegiatanController as ControllersKegiatanController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\SaranController as SaranCon;
+use App\Http\Controllers\SekilasAnggotaController;
 use App\Http\Controllers\UnitUsahaController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -80,11 +82,13 @@ Route::prefix('admin')
             ->name('dashboard');
         Route::resource('renungan-harian', RenunganHarianController::class);
         Route::resource('foto-ksb', FotoKsbController::class);
+        Route::resource('sekilas-anggota', SekilasAnggotaController::class);
         Route::resource('pengurus', PengurusController::class);
         Route::resource('jabatan', JabatanController::class);
         Route::resource('bidang', BidangController::class);
+        Route::resource('link-terkait', LinkTerkaitController::class);
         Route::resource('data-anggota', DataAnggotaController::class);
-        Route::resource('kegiatan', KegiatanController::class);
+        Route::resource('kegiatan', KegiatanControllerAdmin::class);
         Route::resource('program-kerja', ProgramKerjaController::class);
         Route::resource('gallery-kegiatan', GalleryKegiatanController::class);
         Route::resource('document', DokumentController::class);
@@ -100,12 +104,14 @@ Route::prefix('admin')
         Route::resource('iuran', IuranController::class);
         Route::resource('profil-ppgt', AdminProfilController::class);
         Route::get('keuangan', [KeuanganController::class, 'index'])
-            ->name('keuangan');
+        ->name('keuangan');
         Route::get('data-anggota-print', [DataAnggotaController::class, 'print'])
-            ->name('data-anggota.print');
+        ->name('data-anggota.print');
         Route::get('inventaris-print', [InventarisController::class, 'print'])
-            ->name('inventaris.print');
+        ->name('inventaris.print');
         Route::post('upload', [AdminProfilController::class, 'uploadImage'])->name('ckeditor.upload');
+
     });
 
+Route::delete('kegiatan/checked', [KegiatanControllerAdmin::class, 'checkedActivity'])->name('checked-activity');
 Auth::routes();

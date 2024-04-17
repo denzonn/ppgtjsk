@@ -22,6 +22,36 @@ class BidangSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now()
             ],
+            [
+                'nama_bidang' => 'Spiritualitas & Pengakaran Iman',
+                'foto_bidang' => 'foto.jpg',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'nama_bidang' => 'Organisasi',
+                'foto_bidang' => 'foto.jpg',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'nama_bidang' => 'Sumber Daya Manusia (SDM)',
+                'foto_bidang' => 'foto.jpg',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'nama_bidang' => 'Pelayanan Sosial & Kemasyarakatan',
+                'foto_bidang' => 'foto.jpg',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'nama_bidang' => 'Kelompok-Kelompok',
+                'foto_bidang' => 'foto.jpg',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
         ]);
     }
 }

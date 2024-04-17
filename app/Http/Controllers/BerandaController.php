@@ -10,6 +10,7 @@ use App\Models\GalleryKegiatan;
 use App\Models\Kegiatan;
 use App\Models\KegiatanMingguan;
 use App\Models\RenunganHarian;
+use App\Models\SekilasAnggota;
 use Illuminate\Http\Request;
 
 class BerandaController extends Controller
@@ -17,7 +18,7 @@ class BerandaController extends Controller
     public function index()
     {
         $renungan = RenunganHarian::all();
-        $kegiatan = Kegiatan::take(6)->get();
+        $kegiatan = Kegiatan::where('checked', true)->get();
         $gallery = GalleryKegiatan::take(5)->latest()->get();
         $ksb = FotoKsb::all();
 
@@ -37,8 +38,9 @@ class BerandaController extends Controller
 
         $faq = faq::all();
 
-        $kegiatanMingguan = KegiatanMingguan::all();
+        $kegiatanMingguan = KegiatanMingguan::orderBy('tanggal', 'asc')->get();
 
+        $sekilasAnggota = SekilasAnggota::all();
 
         return view('pages.home', [
             'renungan' => $renungan,
@@ -50,7 +52,8 @@ class BerandaController extends Controller
             'manajement' => $manajement,
             'manajementPengurus' => $manajementPengurus,
             'faq' => $faq,
-            'kegiatanMingguan' => $kegiatanMingguan
+            'kegiatanMingguan' => $kegiatanMingguan,
+            'sekilasAnggota' => $sekilasAnggota
         ]);
     }
 }

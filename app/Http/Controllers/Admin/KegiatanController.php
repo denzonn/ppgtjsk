@@ -64,6 +64,7 @@ class KegiatanController extends Controller
             $data['photo'] = $images->storeAs('photo', $file_name, 'public');
         }
         $data['bidang_id'] = ProgramKerja::findOrFail($request->program_id)->bidang_id;
+        $data['checked'] = false;
 
         Kegiatan::create($data);
 
@@ -147,4 +148,25 @@ class KegiatanController extends Controller
 
         return redirect()->route('kegiatan.index');
     }
+
+    public function checkedActivity(Request $request)
+    {
+        $selectedIdsString = $request->input('selectedIdsToDelete'); 
+        $selectedIdsArray = explode(',', $selectedIdsString);
+
+        $uncheckedKegiatan = Kegiatan::whereNotIn('id', $selectedIdsArray)->get();
+        foreach ($uncheckedKegiatan as $kegiatan) {
+            $kegiatan->checked = false;
+            $kegiatan->save();
+        }
+
+        $checkedKegiatan = Kegiatan::whereIn('id', $selectedIdsArray)->get();
+        foreach ($checkedKegiatan as $kegiatan) {
+            $kegiatan->checked = true;
+            $kegiatan->save();
+        }
+
+        return redirect()->back()->with('success', 'Status kegiatan berhasil diperbarui.');
+    }
+
 }

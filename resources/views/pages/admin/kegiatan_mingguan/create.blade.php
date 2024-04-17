@@ -27,19 +27,19 @@
                     @csrf
 
                     <label for="tanggal" class="mb-2">Tanggal <span class="star">*</label>
-                    <input type="date" name="tanggal" id="tanggal" class="form-control mb-4">
+                    <input type="date" name="tanggal" id="tanggal" class="form-control mb-4" required>
 
                     <label for="kegiatan_id" class="mb-2">Kegiatan <span class="star">*</label>
-                    <select name="kegiatan_id" id="" class="form-select mb-4">
+                    <select name="kegiatan_id" id="" class="form-select mb-4" required>
                         @foreach ($kegiatan as $item)
                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach
                     </select>
 
                     <label for="waktu" class="mb-2">Waktu <span class="star">*</label>
-                    <input type="time" name="waktu" id="waktu" class="form-control mb-4">
+                    <input type="time" name="waktu" id="waktu" class="form-control mb-4" required>
 
-                    <label for="maps" class="mb-2">Link Maps <span class="star">*</label>
+                    <label for="maps" class="mb-2">Link Maps</label>
                     <input type="text" name="maps" id="maps" class="form-control mb-4">
 
                     <label for="tempat" class="mb-2">Tempat <span class="star">*</label>

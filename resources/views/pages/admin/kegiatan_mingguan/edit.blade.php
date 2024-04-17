@@ -29,10 +29,10 @@
                     @method('put')
                     <label for="tanggal" class="mb-2">Tanggal <span class="star">*</label>
                     <input type="date" name="tanggal" id="tanggal" class="form-control mb-4"
-                        value="{{ $kegiatanMingguan->tanggal }}">
+                        value="{{ $kegiatanMingguan->tanggal }}" required>
 
                     <label for="kegiatan_id" class="mb-2">Kegiatan <span class="star">*</label>
-                    <select name="kegiatan_id" id="" class="form-select mb-4">
+                    <select name="kegiatan_id" id="" class="form-select mb-4" required>
                         <option value="{{ $kegiatanMingguan->kegiatan_id }}">{{ $kegiatanMingguan->kegiatan->name }}
                         </option>
                         @foreach ($kegiatan as $item)
@@ -42,13 +42,14 @@
 
                     <label for="waktu" class="mb-2">Waktu <span class="star">*</label>
                     <input type="time" name="waktu" id="waktu" class="form-control mb-4"
-                        value="{{ $kegiatanMingguan->waktu }}">
+                        value="{{ $kegiatanMingguan->waktu }}" required>
 
-                        <label for="maps" class="mb-2">Link Maps <span class="star">*</label>
-                            <input type="text" name="maps" id="maps" class="form-control mb-4"  value="{{ $kegiatanMingguan->maps }}">
+                    <label for="maps" class="mb-2">Link Maps <span class="star">*</label>
+                    <input type="text" name="maps" id="maps" class="form-control mb-4"
+                        value="{{ $kegiatanMingguan->maps }}">
 
                     <label for="tempat" class="mb-2">Tempat <span class="star">*</label>
-                    <textarea name="tempat" id="tempat" cols="30" rows="10">{!! $kegiatanMingguan->tempat !!}</textarea>
+                    <textarea name="tempat" id="tempat" cols="30" rows="10" required>{!! $kegiatanMingguan->tempat !!}</textarea>
 
                     <button type="submit" class="btn btn-primary btn-block w-100 mt-4">Simpan</button>
                 </form>

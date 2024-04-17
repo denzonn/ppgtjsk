@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Profil;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProfilController extends Controller
 {
@@ -93,8 +94,13 @@ class ProfilController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
+        $profil = Profil::findOrFail($id);
 
         if ($request->hasFile('photo')) {
+            if($profil->photo){
+                Storage::disk('public')->delete($profil->photo);
+            }
+
             $images = $request->file('photo');
 
             $extension = $images->getClientOriginalExtension();
@@ -105,8 +111,6 @@ class ProfilController extends Controller
         }else {
             unset($data['photo']);
         }
-
-        $profil = Profil::findOrFail($id);
 
         $profil->update($data);
 

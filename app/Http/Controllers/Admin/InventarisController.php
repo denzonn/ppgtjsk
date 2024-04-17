@@ -49,7 +49,7 @@ class InventarisController extends Controller
         $data = $request->all();
 
         $this->validate($request, [
-            'photo' => 'required|image|max:3072',
+            'photo' => 'required|image|max:5012',
         ]);
 
         if ($request->hasFile('photo')) {

@@ -82,6 +82,10 @@ class FotoKsbController extends Controller
         $data = $request->all();
         $ksb = FotoKsb::findOrFail($id);
 
+        $this->validate($request, [
+            'foto' => 'max:5120'
+        ]);
+
         if ($request->hasFile('foto')) {
             if($ksb->foto){
                 Storage::disk('public')->delete($ksb->foto);
