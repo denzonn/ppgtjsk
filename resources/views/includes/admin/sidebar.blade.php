@@ -58,6 +58,11 @@
                         <div data-i18n="Without menu">Link Terkait</div>
                     </a>
                 </li>
+                <li class="menu-item">
+                    <a href="{{ route('pundi-kasih.index') }}" class="menu-link">
+                        <div data-i18n="Without menu">Pundi Kasih</div>
+                    </a>
+                </li>
             </ul>
         </li>
 

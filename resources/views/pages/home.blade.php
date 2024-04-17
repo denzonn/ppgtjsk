@@ -215,7 +215,9 @@
                                 <figure class="gallery-item{{ $key === 0 ? ' large' : '' }}">
                                     <img src="{{ Storage::url($item->foto) }}" alt="" class="item-image" />
                                     <figcaption class="item-description">
-                                        <h2 class="name">{{ $item->nama }}</h2>
+                                        <a href="{{ $item->instagram }}" target="_blank" class="text-white">
+                                            <h2 class="name">{{ $item->nama }}</h2>
+                                        </a>
                                         <br>
                                         <div class="role">{{ $item->jabatan }}</div>
                                         <br>
@@ -273,7 +275,10 @@
                                         @if ($item->nama_bidang === 'Kelompok-Kelompok')
                                             @foreach ($pengurus[$loop->index] as $anggota)
                                                 <div class="name">{{ $anggota->jabatan->nama_jabatan }} :
-                                                    {{ $anggota->nama_anggota }}</div>
+                                                    <div>
+                                                        {{ $anggota->nama_anggota }}
+                                                    </div>
+                                                </div>
                                             @endforeach
                                         @else
                                             <div class="name">Anggota:</div>
@@ -284,7 +289,7 @@
                                                             <div class="name">{{ $anggota->nama_anggota }}</div>
                                                         </li>
                                                     @else
-                                                    @endif~
+                                                    @endif
                                                 @endforeach
                                             </ol>
                                         @endif
@@ -325,21 +330,41 @@
                 <div class="col-12 col-md-6 col-lg-6">
                     <div class="card">
                         <div class="card-body mt-4 mt-md-0 mt-lg-0" data-aos="fade-up" data-aos-duration="3000">
-                            <h6>Sekilas Anggota</h6>
+                            <h6>Sekilas Info</h6>
                             <p>
                                 @foreach ($sekilasAnggota as $item)
                                     {!! $item->description !!}
                                 @endforeach
                             </p>
                             <h6 class="mt-lg-5">Pundi Kasih</h6>
-                            <p>
-                                Buat teman-teman yang ingin berbagi kasih dapat mengirimkan ke rekening PPGT Jemaat Satria
-                                Kasih
-                                <br>
-                                <img src="{{ asset('images/bca.png') }}" alt=""> 548-513132-6
-                                <br>
-                                a/n Irene Aprianti Baan
-                            </p>
+                            <div style="color: #696969 !important; font-size: 15px">
+                                <div>Buat teman-teman yang ingin berbagi kasih dapat mengirimkan ke rekening PPGT Jemaat
+                                    Satria
+                                    Kasih</div>
+                                <div class="row mt-0">
+                                    @foreach ($pundiKasih as $item)
+                                        @if ($item->no_rek !== '-' && $item->no_rek !== null)
+                                            <div class="col-12 col-lg-6">
+                                                <br>
+                                                @if ($item->bank->name === 'Mandiri')
+                                                    <img src="{{ asset('images/mandiri.png') }}" alt="">
+                                                @elseif($item->bank->name === 'BNI')
+                                                    <img src="{{ asset('images/bni.png') }}" alt="">
+                                                @elseif($item->bank->name === 'BRI')
+                                                    <img src="{{ asset('images/bri.png') }}" alt="">
+                                                @else
+                                                    <img src="{{ asset('images/bca.png') }}" alt="">
+                                                @endif <span
+                                                    style="color: #69696 !important">{{ $item->no_rek }}</span>
+                                                <br>
+                                                <span style="color: #69696 !important">a/n {{ $item->atas_nama }}</span>
+                                            </div>
+                                        @else
+
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

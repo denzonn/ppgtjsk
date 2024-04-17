@@ -30,7 +30,9 @@ class DatabaseSeeder extends Seeder
             BidangSeeder::class,
             AdminSeeder::class,
             SekilasAnggotaSeeder::class,
-            JabatanBidangSeeder::class
+            JabatanBidangSeeder::class,
+            BankSeeder::class,
+            PundiKasihSeeder::class,
         ]);
     }
 }

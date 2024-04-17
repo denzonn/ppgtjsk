@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\PemasukkanController;
 use App\Http\Controllers\Admin\PengeluaranController;
 use App\Http\Controllers\Admin\PiutangController;
 use App\Http\Controllers\Admin\ProfilController as AdminProfilController;
+use App\Http\Controllers\Admin\PundiKasihController;
 use App\Http\Controllers\Admin\SaranController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\DocumentController;
@@ -92,6 +93,7 @@ Route::prefix('admin')
         Route::resource('program-kerja', ProgramKerjaController::class);
         Route::resource('gallery-kegiatan', GalleryKegiatanController::class);
         Route::resource('document', DokumentController::class);
+        Route::resource('pundi-kasih', PundiKasihController::class);
         Route::resource('notulensi-rapat', NotulensiRapatController::class);
         Route::resource('jenis-inventaris', JenisInventarisController::class);
         Route::resource('inventaris', InventarisController::class);

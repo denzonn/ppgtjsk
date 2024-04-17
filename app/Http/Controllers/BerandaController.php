@@ -9,6 +9,7 @@ use App\Models\FotoKsb;
 use App\Models\GalleryKegiatan;
 use App\Models\Kegiatan;
 use App\Models\KegiatanMingguan;
+use App\Models\PundiKasih;
 use App\Models\RenunganHarian;
 use App\Models\SekilasAnggota;
 use Illuminate\Http\Request;
@@ -42,6 +43,8 @@ class BerandaController extends Controller
 
         $sekilasAnggota = SekilasAnggota::all();
 
+        $pundiKasih = PundiKasih::all();
+
         return view('pages.home', [
             'renungan' => $renungan,
             'kegiatan' => $kegiatan,
@@ -53,7 +56,8 @@ class BerandaController extends Controller
             'manajementPengurus' => $manajementPengurus,
             'faq' => $faq,
             'kegiatanMingguan' => $kegiatanMingguan,
-            'sekilasAnggota' => $sekilasAnggota
+            'sekilasAnggota' => $sekilasAnggota,
+            'pundiKasih' => $pundiKasih
         ]);
     }
 }
