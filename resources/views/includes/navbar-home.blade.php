@@ -16,14 +16,15 @@
                         href="{{ route('home') }}">Home</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link {{ request()->is('artikel*') ? 'active' : '' }}"
+                        href="{{ route('artikel') }}">Artikel</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {{ request()->is('form-anggota*') ? 'active' : '' }}"
                         href="{{ route('form-anggota') }}">Keanggotaan</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " href="{{ route('iuran') }}">Iuran</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('unit-usaha') }}">Unit Usaha</a>
                 </li>
                 <li class="nav-item">
                     <a class="dropdown-button {{ request()->is('kegiatan', 'gallery', 'profil*', 'dokument*') ? 'active' : '' }}"
@@ -56,12 +57,11 @@
                         </div>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('unit-usaha') }}">Unit Usaha</a>
+                </li>
                 {{-- Jika sdh auth maka tidak usah tampilkan --}}
                 @guest
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->is('login') ? 'active' : '' }}"
-                            href="{{ route('login') }}">Login</a>
-                    </li>
                 @endguest
                 @auth
                     <li class="nav-item">

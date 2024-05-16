@@ -26,8 +26,25 @@
                         data-aos-duration="1500">Deskripsi
                         Kegiatan : </div>
                     <p data-aos="fade-up" data-aos-duration="2000">
-                        {!! $kegiatan->description !!} <a class="activityLink" target="_blank" style="font-size: smaller;" href={{ $kegiatan->link_drive }}>(Cek Keseluruhan
-                            Foto)</a>
+                        {!! $kegiatan->description !!}
+                        @if (!is_null($linkDrive))
+                            (
+                            @forelse ($linkDrive as $index => $item)
+                                <a class="activityLink" target="_blank" style="font-size: smaller;"
+                                    href="{{ $item }}">
+                                    Drive {{ $index + 1 }}
+                                    @if (!$loop->last)
+                                        -
+                                    @endif
+                                </a>
+                            @empty
+                                Tidak ada link Drive.
+                            @endforelse
+                            )
+                        @else
+                            (Tidak ada link Drive.)
+                        @endif
+
                     </p>
                 </div>
             </div>
@@ -54,6 +71,7 @@
             </div>
         </div>
     </section>
+
     <!-- Detail Kegiatan -->
 @endsection
 

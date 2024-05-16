@@ -14,6 +14,7 @@
                 <h4>Data Anggota</h4>
                 <a href="{{ route('data-anggota.create') }}" class="btn btn-primary">Tambah Anggota</a>
                 <a href="{{ route('data-anggota.print') }}" class="btn btn-secondary">Print</a>
+                <a href="{{ route('data-anggota.approval') }}" class="btn btn-danger">Approval</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

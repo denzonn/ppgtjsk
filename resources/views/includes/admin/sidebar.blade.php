@@ -99,18 +99,17 @@
                 </li>
             </ul>
         </li>
-        <li class="menu-item {{ request()->is('admin/data-anggota*') ? 'active' : '' }}">
-            <a href="#" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-user"></i>
-                <div data-i18n="Account Settings">Keanggotaan</div>
+        <li class="menu-item {{ request()->is('admin/artikel*') ? 'active' : '' }}">
+            <a href="{{ route('artikel.index') }}" class="menu-link">
+                <i class="menu-icon fa-solid fa-newspaper"></i>
+                <div data-i18n="Analytics">Artikel</div>
             </a>
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="{{ route('data-anggota.index') }}" class="menu-link">
-                        <div data-i18n="Account">Data Anggota</div>
-                    </a>
-                </li>
-            </ul>
+        </li>
+        <li class="menu-item {{ request()->is('admin/data-anggota*') ? 'active' : '' }}">
+            <a href="{{ route('data-anggota.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-user"></i>
+                <div data-i18n="Analytics">Keanggotaan</div>
+            </a>
         </li>
         <li class="menu-item {{ request()->is('admin/profil*', 'admin/document*') ? 'active' : '' }}">
             <a href="#" class="menu-link menu-toggle">

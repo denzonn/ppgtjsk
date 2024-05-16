@@ -17,6 +17,7 @@
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <link href="{{ asset('datatable/DataTables-1.13.4/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
 <link href="{{ asset('datatable/Buttons-2.3.6/css/buttons.bootstrap5.min.css') }}" rel="stylesheet" />

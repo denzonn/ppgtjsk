@@ -50,9 +50,15 @@
                 <div class="description renDesc">
                     <h4 class="sub">{{ $renungan[0]->judul }} ({{ $renungan[0]->ayat }})</h4>
                     <div class="short-text">
-                        <p>{!! Illuminate\Support\Str::limit($renungan[0]->isi, 1030) !!} <button class="read-more-btn btn px-3 py-0 "
-                                style="font-style: italic; text-decoration: underline; font-size: 12px; color: #b6b6b6">Read
-                                more</button></p>
+                        <p>{!! Illuminate\Support\Str::limit($renungan[0]->isi, 1030) !!}
+                            @if (strlen($renungan[0]->isi) < 1030)
+                            @else
+                                <button class="read-more-btn btn px-3 py-0 "
+                                    style="font-style: italic; text-decoration: underline; font-size: 12px; color: #b6b6b6">
+                                    Read more
+                                </button>
+                            @endif
+                        </p>
                     </div>
                     @if (strlen($renungan[0]->isi) > 1030)
                         <div class="more-text" style="display:none;">
@@ -360,7 +366,6 @@
                                                 <span style="color: #69696 !important">a/n {{ $item->atas_nama }}</span>
                                             </div>
                                         @else
-
                                         @endif
                                     @endforeach
                                 </div>

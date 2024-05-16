@@ -33,7 +33,7 @@ class KegiatanController extends Controller
     {
         $program = ProgramKerja::all();
 
-        return  view('pages.admin.kegiatan.create', [
+    return  view('pages.admin.kegiatan.create', [
             'program' => $program
         ]);
     }
@@ -66,7 +66,19 @@ class KegiatanController extends Controller
         $data['bidang_id'] = ProgramKerja::findOrFail($request->program_id)->bidang_id;
         $data['checked'] = false;
 
-        Kegiatan::create($data);
+        if (!is_null($data['link_drive'][0])) {
+            $linkDrive = json_encode($data['link_drive']);
+        } else {
+            $linkDrive = null;
+        }
+
+        // Hapus data link_drive dari array $data
+        unset($data['link_drive']);
+
+        Kegiatan::create([
+            'link_drive' => $linkDrive,
+            ...$data
+        ]);
 
         return redirect()->route('kegiatan.index');
     }
@@ -92,10 +104,12 @@ class KegiatanController extends Controller
     {
         $kegiatan = Kegiatan::findOrFail($id);
         $program = ProgramKerja::all()->except($kegiatan->program_id);
+        $linkDrive = json_decode($kegiatan->link_drive);
 
         return view('pages.admin.kegiatan.edit', [
             'kegiatan' => $kegiatan,
-            'program' => $program
+            'program' => $program,
+            'linkDrive' => $linkDrive
         ]);
     }
 
@@ -117,7 +131,7 @@ class KegiatanController extends Controller
             if($kegiatan->photo){
                 Storage::disk('public')->delete($kegiatan->photo);
             }
-            
+
             $images = $request->file('photo');
 
             $extension = $images->getClientOriginalExtension();
@@ -128,10 +142,19 @@ class KegiatanController extends Controller
         } else {
             unset($data['photo']);
         }
+
         $data['bidang_id'] = ProgramKerja::findOrFail($request->program_id)->bidang_id;
 
+        if (!is_null($data['link_drive'][0])) {
+            $linkDrive = json_encode($data['link_drive']);
+        } else {
+            $linkDrive = null;
+        }
 
-        $kegiatan->update($data);
+        // Hapus data link_drive dari array $data
+        unset($data['link_drive']);
+
+        $kegiatan->update(array_merge($data, ['link_drive' => $linkDrive]));
 
         return redirect()->route('kegiatan.index');
     }
@@ -151,7 +174,7 @@ class KegiatanController extends Controller
 
     public function checkedActivity(Request $request)
     {
-        $selectedIdsString = $request->input('selectedIdsToDelete'); 
+        $selectedIdsString = $request->input('selectedIdsToDelete');
         $selectedIdsArray = explode(',', $selectedIdsString);
 
         $uncheckedKegiatan = Kegiatan::whereNotIn('id', $selectedIdsArray)->get();

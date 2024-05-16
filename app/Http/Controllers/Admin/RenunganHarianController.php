@@ -63,6 +63,7 @@ class RenunganHarianController extends Controller
     {
         $renungan = RenunganHarian::findOrFail($id);
 
+
         return view('pages.admin.renungan.edit', [
             'renungan' => $renungan,
         ]);

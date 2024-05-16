@@ -32,6 +32,7 @@ class DataAnggota extends Model
         'nama_ibu',
         'keterangan_tinggal',
         'wilayah',
+        'status_active',
         'keterangan_anggota',
     ];
 }

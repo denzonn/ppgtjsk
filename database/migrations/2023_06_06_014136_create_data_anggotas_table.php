@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('nama_ibu');
             $table->string('keterangan_tinggal');
             $table->string('wilayah');
+            $table->boolean('status_active')->default(0);
             $table->string('keterangan_anggota')->nullable();
             $table->timestamps();
         });

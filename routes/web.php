@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ArtikelController;
 use App\Http\Controllers\Admin\BidangController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DataAnggotaController;
@@ -28,6 +29,7 @@ use App\Http\Controllers\Admin\PundiKasihController;
 use App\Http\Controllers\Admin\SaranController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\ArtikelController as ArtikelUserController;
 use App\Http\Controllers\formDataAnggota;
 use App\Http\Controllers\formDataAnggotaController;
 use App\Http\Controllers\GalleryActivityController;
@@ -53,6 +55,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [BerandaController::class, 'index'])
     ->name('home');
+Route::get('/artikel', [ArtikelUserController::class, 'index'])
+    ->name('artikel');
+Route::get('/artikel/{slug}', [ArtikelUserController::class, 'detail'])
+    ->name('artikel-detail');
 Route::get('/gallery', [GalleryActivityController::class, 'index'])
     ->name('gallery');
 Route::get('/dokument', [DocumentController::class, 'index'])
@@ -87,6 +93,7 @@ Route::prefix('admin')
         Route::resource('pengurus', PengurusController::class);
         Route::resource('jabatan', JabatanController::class);
         Route::resource('bidang', BidangController::class);
+        Route::resource('artikel', ArtikelController::class);
         Route::resource('link-terkait', LinkTerkaitController::class);
         Route::resource('data-anggota', DataAnggotaController::class);
         Route::resource('kegiatan', KegiatanControllerAdmin::class);
@@ -107,12 +114,16 @@ Route::prefix('admin')
         Route::resource('profil-ppgt', AdminProfilController::class);
         Route::get('keuangan', [KeuanganController::class, 'index'])
         ->name('keuangan');
+        Route::get('data-anggota-approval', [DataAnggotaController::class, 'approval'])->name('data-anggota.approval');
+        Route::get('data-anggota-approval-detail/{id}', [DataAnggotaController::class, 'detailApproval'])->name('data-anggota.detail-approval');
+        Route::get('data-anggota-acc/{id}', [DataAnggotaController::class, 'accData'])->name('data-anggota.accData');
         Route::get('data-anggota-print', [DataAnggotaController::class, 'print'])
         ->name('data-anggota.print');
         Route::get('inventaris-print', [InventarisController::class, 'print'])
         ->name('inventaris.print');
         Route::post('upload', [AdminProfilController::class, 'uploadImage'])->name('ckeditor.upload');
 
+        Route::post('upload-artikel', [ArtikelController::class, 'uploadImage'])->name('ckeditor.upload');
     });
 
 Route::delete('kegiatan/checked', [KegiatanControllerAdmin::class, 'checkedActivity'])->name('checked-activity');

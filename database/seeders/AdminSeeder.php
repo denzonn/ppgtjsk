@@ -18,8 +18,8 @@ class AdminSeeder extends Seeder
         DB::table('users')->insert(
             [
                 'name' => 'Admin',
-                'email' => 'admin@gmail.com',
-                'password' => bcrypt('123'),
+                'email' => 'ppgtsatriakasih@gmail.com',
+                'password' => bcrypt('111262'),
                 'role' => 'ADMIN',
                 'created_at' => now(),
                 'updated_at' => now(),

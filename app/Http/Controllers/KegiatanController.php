@@ -31,10 +31,12 @@ class KegiatanController extends Controller
     {
         $kegiatan = Kegiatan::where('slug', $slug)->firstOrFail();
         $gallery = GalleryKegiatan::where('kegiatan_id', $kegiatan->id)->take(6)->get();
+        $linkDrive = json_decode($kegiatan->link_drive);
 
         return view('pages.kegiatan_detail', [
             'kegiatan' => $kegiatan,
-            'gallery' => $gallery
+            'gallery' => $gallery,
+            'linkDrive' => $linkDrive
         ]);
     }
 }

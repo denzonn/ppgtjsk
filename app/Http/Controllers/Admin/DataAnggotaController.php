@@ -18,7 +18,7 @@ class DataAnggotaController extends Controller
      */
     public function index()
     {
-        $anggota = DataAnggota::all();
+        $anggota = DataAnggota::where('status_active', 1)->get();
 
         return view('pages.admin.anggota.index', [
             'anggota' => $anggota,
@@ -79,6 +79,7 @@ class DataAnggotaController extends Controller
             'nama_ibu' => $data['nama_ibu'],
             'keterangan_tinggal' => $data['keterangan_tinggal'],
             'wilayah' => $data['wilayah'],
+            'status_active' => true,
             'keterangan_anggota' => $data['keterangan_anggota'],
         ]);
 
@@ -342,7 +343,7 @@ class DataAnggotaController extends Controller
             $kaderisasi[] = Kaderisasi::where('anggota_id', $item->id)->get();
         }
 
-        // Ambil nama kaderisasinya 
+        // Ambil nama kaderisasinya
         foreach ($kaderisasi as $index => $kaderisasiAnggota) {
             foreach ($kaderisasiAnggota as $kader) {
                 $kader->pelatihan_id = Pelatihan::where('id', $kader->pelatihan_id)->first()->nama_pelatihan;
@@ -353,5 +354,29 @@ class DataAnggotaController extends Controller
             'anggota' => $anggota,
             'kaderisasi' => $kaderisasi,
         ]);
+    }
+
+    public function approval()
+    {
+        $data = DataAnggota::where('status_active', 0)->get();
+
+        return view('pages.admin.anggota.approval', compact('data'));
+    }
+
+    public function detailApproval($id)
+    {
+        $data = DataAnggota::findOrFail($id);
+
+        return view('pages.admin.anggota.detail', compact('data'));
+    }
+
+    public function accData($id){
+        $data = DataAnggota::findOrFail($id);
+
+        $data->update([
+           'status_active' => 1,
+        ]);
+
+        return redirect()->route('data-anggota.index');
     }
 }
