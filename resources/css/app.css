@@ -1,0 +1,104 @@
+@import 'tailwindcss';
+
+@source '../views';
+
+@theme {
+    /* Breakpoint disamakan dengan Bootstrap supaya perilaku responsif tidak berubah dari versi lama. */
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --breakpoint-2xl: 1400px;
+
+    /* Frontend */
+    --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    --font-slab: 'Roboto Slab', serif;
+    --color-brand: #5064bd;
+    --color-brand-dark: #3950bb;
+    --color-navy: #1e3055;
+
+    /* Admin panel. Warna aksen per halaman memakai palet bawaan Tailwind (rose, amber, emerald, dst). */
+    --font-public: 'Plus Jakarta Sans', -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+    --color-admin: #4f46e5;
+    --color-admin-dark: #4338ca;
+    --color-admin-light: #eef2ff;
+    --color-admin-body: #f4f5fa;
+    --color-admin-text: #475569;
+    --color-admin-heading: #0f172a;
+    --color-admin-border: #e2e8f0;
+    --color-admin-ink: #0b1020;
+
+    --animate-toast: toast 4s linear forwards;
+    --animate-toast-bar: toast-bar 3s 0.25s linear forwards;
+    --animate-pop: pop 1s linear;
+
+    @keyframes toast {
+        0% { opacity: 0; visibility: hidden; transform: translateY(30px); }
+        5%, 90% { opacity: 1; visibility: visible; transform: translateY(0); }
+        100% { opacity: 0; visibility: hidden; transform: translateY(30px); }
+    }
+    @keyframes toast-bar {
+        from { transform: scaleX(0); }
+        to { transform: scaleX(1); }
+    }
+    @keyframes pop {
+        0% { transform: scale(10); }
+        50% { transform: scale(0.2); }
+        70% { transform: scale(1.2); }
+        90% { transform: scale(0.7); }
+        100% { transform: scale(1); }
+    }
+}
+
+/*
+ * Sengaja di luar @layer: template slider (public/panorama-slider..., dipakai di detail kegiatan)
+ * memasang body gelap tanpa layer, yang otomatis mengalahkan utility Tailwind di <body>.
+ * Dibatasi ke body frontend (font-sans) supaya tidak menimpa latar admin.
+ */
+body.font-sans {
+    background: #fff;
+    color: #000;
+    font-family: var(--font-sans);
+}
+
+/* Tailwind v4 mengubah default cursor tombol jadi "default"; kembalikan ke pointer seperti sebelumnya. */
+@layer base {
+    button:not(:disabled), [role='button']:not(:disabled) { cursor: pointer; }
+}
+
+/*
+ * HTML dari CKEditor (dirender via {!! !!}) tidak bisa diberi class inline;
+ * pasang class "rich-text" di container-nya supaya list, heading, dan paragraf tetap tampil normal.
+ */
+@utility rich-text {
+    & p, & ul, & ol, & blockquote, & table { margin-bottom: 1rem; }
+    & ul { list-style: disc; padding-left: 2rem; }
+    & ol { list-style: decimal; padding-left: 2rem; }
+    & h1 { font-size: 2rem; } & h2 { font-size: 1.75rem; } & h3 { font-size: 1.5rem; } & h4 { font-size: 1.25rem; }
+    & :is(h1, h2, h3, h4, h5, h6) { margin-bottom: 0.5rem; font-weight: 500; }
+    & a { color: #0d6efd; text-decoration: underline; }
+    & blockquote { border-left: 4px solid #d9dee3; padding-left: 1rem; font-style: italic; }
+    & img { display: inline-block; max-width: 100%; height: auto; }
+    & strong, & b { font-weight: 700; }
+    & :last-child { margin-bottom: 0; }
+}
+
+/*
+ * Markup yang dibuat oleh library pihak ketiga (DataTables, Owl Carousel) tidak bisa diberi class inline,
+ * jadi diatur di sini.
+ */
+.dataTables_wrapper { @apply text-sm text-admin-text; }
+.dataTables_wrapper .dataTables_filter input,
+.dataTables_wrapper .dataTables_length select { @apply ml-2 rounded-xl border border-admin-border bg-white px-3 py-2 outline-none focus:border-admin focus:ring-4 focus:ring-admin-light; }
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_length { @apply mb-4; }
+.dataTables_wrapper .dt-buttons { @apply mb-4 flex gap-2; }
+.dataTables_wrapper .dt-button { @apply m-0! rounded-xl! border-0! bg-admin-light! px-4! py-2! font-semibold! text-admin! transition hover:bg-admin! hover:text-white!; background-image: none !important; }
+.dataTables_wrapper .dataTables_info { @apply pt-4! text-slate-400; }
+.dataTables_wrapper .dataTables_paginate { @apply pt-4!; }
+.dataTables_wrapper .dataTables_paginate .paginate_button { @apply mx-0.5! rounded-lg! border-0! px-3! py-1.5! text-slate-500!; background: none !important; }
+.dataTables_wrapper .dataTables_paginate .paginate_button.current { @apply bg-admin! text-white!; }
+.dataTables_wrapper .dataTables_paginate .paginate_button:not(.current):not(.disabled):hover { @apply bg-admin-light! text-admin!; }
+table.dataTable thead th, table.dataTable thead td, table.dataTable.no-footer { @apply border-b-0!; }
+.owl-carousel .owl-nav { @apply !mt-0 text-5xl; }
+.owl-carousel .owl-nav span { @apply !p-0; }

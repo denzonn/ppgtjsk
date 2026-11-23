@@ -5,50 +5,27 @@
 @endsection
 
 @section('content')
-    <section class="artikel">
-        <div class="container">
-            <div class="content mt-5 mb-3" data-aos="fade-up" data-aos-duration="1000">
-                <h2>Artikel PPGT JSK</h2>
+    <section class="mt-[100px]">
+        <div class="mx-auto max-w-[1400px] px-3">
+            <div class="mb-4 mt-12 flex flex-col items-center" data-aos="fade-up" data-aos-duration="1000">
+                <h2
+                    class="relative mb-2 inline-block pb-[5px] text-center text-[2rem] font-semibold after:absolute after:bottom-0 after:left-[40%] after:h-0.5 after:w-[60px] after:bg-[#227bff]">
+                    Artikel PPGT JSK</h2>
             </div>
-            <div class="row">
-                <div class="col-12 col-md-8">
-                    <div class="row">
-                        @foreach ($artikel as $item)
-                            <a href="{{ route('artikel-detail', $item->slug) }}" class="col-12 col-md-4"
-                                style="text-decoration: none">
-                                <div>
-                                    <img src="{{ Storage::url($item->photo) }}" alt="" class="imageArtikel">
-                                </div>
-                                <div class="title">{{ $item->judul }}</div>
-                                <div class="isi">{!! \Illuminate\Support\Str::limit(strip_tags($item->isi), 200) !!}</div>
-                            </a>
-                        @endforeach
-                    </div>
+            <div class="grid gap-6 md:grid-cols-3">
+                <div class="grid content-start gap-6 md:col-span-2 md:grid-cols-3">
+                    @foreach ($artikel as $item)
+                        <a href="{{ route('artikel-detail', $item->slug) }}">
+                            <img src="{{ Storage::url($item->photo) }}" alt=""
+                                class="h-[250px] w-full rounded-lg object-cover">
+                            <div class="mt-[5px] text-xl font-semibold text-[#393E46]">{{ $item->judul }}</div>
+                            <div class="mt-[3px] text-sm text-[#393E46]">
+                                {!! \Illuminate\Support\Str::limit(strip_tags($item->isi), 200) !!}</div>
+                        </a>
+                    @endforeach
                 </div>
-                <div class="col-12 col-md-4">
-                    <div class="recent">Popular Posts</div>
-                    <div class="mt-2">
-                        @foreach ($popularArtikel as $item)
-                            <div class="mb-1">
-                                <a href="{{ route('artikel-detail', $item->slug) }}" class="popularArtikel">
-                                    {{ $item->judul }}
-                                </a>
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="recent" style="margin-top: 44px">Tags</div>
-                    <div class="mt-2">
-                        @foreach ($randomTags as $item)
-                            <span class="badge bg-primary mb-2" style="font-size: 14px">{{ $item }}</span>
-                        @endforeach
-                    </div>
-                </div>
+                @include('pages.partials.artikel-sidebar')
             </div>
         </div>
     </section>
 @endsection
-
-@push('prepend-script')
-    <script type="module" crossorigin src="{{ asset('panorama-slider.uiinitiative.com/assets/index.3cc42008.js') }}">
-    </script>
-@endpush

@@ -5,67 +5,54 @@
 @endsection
 
 @push('addon-style')
-    <link href="{{ asset('datatable/DataTables-1.13.4/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('datatable/Buttons-2.3.6/css/buttons.bootstrap5.min.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('datatable/DataTables-1.13.4/css/jquery.dataTables.css') }}">
-    <link rel="stylesheet" href="{{ asset('datatable/DataTables-1.13.4/css/dataTables.jqueryui.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('datatable/Buttons-2.3.6/css/buttons.dataTables.min.css') }}">
 @endpush
 
 @section('content')
-    <!-- History -->
-    <section class="keanggotaan">
-        <div class="container">
+    <section class="mt-[100px]">
+        <div class="mx-auto max-w-[1220px] px-3">
             <div class="text-center" data-aos="fade-up" data-aos-duration="1000">
-                <h2>Iuran Anggota</h2>
+                <h2
+                    class="relative mb-2 inline-block pb-[15px] text-[2rem] font-semibold after:absolute after:bottom-0 after:left-[30%] after:h-0.5 after:w-20 after:bg-[#227bff]">
+                    Iuran Anggota</h2>
             </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive" data-aos="fade-up" data-aos-duration="2000">
-                        <table class="table table-striped" id="datatable">
-                            <thead>
+            <div class="mt-5 p-4">
+                <div class="overflow-x-auto" data-aos="fade-up" data-aos-duration="2000">
+                    <table id="datatable" class="w-full">
+                        <thead>
+                            <tr>
+                                <th class="w-[10%]">No</th>
+                                <th class="w-[30%]">Nama</th>
+                                <th class="w-1/5">Kelompok</th>
+                                <th class="w-2/5">Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($iuran as $item)
                                 <tr>
-                                    <th style="width: 10%">No</th>
-                                    <th style="width: 30%">Nama</th>
-                                    <th style="width: 20%">Kelompok</th>
-                                    <th style="width: 40%">Keterangan</th>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->nama }}</td>
+                                    <td>{{ $item->kelompok }}</td>
+                                    <td>{{ $item->keterangan }}</td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                    $increment = 2000;
-                                @endphp
-                                @foreach ($iuran as $item)
-                                    <tr data-aos="fade-up" data-aos-duration="{{ $increment += 1000 }}">
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->nama }}</td>
-                                        <td>{{ $item->kelompok }}</td>
-                                        <td>{{ $item->keterangan }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </section>
-    <!-- History -->
 @endsection
 
 @push('addon-script')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <script src="{{ asset('datatable/DataTables-1.13.4/js/jquery.dataTables.min.js') }}"></script>
     <script>
-        $(document).ready(function() {
-            $('#datatable').DataTable({
-                searching: true,
-                searchDelay: 500,
-                search: {
-                    smart: true
-                },
-            });
+        $('#datatable').DataTable({
+            searching: true,
+            searchDelay: 500,
+            search: {
+                smart: true
+            },
         });
     </script>
 @endpush

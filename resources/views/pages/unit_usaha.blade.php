@@ -4,15 +4,10 @@
     Unit Usaha - PPGT Jemaat Satria Kasih
 @endsection
 
-
 @section('content')
-    <!-- Content -->
-    <div class="document">
-        <div class="container">
-            <div class="content text-center" data-aos="fade-up" data-aos-duration="1000">
-                <img src="{{ asset('images/comingsoon.jpg') }}" alt="" style="width: 70vw; height: auto">
-            </div>
+    <div class="mt-[100px]">
+        <div class="mx-auto max-w-[1220px] px-3 text-center" data-aos="fade-up" data-aos-duration="1000">
+            <img src="{{ asset('images/comingsoon.jpg') }}" alt="" class="mx-auto h-auto w-[70vw]">
         </div>
     </div>
-    <!-- Content -->
 @endsection

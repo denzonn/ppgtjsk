@@ -5,17 +5,20 @@
 @endsection
 
 @section('content')
-    <div class="pages">
-        <div class="card">
-            <div class="card-header">
-                <a href="{{ route('data-anggota.index') }}" class="back">
-                    <i class="fa-solid fa-arrow-left"></i>
-                </a>
-                <span class="title">Edit Anggota</span>
+    <div class="mx-auto max-w-5xl">
+        <div class="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-admin-border">
+            <div class="flex items-center gap-4 border-b border-admin-border bg-linear-to-r from-sky-50 to-white px-6 py-5 md:px-8">
+                <a href="{{ route('data-anggota.index') }}" title="Kembali"
+                    class="grid size-10 shrink-0 place-items-center rounded-xl bg-white text-slate-500 shadow-sm ring-1 ring-admin-border transition hover:text-sky-600"><i class="bx bx-arrow-back text-xl"></i></a>
+                <span class="grid size-12 shrink-0 place-items-center rounded-2xl bg-sky-500 text-2xl text-white shadow-lg shadow-sky-500/30"><i class="bx bx-id-card"></i></span>
+                <div>
+                    <p class="text-xs font-bold uppercase tracking-[0.18em] text-sky-600">Ubah data</p>
+                    <h1 class="text-xl font-extrabold text-admin-heading">Edit Anggota</h1>
+                </div>
             </div>
-            <div class="card-body dataAnggota">
+            <div class="p-6 md:p-8">
                 @if ($errors->any())
-                    <div class="alert alert-danger">
+                    <div class="mb-6 rounded-2xl p-4 [&_ul]:list-disc [&_ul]:pl-5 bg-rose-50 text-rose-700 ring-1 ring-rose-200">
                         <ul>
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
@@ -27,67 +30,67 @@
                 <form action="{{ route('data-anggota.update', $anggota->id) }}" method="POST">
                     @csrf
                     @method('put')
-                    <label for="nik" class="mb-2">NIK <span class="star">*</span></label>
-                    <input type="text" name="nik" id="nik" class="form-control mb-4"
+                    <label for="nik" class="inline-block mb-2 text-sm font-semibold text-admin-heading">NIK <span class="font-bold text-rose-500">*</span></label>
+                    <input type="text" name="nik" id="nik" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100 disabled:bg-slate-100 mb-6"
                         placeholder="Masukkan NIK anda" value="{{ $anggota->nik }}">
 
-                    <div class="row">
-                        <div class="col-12 col-lg-6">
-                            <label for="nama" class="mb-2">Nama <span class="star">*</span></label>
-                            <input type="text" name="nama" id="nama" class="form-control mb-4"
+                    <div class="-mx-3 flex flex-wrap">
+                        <div class="shrink-0 px-3 w-full lg:w-6/12">
+                            <label for="nama" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Nama <span class="font-bold text-rose-500">*</span></label>
+                            <input type="text" name="nama" id="nama" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100 disabled:bg-slate-100 mb-6"
                                 placeholder="Masukkan Nama Anda" value="{{ $anggota->nama }}">
                         </div>
-                        <div class="col-12 col-lg-6">
-                            <label for="email" class="mb-2">Email <span class="star">*</span></label>
-                            <input type="email" name="email" id="email" class="form-control mb-4"
+                        <div class="shrink-0 px-3 w-full lg:w-6/12">
+                            <label for="email" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Email <span class="font-bold text-rose-500">*</span></label>
+                            <input type="email" name="email" id="email" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100 disabled:bg-slate-100 mb-6"
                                 placeholder="Masukkan Email Anda" value="{{ $anggota->email }}">
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-12 col-lg-6">
-                            <label for="no_hp" class="mb-2">No HP <span class="star">*</span></label>
-                            <input type="number" name="no_hp" id="no_hp" class="form-control mb-4"
+                    <div class="-mx-3 flex flex-wrap">
+                        <div class="shrink-0 px-3 w-full lg:w-6/12">
+                            <label for="no_hp" class="inline-block mb-2 text-sm font-semibold text-admin-heading">No HP <span class="font-bold text-rose-500">*</span></label>
+                            <input type="number" name="no_hp" id="no_hp" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100 disabled:bg-slate-100 mb-6"
                                 placeholder="Masukkan No HP Anda" value="{{ $anggota->no_hp }}">
                         </div>
-                        <div class="col-12 col-lg-6">
-                            <label for="tempat_lahir" class="mb-2">Tempat Lahir <span class="star">*</span></label>
-                            <input type="text" name="tempat_lahir" id="tempat_lahir" class="form-control mb-4"
+                        <div class="shrink-0 px-3 w-full lg:w-6/12">
+                            <label for="tempat_lahir" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Tempat Lahir <span class="font-bold text-rose-500">*</span></label>
+                            <input type="text" name="tempat_lahir" id="tempat_lahir" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100 disabled:bg-slate-100 mb-6"
                                 placeholder="Masukkan Tempat Lahir Anda" value="{{ $anggota->tempat_lahir }}">
                         </div>
                     </div>
 
-                    <label for="tanggal_lahir" class="mb-2">Tanggal Lahir <span class="star">*</span></label>
-                    <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control mb-4"
+                    <label for="tanggal_lahir" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Tanggal Lahir <span class="font-bold text-rose-500">*</span></label>
+                    <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100 disabled:bg-slate-100 mb-6"
                         value="{{ $anggota->tanggal_lahir }}">
 
-                    <label for="alamat" class="mb-2">Alamat <span class="star">*</span></label>
-                    <textarea name="alamat" id="alamat" cols="30" rows="5" class="form-control mb-4"
+                    <label for="alamat" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Alamat <span class="font-bold text-rose-500">*</span></label>
+                    <textarea name="alamat" id="alamat" cols="30" rows="5" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100 disabled:bg-slate-100 mb-6"
                         placeholder="Masukkan Alamat Anda" value="{{ $anggota->alamat }}">{{ $anggota->alamat }}</textarea>
 
 
-                    <div class="row">
-                        <div class="col-12 col-lg-4">
-                            <label for="jenis_kelamin" class="mb-2">Jenis Kelamin <span class="star">*</span></label>
-                            <select name="jenis_kelamin" id="jenis_kelamin" class="form-control mb-4">
+                    <div class="-mx-3 flex flex-wrap">
+                        <div class="shrink-0 px-3 w-full lg:w-4/12">
+                            <label for="jenis_kelamin" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Jenis Kelamin <span class="font-bold text-rose-500">*</span></label>
+                            <select name="jenis_kelamin" id="jenis_kelamin" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100 disabled:bg-slate-100 mb-6">
                                 <option value="{{ $jenis_kelamin_database }}">{{ $jenis_kelamin_database }}</option>
                                 @foreach ($jenis_kelamin_options as $item)
                                     <option value="{{ $item }}"> {{ $item }} </option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-12 col-lg-4">
-                            <label for="golongan_darah" class="mb-2">Golongan Darah <span class="star">*</span></label>
-                            <select name="golongan_darah" id="golongan_darah" class="form-control mb-4">
+                        <div class="shrink-0 px-3 w-full lg:w-4/12">
+                            <label for="golongan_darah" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Golongan Darah <span class="font-bold text-rose-500">*</span></label>
+                            <select name="golongan_darah" id="golongan_darah" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100 disabled:bg-slate-100 mb-6">
                                 <option value="{{ $golongan_darah_database }}">{{ $golongan_darah_database }}</option>
                                 @foreach ($golongan_darah_options as $item)
                                     <option value="{{ $item }}"> {{ $item }} </option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-12 col-lg-4">
-                            <label for="rhesus" class="mb-2">Rhesus <span class="star">*</span></label>
-                            <select name="rhesus" id="rhesus" class="form-control mb-4">
+                        <div class="shrink-0 px-3 w-full lg:w-4/12">
+                            <label for="rhesus" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Rhesus <span class="font-bold text-rose-500">*</span></label>
+                            <select name="rhesus" id="rhesus" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100 disabled:bg-slate-100 mb-6">
                                 <option value="{{ $rhesus_database }}">{{ $rhesus_database }}</option>
                                 @foreach ($rhesus_options as $item)
                                     <option value="{{ $item }}"> {{ $item }} </option>
@@ -96,29 +99,29 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-12 col-lg-4">
-                            <label for="bersedia" class="mb-2">Apakah Anda Bersedia Mendonor Darah? <span
-                                    class="star">*</span></label>
-                            <select name="bersedia" id="bersedia" class="form-control mb-4">
+                    <div class="-mx-3 flex flex-wrap">
+                        <div class="shrink-0 px-3 w-full lg:w-4/12">
+                            <label for="bersedia" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Apakah Anda Bersedia Mendonor Darah? <span
+                                    class="font-bold text-rose-500">*</span></label>
+                            <select name="bersedia" id="bersedia" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100 disabled:bg-slate-100 mb-6">
                                 <option value="{{ $bersedia_database }}">{{ $bersedia_database }}</option>
                                 @foreach ($bersedia_options as $item)
                                     <option value="{{ $item }}"> {{ $item }} </option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-12 col-lg-4">
-                            <label for="status" class="mb-2">Status <span class="star">*</span></label>
-                            <select name="status" id="status" class="form-control mb-4">
+                        <div class="shrink-0 px-3 w-full lg:w-4/12">
+                            <label for="status" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Status <span class="font-bold text-rose-500">*</span></label>
+                            <select name="status" id="status" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100 disabled:bg-slate-100 mb-6">
                                 <option value="{{ $status_database }}">{{ $status_database }}</option>
                                 @foreach ($status_options as $item)
                                     <option value="{{ $item }}"> {{ $item }} </option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-12 col-lg-4">
-                            <label for="keanggotaan" class="mb-2">Keanggotaan <span class="star">*</span></label>
-                            <select name="keanggotaan" id="keanggotaan" class="form-control mb-4">
+                        <div class="shrink-0 px-3 w-full lg:w-4/12">
+                            <label for="keanggotaan" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Keanggotaan <span class="font-bold text-rose-500">*</span></label>
+                            <select name="keanggotaan" id="keanggotaan" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100 disabled:bg-slate-100 mb-6">
                                 <option value="{{ $keanggotaan_database }}">{{ $keanggotaan_database }}</option>
                                 @foreach ($keanggotaan_options as $item)
                                     <option value="{{ $item }}"> {{ $item }} </option>
@@ -127,30 +130,30 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-12 col-lg-4">
-                            <label for="pendidikan" class="mb-2">Pendidikan Terakhir <span
-                                    class="star">*</span></label>
-                            <select name="pendidikan" id="pendidikan" class="form-control mb-4">
+                    <div class="-mx-3 flex flex-wrap">
+                        <div class="shrink-0 px-3 w-full lg:w-4/12">
+                            <label for="pendidikan" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Pendidikan Terakhir <span
+                                    class="font-bold text-rose-500">*</span></label>
+                            <select name="pendidikan" id="pendidikan" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100 disabled:bg-slate-100 mb-6">
                                 <option value="{{ $pendidikan_database }}">{{ $pendidikan_database }}</option>
                                 @foreach ($pendidikan_options as $item)
                                     <option value="{{ $item }}"> {{ $item }} </option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-12 col-lg-4">
-                            <label for="pekerjaan" class="mb-2">Pekerjaan <span class="star">*</span></label>
-                            <select name="pekerjaan" id="pekerjaan" class="form-control mb-4">
+                        <div class="shrink-0 px-3 w-full lg:w-4/12">
+                            <label for="pekerjaan" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Pekerjaan <span class="font-bold text-rose-500">*</span></label>
+                            <select name="pekerjaan" id="pekerjaan" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100 disabled:bg-slate-100 mb-6">
                                 <option value="{{ $pekerjaan_database }}">{{ $pekerjaan_database }}</option>
                                 @foreach ($pekerjaan_options as $item)
                                     <option value="{{ $item }}"> {{ $item }} </option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-12 col-lg-4">
-                            <label for="domisili" class="mb-2">Keterangan Domisili <span
-                                    class="star">*</span></label>
-                            <select name="domisili" id="domisili" class="form-control mb-4">
+                        <div class="shrink-0 px-3 w-full lg:w-4/12">
+                            <label for="domisili" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Keterangan Domisili <span
+                                    class="font-bold text-rose-500">*</span></label>
+                            <select name="domisili" id="domisili" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100 disabled:bg-slate-100 mb-6">
                                 <option value="{{ $domisili_database }}">{{ $domisili_database }}</option>
                                 @foreach ($domisili_options as $item)
                                     <option value="{{ $item }}"> {{ $item }} </option>
@@ -159,21 +162,21 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-12 col-lg-4">
-                            <label for="nama_ayah" class="mb-2">Nama Ayah <span class="star">*</span></label>
-                            <input type="text" name="nama_ayah" id="nama_ayah" class="form-control mb-4"
+                    <div class="-mx-3 flex flex-wrap">
+                        <div class="shrink-0 px-3 w-full lg:w-4/12">
+                            <label for="nama_ayah" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Nama Ayah <span class="font-bold text-rose-500">*</span></label>
+                            <input type="text" name="nama_ayah" id="nama_ayah" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100 disabled:bg-slate-100 mb-6"
                                 placeholder="Masukkan Nama Ayah" value="{{ $anggota->nama_ayah }}">
                         </div>
-                        <div class="col-12 col-lg-4">
-                            <label for="nama_ibu" class="mb-2">Nama Ibu <span class="star">*</span></label>
-                            <input type="text" name="nama_ibu" id="nama_ibu" class="form-control mb-4"
+                        <div class="shrink-0 px-3 w-full lg:w-4/12">
+                            <label for="nama_ibu" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Nama Ibu <span class="font-bold text-rose-500">*</span></label>
+                            <input type="text" name="nama_ibu" id="nama_ibu" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100 disabled:bg-slate-100 mb-6"
                                 placeholder="Masukkan Nama Ibu" value="{{ $anggota->nama_ibu }}">
                         </div>
-                        <div class="col-12 col-lg-4">
-                            <label for="keterangan_tinggal" class="mb-2">Keterangan Tinggal <span
-                                    class="star">*</span></label>
-                            <select name="keterangan_tinggal" id="keterangan_tinggal" class="form-control mb-4">
+                        <div class="shrink-0 px-3 w-full lg:w-4/12">
+                            <label for="keterangan_tinggal" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Keterangan Tinggal <span
+                                    class="font-bold text-rose-500">*</span></label>
+                            <select name="keterangan_tinggal" id="keterangan_tinggal" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100 disabled:bg-slate-100 mb-6">
                                 <option value="{{ $keterangan_tinggal_database }}">
                                     {{ $keterangan_tinggal_database }}</option>
                                 @foreach ($keterangan_tinggal_options as $item)
@@ -183,10 +186,10 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-12 col-lg-8">
-                            <label for="wilayah" class="mb-2">Wilayah Kelompok <span class="star">*</span></label>
-                            <div class="text-muted">Keterangan Wilayah Kelompok
+                    <div class="-mx-3 flex flex-wrap">
+                        <div class="shrink-0 px-3 w-full lg:w-8/12">
+                            <label for="wilayah" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Wilayah Kelompok <span class="font-bold text-rose-500">*</span></label>
+                            <div class="text-[#a1acb8]">Keterangan Wilayah Kelompok
                                 <div>
                                     - Kelompok 1 (Wilayah Kelompok 1,8,9)
                                     (Sekitar Daerah Depan Telkomas & Luar Telkomas)
@@ -196,35 +199,35 @@
                                     (Daerah Telkomas)
                                 </div>
                             </div>
-                            <select name="wilayah" id="wilayah" class="form-control mb-4">
+                            <select name="wilayah" id="wilayah" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100 disabled:bg-slate-100 mb-6">
                                 <option value="{{ $wilayah_database }}">{{ $wilayah_database }}</option>
                                 @foreach ($wilayah_options as $item)
                                     <option value="{{ $item }}"> {{ $item }} </option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-12 col-lg-4">
-                            <div class="form-group mb-4">
-                                <label for="kaderisasi" class="mb-2">Kaderisasi <span
-                                        class="star">*</span></label><br>
-                                <div id="checkbox-error" class="text-danger" style="display: none">
+                        <div class="shrink-0 px-3 w-full lg:w-4/12">
+                            <div class="mb-6">
+                                <label for="kaderisasi" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Kaderisasi <span
+                                        class="font-bold text-rose-500">*</span></label><br>
+                                <div id="checkbox-error" class="text-[#ff3e1d]" style="display: none">
                                     Minimal pilih satu kaderisasi
                                 </div>
                                 @foreach ($pelatihan as $index => $item)
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="kaderisasi[]"
+                                    <div class="mb-1 flex items-center gap-2">
+                                        <input class="size-4 accent-sky-600" type="checkbox" name="kaderisasi[]"
                                             id="{{ $item->id }}" value="{{ $item->id }}"
                                             data-index="{{ $loop->index }}"
                                             {{ $kaderisasi->contains('pelatihan_id', $item->id) ? 'checked' : '' }}>
-                                        <label class="form-check-label"
+                                        <label class="inline-block"
                                             for="{{ $item->id }}">{{ $item->nama_pelatihan }}</label>
                                         @if ($kaderisasi->contains('pelatihan_id', $item->id) && $item->id != 1)
-                                            <input type="number" class="form-control w-lg-25 w-100" name="tahun[]"
+                                            <input type="number" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100 disabled:bg-slate-100 w-full" name="tahun[]"
                                                 id="tahun_{{ $item->id }}"
                                                 value="{{ $kaderisasi->where('pelatihan_id', $item->id)->first()->tahun }}"
                                                 placeholder="Tahun Mengikuti {{ $item->nama_pelatihan }}">
                                         @else
-                                            <input type="number" class="form-control w-lg-25 w-100" name="tahun[]"
+                                            <input type="number" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100 disabled:bg-slate-100 w-full" name="tahun[]"
                                                 id="tahun_{{ $item->id }}" style="display: none"
                                                 placeholder="Tahun Mengikuti {{ $item->nama_pelatihan }}">
                                         @endif
@@ -233,12 +236,12 @@
                             </div>
                         </div>
                     </div>
-                    <label for="keterangan_anggota" class="mb-2">Keterangan Anggota<span class="star">*</span></label>
-                    <select name="keterangan_anggota" id="keterangan_anggota" class="form-control mb-4">
+                    <label for="keterangan_anggota" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Keterangan Anggota<span class="font-bold text-rose-500">*</span></label>
+                    <select name="keterangan_anggota" id="keterangan_anggota" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100 disabled:bg-slate-100 mb-6">
                         <option value="Aktif">Aktif</option>
                         <option value="Tidak Aktif">Tidak Aktif</option>
                     </select>
-                    <button type="submit" class="btn btn-primary btn-block w-100">Ubah</button>
+                    <button type="submit" class="block w-full rounded-xl text-center font-semibold transition px-5 py-3 text-[0.9375rem] bg-sky-600 text-white shadow-lg shadow-sky-600/30 hover:bg-sky-700">Ubah</button>
                 </form>
             </div>
         </div>

@@ -5,132 +5,76 @@
 @endsection
 
 @push('addon-style')
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="{{ asset('lightbox/dist/css/lightbox.min.css') }}">
 @endpush
 
 @section('content')
-    <!-- Gallery -->
-    <section class="gallery">
-        <div class="container">
-            <div class="content mt-5 mb-3" data-aos="fade-up" data-aos-duration="1000">
-                <h2>Dokumentasi Kegiatan</h2>
-                <p class="text-muted text-center">
+    <section class="relative z-[2] mt-[100px]">
+        <div class="mx-auto max-w-[1220px] px-3">
+            <div class="mb-4 mt-12 flex flex-col items-center" data-aos="fade-up" data-aos-duration="1000">
+                <h2
+                    class="mb-2 inline-block border-b-4 border-brand pb-[5px] text-center font-slab text-2xl font-medium text-brand lg:text-[2rem]">
+                    Dokumentasi Kegiatan</h2>
+                <p class="mb-4 text-center text-gray-500">
                     "Jangan lewatkan momen spesial kami! Lihat galeri foto kegiatan kami
                     dan saksikan betapa serunya kami dalam melakukan berbagai aktivitas
                     yang pasti akan membuat Anda terinspirasi."
                 </p>
             </div>
 
-            <div class="fill" data-aos="fade-up" data-aos-duration="2000">
-                <button class="btn" onclick="toggleDropdown()"><span>Pilih Kegiatan</span><i
-                        class="material-icons">public</i>
-                    <ul class="dropdown drops" style="z-index: 99">
-                        @foreach ($kegiatan as $item)
-                            <li>
-                                <a href="#" onclick="showPage('{{ $item->name }}')">{{ $item->name }}</a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </button>
-            </div>
-
-            <div class="gallery-photo" id="galleryPhoto" style="z-index: 1">
-                <div class="row">
-                    @foreach ($kegiatan as $index => $kegiatanItem)
-                        <div id="{{ $kegiatanItem->name }}" class="page {{ $index === 0 ? 'active' : '' }}">
-                            <div class="row">
-                                <div class="description mt-4" data-aos="fade-up" data-aos-duration="1000">
-                                    <h3 class="text-center">{{ $kegiatanItem->name }}</h2>
-                                </div>
-                                @php
-                                    $incrementProduct = 0;
-                                @endphp
-                                @foreach ($gallery[$kegiatanItem->id] as $index => $galleryItem)
-                                    <div class="col-12 col-md-4 col-lg-3 mt-2" data-aos="fade-up"
-                                        data-aos-delay="{{ $incrementProduct += 100 }}">
-                                        <div class="card">
-                                            <a href="{{ Storage::url($galleryItem->photo) }}" data-lightbox="roadtrip"
-                                                data-title="{{ $galleryItem->kegiatan->name }}" class="card-image">
-                                                <img src="{{ Storage::url($galleryItem->photo) }}" alt="Gambar Card" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                @endforeach
-                                <div class="col-12 col-md-4 col-lg-3 mt-2" data-aos="fade-up"
-                                    >
-                                    <div class="card">
-                                        <a href="{{ Storage::url($kegiatanItem->photo) }}" data-lightbox="roadtrip"
-                                            class="card-image">
-                                            <img src="{{ Storage::url($kegiatanItem->photo) }}" alt="Gambar Card" />
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <details data-kegiatan-menu class="relative z-20 w-full md:w-fit" data-aos="fade-up" data-aos-duration="2000">
+                <summary
+                    class="flex min-w-[260px] cursor-pointer list-none items-center justify-between gap-4 rounded bg-[#5380f7] px-5 py-4 text-xs font-semibold uppercase tracking-[1.2px] text-white shadow-[0_4px_12px_rgba(0,0,0,0.1)] [&::-webkit-details-marker]:hidden">
+                    <span>Pilih Kegiatan</span><i class="fa-solid fa-earth-asia text-base"></i>
+                </summary>
+                <ul
+                    class="absolute left-0 top-full mt-3 max-h-80 w-full overflow-y-auto rounded bg-white text-left shadow-[0_4px_12px_rgba(0,0,0,0.1)]">
+                    @foreach ($kegiatan as $item)
+                        <li class="px-5 text-[#666]">
+                            <a href="#" data-kegiatan="{{ $item->id }}"
+                                class="block border-b border-black/5 py-4 text-[0.7rem] hover:text-[#5380f7]">{{ $item->name }}</a>
+                        </li>
                     @endforeach
+                </ul>
+            </details>
+
+            @foreach ($kegiatan as $index => $kegiatanItem)
+                <div data-kegiatan-page="{{ $kegiatanItem->id }}" @if ($index !== 0) hidden @endif>
+                    <h3 class="mb-2 mt-6 text-center text-base font-light md:text-2xl" data-aos="fade-up"
+                        data-aos-duration="1000">{{ $kegiatanItem->name }}</h3>
+                    <div class="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
+                        @php
+                            $incrementProduct = 0;
+                            $photos = $gallery[$kegiatanItem->id]->pluck('photo')->push($kegiatanItem->photo);
+                        @endphp
+                        @foreach ($photos as $photo)
+                            <a href="{{ Storage::url($photo) }}" data-lightbox="kegiatan-{{ $kegiatanItem->id }}"
+                                data-title="{{ $kegiatanItem->name }}" data-aos="fade-up"
+                                data-aos-delay="{{ $incrementProduct += 100 }}">
+                                <img src="{{ Storage::url($photo) }}" alt="{{ $kegiatanItem->name }}"
+                                    class="h-[300px] w-full cursor-pointer rounded-[5px] object-cover shadow-[0.3rem_0.4rem_0.4rem_rgba(0,0,0,0.1)] transition-all duration-300 hover:scale-[1.03]" />
+                            </a>
+                        @endforeach
+                    </div>
                 </div>
-            </div>
+            @endforeach
         </div>
     </section>
-    <!-- Gallery -->
 @endsection
 
-
 @push('addon-script')
-    <!-- Pages -->
-
-    <script>
-        // Function untuk menampilkan halaman yang dipilih
-        function showPage(pageId) {
-            // Menghapus class "active" dari semua halaman
-            var pages = document.getElementsByClassName('page');
-            for (var i = 0; i < pages.length; i++) {
-                pages[i].classList.remove('active');
-            }
-            // Menambahkan class "active" ke halaman yang dipilih
-            var page = document.getElementById(pageId);
-            page.classList.add('active');
-
-            AOS.init();
-        }
-
-        // Function untuk mengatur z-index gallery-photo
-        function toggleDropdown() {
-            var dropdown = document.querySelector('.dropdown');
-            var galleryPhoto = document.getElementById('galleryPhoto');
-
-            if (dropdown.style.display === 'none') {
-                // Ketika dropdown tampil
-                dropdown.style.display = 'block';
-                galleryPhoto.style.zIndex = '-1';
-            } else {
-                // Ketika dropdown disembunyikan
-                dropdown.style.display = 'none';
-                galleryPhoto.style.zIndex = '1';
-            }
-        }
-
-        // Event listener untuk menutup dropdown dan mengembalikan z-index gallery-photo saat mousedown di luar dropdown
-        document.addEventListener('mousedown', function(event) {
-            var dropdown = document.querySelector('.dropdown');
-            var galleryPhoto = document.getElementById('galleryPhoto');
-            var targetElement = event.target;
-
-            // Jika yang diklik bukan bagian dropdown atau button dropdown, maka sembunyikan dropdown dan kembalikan z-index gallery-photo
-            if (!dropdown.contains(targetElement) && !targetElement.classList.contains('btn')) {
-                dropdown.style.display = 'none';
-                galleryPhoto.style.zIndex = '1';
-            }
-        });
-    </script>
-    <!-- Pages -->
-
-    <!-- Filter -->
-
+    <script src="{{ asset('lightbox/dist/js/lightbox.min.js') }}"></script>
     <script>
         lightbox.option({
-            'maxWidth': 800,
-            'maxHeight': 600,
-        })
+            maxWidth: 800,
+            maxHeight: 600,
+        });
+
+        document.querySelectorAll('[data-kegiatan]').forEach((link) => link.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelectorAll('[data-kegiatan-page]').forEach((page) => page.hidden = page.dataset.kegiatanPage !== link.dataset.kegiatan);
+            document.querySelector('[data-kegiatan-menu]').open = false;
+            AOS.refresh();
+        }));
     </script>
 @endpush

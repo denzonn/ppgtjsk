@@ -4,80 +4,40 @@
     Detail Kegiatan - PPGT Jemaat Satria Kasih
 @endsection
 
-@push('prepend-style')
-    <link rel="modulepreload" href="{{ asset('panorama-slider.uiinitiative.com/assets/vendor.0970188b.js') }}">
-    <link rel="stylesheet" href="{{ asset('panorama-slider.uiinitiative.com/assets/index.98183fc7.css') }}">
-@endpush
 
 @section('content')
-    <section class="artikel">
-        <div class="container">
+    <section class="mt-[100px]">
+        <div class="mx-auto max-w-[1400px] px-3">
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('artikel') }}"
-                            style="text-decoration: none; color: black">Artikel</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ $artikel->judul }}</li>
+                <ol class="mb-4 flex flex-wrap gap-2 text-[#6c757d]">
+                    <li><a href="{{ route('artikel') }}" class="text-black">Artikel</a></li>
+                    <li>/</li>
+                    <li aria-current="page">{{ $artikel->judul }}</li>
                 </ol>
             </nav>
-            <div class="row">
-                <div class="col-12 col-md-8">
-                    <div>
-                        <div class="detail-title">
-                            {{ $artikel->judul }}
-                        </div>
-                        <div class="date">
-                            <span>
-                                {{ \Carbon\Carbon::parse($artikel->tanggal)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}
-                            </span>
-                        </div>
-                        <div>
-                            <img src="{{ Storage::url($artikel->photo) }}" alt="" class="imagePhoto">
-                        </div>
-                        <div class="detail-isi">{!! $artikel->isi !!}</div>
-                        <div class="editor">Editor : {{ $artikel->penulis }}</div>
-                    </div>
-                    <div>
-                        <div class="related" style="font-size: 28px; color: #393E46; font-weight: 600; margin-top: 52px">
-                            Related Posts</div>
-                        <div class="row mt-2">
-                            @foreach ($relatedPosts as $item)
-                                <a href="{{ route('artikel-detail', $item->slug) }}" class="col-12 col-md-4"
-                                    style="text-decoration: none">
-                                    <div>
-                                        <img src="{{ Storage::url($item->photo) }}" alt="" class="imageArtikel">
-                                    </div>
-                                    <div class="title">{{ $item->judul }}</div>
-                                    <div class="isi">{!! \Illuminate\Support\Str::limit(strip_tags($item->isi), 200) !!}</div>
-                                </a>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4">
-                    <div class="recent">Popular Posts</div>
-                    <div class="mt-2">
-                        @foreach ($popularArtikel as $item)
-                            <div class="mb-1">
-                                <a href="{{ route('artikel-detail', $item->slug) }}" class="popularArtikel">
-                                    {{ $item->judul }}
-                                </a>
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="recent" style="margin-top: 44px">Tags</div>
-                    <div class="mt-2">
-                        @foreach ($randomTags as $item)
-                            <span class="badge bg-primary mb-2" style="font-size: 14px">{{ $item }}</span>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
+            <div class="grid gap-6 md:grid-cols-3">
+                <div class="md:col-span-2">
+                    <div class="mt-[5px] text-[32px] font-black text-[#393E46]">{{ $artikel->judul }}</div>
+                    <span>{{ \Carbon\Carbon::parse($artikel->tanggal)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}</span>
+                    <img src="{{ Storage::url($artikel->photo) }}" alt="" class="mt-4 w-full rounded-lg">
+                    <div class="rich-text mt-5 text-lg text-[#393E46]">{!! $artikel->isi !!}</div>
+                    <div class="text-sm font-semibold text-[#999] md:text-end">Editor : {{ $artikel->penulis }}</div>
 
+                    <div class="mt-[52px] text-[28px] font-semibold text-[#393E46]">Related Posts</div>
+                    <div class="mt-2 grid gap-6 md:grid-cols-3">
+                        @foreach ($relatedPosts as $item)
+                            <a href="{{ route('artikel-detail', $item->slug) }}">
+                                <img src="{{ Storage::url($item->photo) }}" alt=""
+                                    class="h-[250px] w-full rounded-lg object-cover">
+                                <div class="mt-[5px] text-xl font-semibold text-[#393E46]">{{ $item->judul }}</div>
+                                <div class="mt-[3px] text-sm text-[#393E46]">
+                                    {!! \Illuminate\Support\Str::limit(strip_tags($item->isi), 200) !!}</div>
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+                @include('pages.partials.artikel-sidebar')
+            </div>
         </div>
     </section>
 @endsection
-
-@push('prepend-script')
-    <script type="module" crossorigin src="{{ asset('panorama-slider.uiinitiative.com/assets/index.3cc42008.js') }}">
-    </script>
-@endpush

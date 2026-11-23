@@ -11,46 +11,41 @@
 
 @section('content')
     <!-- Detail Kegiatan -->
-    <section class="kegiatan">
-        <div class="container">
-            <div class="content mt-5 mb-3" data-aos="fade-up" data-aos-duration="1000">
-                <h2>{{ $kegiatan->name }}</h2>
+    <section class="mt-[100px]">
+        <div class="mx-auto max-w-[1220px] px-3">
+            <div class="mb-4 mt-12 flex flex-col items-center" data-aos="fade-up" data-aos-duration="1000">
+                <h2
+                    class="relative mb-2 inline-block pb-[5px] text-center text-[2rem] font-semibold after:absolute after:bottom-0 after:left-[40%] after:h-0.5 after:w-[60px] after:bg-[#227bff]">
+                    {{ $kegiatan->name }}</h2>
             </div>
-            <div class="kegiatan-photo" data-aos="fade-up" data-aos-duration="2000">
-                <div class="image">
-                    <img src="{{ Storage::url($kegiatan->photo) }}" class="w-100"
-                        style="height: 250px; object-fit: cover; border-radius: 5px">
-                </div>
-                <div class="description">
-                    <div style="font-family: 'Poppins', sans-serif; font-size: 1.3rem; font-weight: 600" data-aos="fade-up"
-                        data-aos-duration="1500">Deskripsi
-                        Kegiatan : </div>
-                    <p data-aos="fade-up" data-aos-duration="2000">
-                        {!! $kegiatan->description !!}
-                        @if (!is_null($linkDrive))
-                            (
-                            @forelse ($linkDrive as $index => $item)
-                                <a class="activityLink" target="_blank" style="font-size: smaller;"
-                                    href="{{ $item }}">
-                                    Drive {{ $index + 1 }}
-                                    @if (!$loop->last)
-                                        -
-                                    @endif
-                                </a>
-                            @empty
-                                Tidak ada link Drive.
-                            @endforelse
-                            )
-                        @else
-                            (Tidak ada link Drive.)
-                        @endif
-
-                    </p>
+            <div class="relative mb-[250px] flow-root" data-aos="fade-up" data-aos-duration="2000">
+                <img src="{{ Storage::url($kegiatan->photo) }}" alt=""
+                    class="mb-2.5 h-[250px] w-full rounded-[5px] object-cover md:float-left md:mr-5 md:w-auto">
+                <div class="text-xl font-semibold" data-aos="fade-up" data-aos-duration="1500">Deskripsi Kegiatan : </div>
+                <div class="overflow-hidden text-[0.9rem] font-light md:text-base" data-aos="fade-up" data-aos-duration="2000">
+                    <div class="rich-text">{!! $kegiatan->description !!}</div>
+                    @if (!is_null($linkDrive))
+                        (
+                        @forelse ($linkDrive as $index => $item)
+                            <a class="text-sm text-black no-underline" target="_blank" href="{{ $item }}">
+                                Drive {{ $index + 1 }}
+                                @if (!$loop->last)
+                                    -
+                                @endif
+                            </a>
+                        @empty
+                            Tidak ada link Drive.
+                        @endforelse
+                        )
+                    @else
+                        (Tidak ada link Drive.)
+                    @endif
                 </div>
             </div>
         </div>
-        <div class="gallery">
-            <h4 data-aos="fade-up" data-aos-duration="1000">Gallery Kegiatan</h4>
+        <div class="bg-[#fdfdfd]">
+            <h4 class="relative flex items-center justify-center pt-5 text-2xl font-semibold after:absolute after:-bottom-5 after:h-0.5 after:w-[60px] after:bg-[#227bff]"
+                data-aos="fade-up" data-aos-duration="1000">Gallery Kegiatan</h4>
             <div id="app">
                 <!-- Panorama slider -->
                 <div class="panorama-slider" data-aos="zoom-out" data-aos-duration="2000">
@@ -71,37 +66,10 @@
             </div>
         </div>
     </section>
-
     <!-- Detail Kegiatan -->
 @endsection
 
 @push('prepend-script')
     <script type="module" crossorigin src="{{ asset('panorama-slider.uiinitiative.com/assets/index.3cc42008.js') }}">
-    </script>
-@endpush
-
-
-@push('addon-script')
-    <!-- Pages -->
-    <script>
-        // Function untuk menampilkan halaman yang dipilih
-        function showPage(pageId) {
-            // Menghapus class "active" dari semua halaman
-            var pages = document.getElementsByClassName('page')
-            for (var i = 0; i < pages.length; i++) {
-                pages[i].classList.remove('active')
-            }
-            // Menambahkan class "active" ke halaman yang dipilih
-            var page = document.getElementById(pageId)
-            page.classList.add('active')
-        }
-    </script>
-    <!-- Pages -->
-
-    <script>
-        lightbox.option({
-            'maxWidth': 800,
-            'maxHeight': 600,
-        })
     </script>
 @endpush

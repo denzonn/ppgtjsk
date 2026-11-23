@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\PiutangController;
 use App\Http\Controllers\Admin\ProfilController as AdminProfilController;
 use App\Http\Controllers\Admin\PundiKasihController;
 use App\Http\Controllers\Admin\SaranController;
+use App\Http\Controllers\Admin\SiteImageController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ArtikelController as ArtikelUserController;
@@ -112,6 +113,9 @@ Route::prefix('admin')
         Route::resource('kegiatan-mingguan', KegiatanMingguanController::class);
         Route::resource('iuran', IuranController::class);
         Route::resource('profil-ppgt', AdminProfilController::class);
+        Route::get('gambar-situs', [SiteImageController::class, 'index'])->name('site-image.index');
+        Route::put('gambar-situs/{key}', [SiteImageController::class, 'update'])->name('site-image.update');
+        Route::delete('gambar-situs/{key}', [SiteImageController::class, 'destroy'])->name('site-image.destroy');
         Route::get('keuangan', [KeuanganController::class, 'index'])
         ->name('keuangan');
         Route::get('data-anggota-approval', [DataAnggotaController::class, 'approval'])->name('data-anggota.approval');

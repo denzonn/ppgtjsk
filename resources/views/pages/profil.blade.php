@@ -5,82 +5,47 @@
 @endsection
 
 @section('content')
-    <!-- History -->
-    <section class="history">
-        <div class="container">
+    <section class="mt-[100px]">
+        <div class="mx-auto max-w-[1220px] px-3">
             <div class="text-center">
-                <h2>Profil PPGT</h2>
+                <h2
+                    class="relative mb-4 inline-block pb-[15px] text-[2rem] font-semibold after:absolute after:bottom-0 after:left-[30%] after:h-0.5 after:w-20 after:bg-[#227bff]">
+                    Profil PPGT</h2>
             </div>
-            <div class="fill" data-aos="fade-up" data-aos-duration="1000">
-                <button class="btn" onclick="toggleDropdown()"><span>Pilih Periode</span><i class="material-icons">public</i>
-                    <ul class="dropdown drops" style="z-index: 99">
-                        @foreach ($profil as $item)
-                            <li>
-                                <a href="#" onclick="showPage('{{ $item->periode }}')">{{ $item->periode }}</a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </button>
-            </div>
-            <div id="profil" style="z-index: 99;">
-                @foreach ($profil as $index => $item)
-                    <div id="{{ $item->periode }}" class="page {{ $index === 0 ? ' active' : '' }}" data-aos="fade-up" >
-                        <div class="pt-2 w-full text-center " style="font-size: 22px">{{ $item->periode }}</div>
-                        <div class="w-full text-center">
-                            <img src="{{ Storage::url($item->photo) }}" alt="" class="imageProfil" />
-                        </div>
-                        <div>{!! $item->content !!}</div>
-                    </div>
-                @endforeach
-            </div>
+
+            <details data-periode-menu class="relative z-20 w-full md:w-fit" data-aos="fade-up" data-aos-duration="1000">
+                <summary
+                    class="flex min-w-[260px] cursor-pointer list-none items-center justify-between gap-4 rounded bg-[#5380f7] px-5 py-4 text-xs font-semibold uppercase tracking-[1.2px] text-white shadow-[0_4px_12px_rgba(0,0,0,0.1)] [&::-webkit-details-marker]:hidden">
+                    <span>Pilih Periode</span><i class="fa-solid fa-earth-asia text-base"></i>
+                </summary>
+                <ul class="absolute left-0 top-full mt-3 w-full rounded bg-white text-left shadow-[0_4px_12px_rgba(0,0,0,0.1)]">
+                    @foreach ($profil as $item)
+                        <li class="px-5 text-[#666]">
+                            <a href="#" data-periode="{{ $item->id }}"
+                                class="block border-b border-black/5 py-4 text-[0.7rem] hover:text-[#5380f7]">{{ $item->periode }}</a>
+                        </li>
+                    @endforeach
+                </ul>
+            </details>
+
+            @foreach ($profil as $index => $item)
+                <div data-periode-page="{{ $item->id }}" @if ($index !== 0) hidden @endif>
+                    <div class="w-full pt-2 text-center text-[22px]">{{ $item->periode }}</div>
+                    <img src="{{ Storage::url($item->photo) }}" alt="" class="mx-auto mt-5 h-auto w-[70vw] rounded-[5px]" />
+                    <div class="rich-text mt-4 text-justify font-light [&_p]:indent-8">{!! $item->content !!}</div>
+                </div>
+            @endforeach
         </div>
     </section>
-    <!-- History -->
 @endsection
 
 @push('addon-script')
     <script>
-        // Function untuk menampilkan halaman yang dipilih
-        function showPage(pageId) {
-            // Menghapus class "active" dari semua halaman
-            var pages = document.getElementsByClassName('page');
-            for (var i = 0; i < pages.length; i++) {
-                pages[i].classList.remove('active');
-            }
-            // Menambahkan class "active" ke halaman yang dipilih
-            var page = document.getElementById(pageId);
-            page.classList.add('active');
-
-            AOS.init();
-        }
-
-        // Function untuk mengatur z-index gallery-photo
-        function toggleDropdown() {
-            var dropdown = document.querySelector('.drops');
-            var kegiatanPhoto = document.getElementById('profil');
-
-            if (dropdown.style.display === 'none') {
-                // Ketika dropdown tampil
-                dropdown.style.display = 'block';
-                kegiatanPhoto.style.zIndex = '-5';
-            } else {
-                // Ketika dropdown disembunyikan
-                dropdown.style.display = 'none';
-                kegiatanPhoto.style.zIndex = '1';
-            }
-        }
-
-        // Event listener untuk menutup dropdown dan mengembalikan z-index gallery-photo saat mengklik di luar dropdown
-        document.addEventListener('mousedown', function(event) {
-            var dropdown = document.querySelector('.drops');
-            var kegiatanPhoto = document.getElementById('profil');
-            var targetElement = event.target;
-
-            // Jika yang diklik bukan bagian dropdown atau button dropdown, maka sembunyikan dropdown dan kembalikan z-index gallery-photo
-            if (!dropdown.contains(targetElement) && !targetElement.classList.contains('btn')) {
-                dropdown.style.display = 'none';
-                kegiatanPhoto.style.zIndex = '1';
-            }
-        });
+        document.querySelectorAll('[data-periode]').forEach((link) => link.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelectorAll('[data-periode-page]').forEach((page) => page.hidden = page.dataset.periodePage !== link.dataset.periode);
+            document.querySelector('[data-periode-menu]').open = false;
+            AOS.refresh();
+        }));
     </script>
 @endpush

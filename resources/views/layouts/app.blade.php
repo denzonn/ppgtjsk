@@ -15,10 +15,10 @@
     <title>
         @yield('title')
     </title>
-    <link rel="shortcut icon" href="{{ asset('images/titlelogo.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ \App\Models\SiteImage::url('favicon') }}" type="image/x-icon">
 </head>
 
-<body>
+<body class="bg-white font-sans text-black">
 
     @include('includes.navbar')
 

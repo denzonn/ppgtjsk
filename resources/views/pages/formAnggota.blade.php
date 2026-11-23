@@ -4,318 +4,177 @@
     Form Database - PPGT Jemaat Satria Kasih
 @endsection
 
+@php
+    $label = 'mb-2 inline-block';
+    $star = 'font-bold text-red-600';
+    $field = 'mb-6 block w-full rounded-md border border-admin-border bg-white px-3.5 py-[7px] text-[0.9375rem] leading-[1.53] text-admin-text outline-none transition placeholder:text-[#999] focus:border-admin focus:shadow-[0_0_0.25rem_0.05rem_rgba(105,108,255,0.1)]';
+    $selects = [
+        [
+            'jenis_kelamin' => ['Jenis Kelamin', ['Laki-laki', 'Perempuan']],
+            'golongan_darah' => ['Golongan Darah', ['A', 'B', 'AB', 'O', 'Tidak Tahu']],
+            'rhesus' => ['Rhesus', ['+', '-']],
+        ],
+        [
+            'bersedia' => ['Apakah Anda Bersedia Mendonor Darah?', ['Ya', 'Tidak']],
+            'status' => ['Status', ['Menikah', 'Belum Menikah']],
+            'keanggotaan' => ['Keanggotaan', ['SIDI' => 'SIDI', 'BAPTIS' => 'BAPTIS', 'BAPTIS DEWASA' => 'BAPTIS DEWASA', 'BELUM' => 'Belum']],
+        ],
+        [
+            'pendidikan' => ['Pendidikan Terakhir', ['SD / Sederajat', 'SMP / Sederajat', 'SMA / Sederajat', 'D3 (Diploma)', 'S1 (Sarjana)', 'S2 (Magister)', 'S3 (Doktor)']],
+            'pekerjaan' => ['Pekerjaan', ['Pelajar', 'Mahasiswa', 'PNS', 'Wiraswasta', 'Wirausaha', 'Lainnya']],
+            'domisili' => ['Keterangan Domisili', ['Di Dalam Wilayah Pelayanan', 'Di Luar Wilayah Pelayanan']],
+        ],
+    ];
+@endphp
+
 @section('content')
-    <!-- Gallery -->
-    <section class="gallery">
-        <div class="container">
-            <div class="content mt-5 mb-3" data-aos="fade-up" data-aos-duration="1000">
-                <h2>Form Pengisian Database</h2>
-                <p class="text-muted text-center">
-                    "Silahkan mengisi data diri anda!!."
-                </p>
+    <section class="relative z-[2] mt-[100px]">
+        <div class="mx-auto max-w-[1220px] px-3">
+            <div class="mb-4 mt-12 flex flex-col items-center" data-aos="fade-up" data-aos-duration="1000">
+                <h2
+                    class="mb-2 inline-block border-b-4 border-brand pb-[5px] text-center font-slab text-2xl font-medium text-brand lg:text-[2rem]">
+                    Form Pengisian Database</h2>
+                <p class="mb-4 text-center text-gray-500">"Silahkan mengisi data diri anda!!."</p>
             </div>
 
-            <div class="form-anggota" data-aos="fade-up" data-aos-duration="2000">
-                <div class="row">
-                    <div class="pages">
-                        <div class="card">
-                            <div class="card-body dataAnggota">
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
+            <div class="mb-[50px] py-2.5 pl-2.5 font-public text-admin-text md:p-5" data-aos="fade-up"
+                data-aos-duration="2000">
+                <div class="rounded-lg bg-white p-6 shadow-[0_2px_6px_0_rgba(67,89,113,0.12)]">
+                    @if ($errors->any())
+                        <div class="mb-4 rounded-md border border-red-200 bg-red-50 p-4 text-red-700">
+                            <ul class="list-disc pl-5">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
-                                <form action="{{ route('form-anggota-store') }}" method="POST" id="formDocument">
-                                    @csrf
+                    <form action="{{ route('form-anggota-store') }}" method="POST" id="formDocument">
+                        @csrf
 
-                                    <label for="nik" class="mb-2">NIK <span class="star">*</span></label>
-                                    <input type="text" name="nik" id="nik" class="form-control mb-4"
-                                        placeholder="Masukkan NIK anda" required>
+                        <label for="nik" class="{{ $label }}">NIK <span class="{{ $star }}">*</span></label>
+                        <input type="text" name="nik" id="nik" class="{{ $field }}" placeholder="Masukkan NIK anda"
+                            required>
 
-                                    <div class="row">
-                                        <div class="col-12 col-lg-6">
-                                            <label for="nama" class="mb-2">Nama <span class="star">*</span></label>
-                                            <input type="text" name="nama" id="nama" class="form-control mb-4"
-                                                placeholder="Masukkan Nama Anda" required>
-                                        </div>
-                                        <div class="col-12 col-lg-6">
-                                            <label for="email" class="mb-2">Email <span class="star">*</span></label>
-                                            <input type="email" name="email" id="email" class="form-control mb-4"
-                                                placeholder="Masukkan Email Anda" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-12 col-lg-6">
-                                            <label for="no_hp" class="mb-2">No HP <span class="star">*</span></label>
-                                            <input type="number" name="no_hp" id="no_hp" class="form-control mb-4"
-                                                placeholder="Masukkan No HP Anda" required>
-                                        </div>
-                                        <div class="col-12 col-lg-6">
-                                            <label for="tempat_lahir" class="mb-2">Tempat Lahir <span
-                                                    class="star">*</span></label>
-                                            <input type="text" name="tempat_lahir" id="tempat_lahir"
-                                                class="form-control mb-4" placeholder="Masukkan Tempat Lahir Anda" required>
-                                        </div>
-                                    </div>
-
-                                    <label for="tanggal_lahir" class="mb-2">Tanggal Lahir <span
-                                            class="star">*</span></label>
-                                    <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control mb-4"
-                                        required>
-
-                                    <label for="alamat" class="mb-2">Alamat <span class="star">*</span></label>
-                                    <textarea name="alamat" id="alamat" cols="30" rows="5" class="form-control mb-4"
-                                        placeholder="Masukkan Alamat Anda" required></textarea>
-
-
-                                    <div class="row">
-                                        <div class="col-12 col-lg-4">
-                                            <label for="jenis_kelamin" class="mb-2">Jenis Kelamin <span
-                                                    class="star">*</span></label>
-                                            <select name="jenis_kelamin" id="jenis_kelamin" class="form-control mb-4">
-                                                <option value="Laki-laki">
-                                                    Laki-laki
-                                                </option>
-                                                <option value="Perempuan">
-                                                    Perempuan
-                                                </option>
-                                            </select>
-                                        </div>
-                                        <div class="col-12 col-lg-4">
-                                            <label for="golongan_darah" class="mb-2">Golongan Darah <span
-                                                    class="star">*</span></label>
-                                            <select name="golongan_darah" id="golongan_darah" class="form-control mb-4">
-                                                <option value="A">A
-                                                </option>
-                                                <option value="B">B
-                                                </option>
-                                                <option value="AB">AB
-                                                </option>
-                                                <option value="O">O
-                                                </option>
-                                                <option value="Tidak Tahu">Tidak Tahu
-                                                </option>
-                                            </select>
-                                        </div>
-                                        <div class="col-12 col-lg-4">
-                                            <label for="rhesus" class="mb-2">Rhesus <span
-                                                    class="star">*</span></label>
-                                            <select name="rhesus" id="rhesus" class="form-control mb-4">
-                                                <option value="+">+
-                                                </option>
-                                                <option value="-">-
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-12 col-lg-4">
-                                            <label for="bersedia" class="mb-2">Apakah Anda Bersedia Mendonor Darah?
-                                                <span class="star">*</span></label>
-                                            <select name="bersedia" id="bersedia" class="form-control mb-4">
-                                                <option value="Ya">
-                                                    Ya</option>
-                                                <option value="Tidak">
-                                                    Tidak</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-12 col-lg-4">
-                                            <label for="status" class="mb-2">Status <span
-                                                    class="star">*</span></label>
-                                            <select name="status" id="status" class="form-control mb-4">
-                                                <option value="Menikah">
-                                                    Menikah
-                                                </option>
-                                                <option value="Belum Menikah">Belum
-                                                    Menikah</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-12 col-lg-4">
-                                            <label for="keanggotaan" class="mb-2">Keanggotaan <span
-                                                    class="star">*</span></label>
-                                            <select name="keanggotaan" id="keanggotaan" class="form-control mb-4">
-                                                <option value="SIDI">
-                                                    SIDI</option>
-                                                <option value="BAPTIS">
-                                                    BAPTIS</option>
-                                                <option value="BAPTIS DEWASA">BAPTIS
-                                                    DEWASA</option>
-                                                <option value="BELUM">
-                                                    Belum</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-12 col-lg-4">
-                                            <label for="pendidikan" class="mb-2">Pendidikan Terakhir <span
-                                                    class="star">*</span></label>
-                                            <select name="pendidikan" id="pendidikan" class="form-control mb-4">
-                                                <option value="SD / Sederajat">SD /
-                                                    Sederajat</option>
-                                                <option value="SMP / Sederajat">SMP /
-                                                    Sederajat</option>
-                                                <option value="SMA / Sederajat">SMA /
-                                                    Sederajat</option>
-                                                <option value="D3 (Diploma)">D3
-                                                    (Diploma)</option>
-                                                <option value="S1 (Sarjana)">S1
-                                                    (Sarjana)</option>
-                                                <option value="S2 (Magister)">S2
-                                                    (Magister)</option>
-                                                <option value="S3 (Doktor)">S3 (Doktor)
-                                                </option>
-                                            </select>
-                                        </div>
-                                        <div class="col-12 col-lg-4">
-                                            <label for="pekerjaan" class="mb-2">Pekerjaan <span
-                                                    class="star">*</span></label>
-                                            <select name="pekerjaan" id="pekerjaan" class="form-control mb-4">
-                                                <option value="Pelajar">Pelajar
-                                                </option>
-                                                <option value="Mahasiswa">Mahasiswa
-                                                </option>
-                                                <option value="PNS">
-                                                    PNS</option>
-                                                <option value="Wiraswasta">Wiraswasta
-                                                </option>
-                                                <option value="Wirausaha">Wirausaha
-                                                </option>
-                                                <option value="Lainnya">Lainnya
-                                                </option>
-                                            </select>
-                                        </div>
-                                        <div class="col-12 col-lg-4">
-                                            <label for="domisili" class="mb-2">Keterangan Domisili <span
-                                                    class="star">*</span></label>
-                                            <select name="domisili" id="domisili" class="form-control mb-4">
-                                                <option value="Di Dalam Wilayah Pelayanan">Di Dalam Wilayah
-                                                    Pelayanan</option>
-                                                <option value="Di Luar Wilayah Pelayanan">Di Luar Wilayah
-                                                    Pelayanan</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-12 col-lg-4">
-                                            <label for="nama_ayah" class="mb-2">Nama Ayah <span
-                                                    class="star">*</span></label>
-                                            <input type="text" name="nama_ayah" id="nama_ayah"
-                                                class="form-control mb-4" placeholder="Masukkan Nama Ayah" required>
-                                        </div>
-                                        <div class="col-12 col-lg-4">
-                                            <label for="nama_ibu" class="mb-2">Nama Ibu <span
-                                                    class="star">*</span></label>
-                                            <input type="text" name="nama_ibu" id="nama_ibu"
-                                                class="form-control mb-4" placeholder="Masukkan Nama Ibu" required>
-                                        </div>
-                                        <div class="col-12 col-lg-4">
-                                            <label for="keterangan_tinggal" class="mb-2">Keterangan Tinggal <span
-                                                    class="star">*</span></label>
-                                            <select name="keterangan_tinggal" id="keterangan_tinggal"
-                                                class="form-control mb-4">
-                                                <option value="Bersama Orang Tua">
-                                                    Bersama Orang Tua</option>
-                                                <option value="Rumah Keluarga">Rumah
-                                                    Keluarga</option>
-                                                <option value="Kos-kosan">Kos-kosan
-                                                </option>
-                                                <option value="Asrama">
-                                                    Asrama</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-12 col-lg-8">
-                                            <label for="wilayah" class="mb-2">Wilayah Kelompok <span
-                                                    class="star">*</span></label>
-                                            <div class="text-muted">Keterangan Wilayah Kelompok
-                                                <div>
-                                                    - Kelompok 1 (Wilayah Kelompok 1,8,9)
-                                                    (Sekitar Daerah Depan Telkomas & Luar Telkomas)
-                                                </div>
-                                                <div>
-                                                    - Kelompok 2 (Wilayah Kelompok 2,3,4,5,6,7)
-                                                    (Daerah Telkomas)
-                                                </div>
-                                            </div>
-                                            <select name="wilayah" id="wilayah" class="form-control mb-4">
-                                                <option value="1">
-                                                    Kelompok 1
-                                                </option>
-                                                <option value="2">
-                                                    Kelompok 2
-                                                </option>
-                                            </select>
-                                        </div>
-                                        <div class="col-12 col-lg-4">
-                                            <div class="form-group mb-4">
-                                                <label for="kaderisasi" class="mb-2">Kaderisasi <span
-                                                        class="star">*</span></label><br>
-                                                <div id="checkbox-error" class="text-danger" style="display: none">
-                                                    Minimal pilih satu kaderisasi
-                                                </div>
-                                                @foreach ($pelatihan as $index => $item)
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox"
-                                                            name="kaderisasi[]" id="{{ $item->id }}"
-                                                            value="{{ $item->id }}" data-index="{{ $loop->index }}"
-                                                            @if ($loop->first) checked @endif>
-                                                        <label class="form-check-label"
-                                                            for="{{ $item->id }}">{{ $item->nama_pelatihan }}</label>
-                                                        <input type="number" class="form-control w-lg-25 w-100"
-                                                            name="tahun[]" id="tahun_{{ $item->id }}"
-                                                            style="display: none"
-                                                            placeholder="Tahun Mengikuti {{ $item->nama_pelatihan }}">
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <input type="text" name="keterangan_anggota" id="keterangan_anggota"
-                                        class="form-control mb-4 d-none" placeholder="Masukkan keterangan_anggota anda"
-                                        value="Aktif">
-                                    <button type="submit" class="btn btn-primary w-100">Submit</button>
-                                </form>
+                        <div class="grid gap-x-6 lg:grid-cols-2">
+                            <div>
+                                <label for="nama" class="{{ $label }}">Nama <span class="{{ $star }}">*</span></label>
+                                <input type="text" name="nama" id="nama" class="{{ $field }}"
+                                    placeholder="Masukkan Nama Anda" required>
+                            </div>
+                            <div>
+                                <label for="email" class="{{ $label }}">Email <span class="{{ $star }}">*</span></label>
+                                <input type="email" name="email" id="email" class="{{ $field }}"
+                                    placeholder="Masukkan Email Anda" required>
+                            </div>
+                            <div>
+                                <label for="no_hp" class="{{ $label }}">No HP <span class="{{ $star }}">*</span></label>
+                                <input type="number" name="no_hp" id="no_hp" class="{{ $field }}"
+                                    placeholder="Masukkan No HP Anda" required>
+                            </div>
+                            <div>
+                                <label for="tempat_lahir" class="{{ $label }}">Tempat Lahir <span
+                                        class="{{ $star }}">*</span></label>
+                                <input type="text" name="tempat_lahir" id="tempat_lahir" class="{{ $field }}"
+                                    placeholder="Masukkan Tempat Lahir Anda" required>
                             </div>
                         </div>
-                    </div>
+
+                        <label for="tanggal_lahir" class="{{ $label }}">Tanggal Lahir <span
+                                class="{{ $star }}">*</span></label>
+                        <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="{{ $field }}" required>
+
+                        <label for="alamat" class="{{ $label }}">Alamat <span class="{{ $star }}">*</span></label>
+                        <textarea name="alamat" id="alamat" cols="30" rows="5" class="{{ $field }}"
+                            placeholder="Masukkan Alamat Anda" required></textarea>
+
+                        @foreach ($selects as $row)
+                            <div class="grid gap-x-6 lg:grid-cols-3">
+                                @foreach ($row as $name => [$text, $options])
+                                    <div>
+                                        <label for="{{ $name }}" class="{{ $label }}">{{ $text }} <span
+                                                class="{{ $star }}">*</span></label>
+                                        <select name="{{ $name }}" id="{{ $name }}" class="{{ $field }}">
+                                            @foreach ($options as $value => $option)
+                                                <option value="{{ is_int($value) ? $option : $value }}">{{ $option }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endforeach
+
+                        <div class="grid gap-x-6 lg:grid-cols-3">
+                            <div>
+                                <label for="nama_ayah" class="{{ $label }}">Nama Ayah <span
+                                        class="{{ $star }}">*</span></label>
+                                <input type="text" name="nama_ayah" id="nama_ayah" class="{{ $field }}"
+                                    placeholder="Masukkan Nama Ayah" required>
+                            </div>
+                            <div>
+                                <label for="nama_ibu" class="{{ $label }}">Nama Ibu <span
+                                        class="{{ $star }}">*</span></label>
+                                <input type="text" name="nama_ibu" id="nama_ibu" class="{{ $field }}"
+                                    placeholder="Masukkan Nama Ibu" required>
+                            </div>
+                            <div>
+                                <label for="keterangan_tinggal" class="{{ $label }}">Keterangan Tinggal <span
+                                        class="{{ $star }}">*</span></label>
+                                <select name="keterangan_tinggal" id="keterangan_tinggal" class="{{ $field }}">
+                                    @foreach (['Bersama Orang Tua', 'Rumah Keluarga', 'Kos-kosan', 'Asrama'] as $option)
+                                        <option value="{{ $option }}">{{ $option }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid gap-x-6 lg:grid-cols-3">
+                            <div class="lg:col-span-2">
+                                <label for="wilayah" class="{{ $label }}">Wilayah Kelompok <span
+                                        class="{{ $star }}">*</span></label>
+                                <div class="mb-2 text-gray-500">Keterangan Wilayah Kelompok
+                                    <div>- Kelompok 1 (Wilayah Kelompok 1,8,9) (Sekitar Daerah Depan Telkomas & Luar
+                                        Telkomas)</div>
+                                    <div>- Kelompok 2 (Wilayah Kelompok 2,3,4,5,6,7) (Daerah Telkomas)</div>
+                                </div>
+                                <select name="wilayah" id="wilayah" class="{{ $field }}">
+                                    <option value="1">Kelompok 1</option>
+                                    <option value="2">Kelompok 2</option>
+                                </select>
+                            </div>
+                            <div class="mb-6">
+                                <label for="kaderisasi" class="{{ $label }}">Kaderisasi <span
+                                        class="{{ $star }}">*</span></label>
+                                <div id="checkbox-error" class="text-red-600" style="display: none">
+                                    Minimal pilih satu kaderisasi
+                                </div>
+                                @foreach ($pelatihan as $item)
+                                    <div class="mb-1">
+                                        <label class="inline-flex items-center gap-2">
+                                            <input type="checkbox" name="kaderisasi[]" id="{{ $item->id }}"
+                                                value="{{ $item->id }}" data-index="{{ $loop->index }}"
+                                                class="size-4 accent-admin" @if ($loop->first) checked @endif>
+                                            {{ $item->nama_pelatihan }}
+                                        </label>
+                                        <input type="number" name="tahun[]" id="tahun_{{ $item->id }}"
+                                            class="{{ $field }} mb-2!" style="display: none"
+                                            placeholder="Tahun Mengikuti {{ $item->nama_pelatihan }}">
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <input type="hidden" name="keterangan_anggota" id="keterangan_anggota" value="Aktif">
+                        <button type="submit"
+                            class="w-full rounded bg-brand px-5 py-2.5 text-white hover:bg-brand-dark">Submit</button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Gallery -->
 @endsection
 
-
 @push('addon-script')
-    <!-- Pages -->
-
-    <script>
-        // Function untuk menampilkan halaman yang dipilih
-        function showPage(pageId) {
-            // Menghapus class "active" dari semua halaman
-            var pages = document.getElementsByClassName('page')
-            for (var i = 0; i < pages.length; i++) {
-                pages[i].classList.remove('active')
-            }
-            // Menambahkan class "active" ke halaman yang dipilih
-            var page = document.getElementById(pageId)
-            page.classList.add('active')
-
-            AOS.init();
-        }
-    </script>
-    <!-- Pages -->
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

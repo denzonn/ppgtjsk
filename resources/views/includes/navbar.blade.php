@@ -1,84 +1,51 @@
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg fixed-top blackColor">
-    <div class="container">
-        <img src="{{ asset('images/logo.png') }}" class="photoback ml-2" />
-        <a class="navbar-brand" href="{{ route('home') }}">Jemaat Satria Kasih</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon">
-                <i class="fa-solid fa-bars"></i>
-            </span>
+@php
+    // transparent = navbar beranda: teks putih di atas hero, jadi putih solid saat di-scroll / dibuka.
+    $transparent = $transparent ?? false;
+    $text = $transparent ? 'text-white group-data-solid/nav:text-black' : 'text-black';
+    $link = "block py-2 text-lg font-light lg:py-0 hover:text-brand-dark focus:text-brand-dark $text";
+    $active = 'text-brand-dark!';
+    $ppgtActive = request()->is('kegiatan*', 'gallery*', 'profil*', 'dokument*');
+@endphp
+<nav data-navbar
+    class="group/nav fixed inset-x-0 top-0 z-50 py-[15px] transition-all duration-1000 data-solid:bg-white data-solid:shadow-[0_5px_12px_-2px_rgba(211,211,211,0.75)]">
+    <div class="mx-auto flex max-w-[1220px] flex-wrap items-center px-3">
+        <img src="{{ \App\Models\SiteImage::url('logo') }}" class="mr-[15px] size-8 rounded-full md:size-12" alt="" />
+        <a href="{{ route('home') }}"
+            class="text-xl font-bold no-underline md:text-2xl {{ $transparent ? 'text-white group-data-solid/nav:text-[#5d5d5d]' : 'text-black' }}">
+            Jemaat Satria Kasih
+        </a>
+        <button type="button" data-navbar-toggle aria-label="Toggle navigation"
+            class="ml-auto rounded px-3 py-1 text-2xl lg:hidden {{ $text }}">
+            <i class="fa-solid fa-bars"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" aria-current="page"
-                        href="{{ route('home') }}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->is('artikel*') ? 'active' : '' }}"
-                        href="{{ route('artikel') }}">Artikel</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->is('form-anggota*') ? 'active' : '' }}"
-                        href="{{ route('form-anggota') }}">Keanggotaan</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->is('iuran*') ? 'active' : '' }}"
-                        href="{{ route('iuran') }}">Iuran</a>
-                </li>
 
-                <li class="nav-item">
-                    <a class="dropdown-button {{ request()->is('kegiatan', 'gallery', 'profil*', 'dokument*') ? 'active' : '' }}"
-                        href="#" onmouseenter="toggleMenuOpen(true)" onmouseleave="toggleMenuOpen(false)">
-                        PPGT
-                        <svg width="18px" height="18px" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M6 9L11.7874 14.7874V14.7874C11.9048 14.9048 12.0952 14.9048 12.2126 14.7874V14.7874L18 9"
-                                stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </a>
-                    <div onmouseenter="toggleMenuOpen(true)" onmouseleave="toggleMenuOpen(false)" class="menu">
-                        <div class="menu-buttons d-none d-lg-flex">
-                            <button class="active" onclick="toggleMenuBlock(this, 0)">
-                                PPGT
-                            </button>
-                        </div>
-                        <div id="menuContent" class="menu-content">
-                            <div class="menu-block">
-                                <a class="dropdown-item {{ request()->is('profil*') ? 'active' : '' }}"
-                                    href="{{ route('profil') }}">Profil</a>
-                                <a class="dropdown-item {{ request()->is('dokument*') ? 'active' : '' }}"
-                                    href="{{ route('document') }}">Document</a>
-                                <a class="dropdown-item {{ request()->is('kegiatan*') ? 'active' : '' }}"
-                                    href="{{ route('kegiatan') }}">Kegiatan</a>
-                                <a class="dropdown-item {{ request()->is('gallery*') ? 'active' : '' }}"
-                                    href="{{ route('gallery') }}">Gallery</a>
-                            </div>
-                        </div>
-                    </div>
+        <ul
+            class="hidden w-full items-center group-data-open/nav:flex max-lg:flex-col max-lg:items-start max-lg:pt-2 lg:ml-auto lg:mr-5 lg:flex lg:w-auto lg:gap-5">
+            <li><a href="{{ route('home') }}" class="{{ $link }} {{ request()->is('/') ? $active : '' }}">Home</a></li>
+            <li><a href="{{ route('artikel') }}" class="{{ $link }} {{ request()->is('artikel*') ? $active : '' }}">Artikel</a></li>
+            <li><a href="{{ route('form-anggota') }}" class="{{ $link }} {{ request()->is('form-anggota*') ? $active : '' }}">Keanggotaan</a></li>
+            <li><a href="{{ route('iuran') }}" class="{{ $link }} {{ request()->is('iuran*') ? $active : '' }}">Iuran</a></li>
+            <li class="group/dd relative">
+                <a href="#" class="{{ $link }} {{ $ppgtActive ? $active : '' }} inline-flex items-center gap-1">
+                    PPGT <i class="fa-solid fa-chevron-down text-xs"></i>
+                </a>
+                <div
+                    class="invisible absolute left-0 top-full z-10 min-w-48 translate-y-[-10px] rounded-lg bg-white py-2 opacity-0 shadow-[0_20px_30px_rgba(57,76,96,0.15)] transition-all duration-300 group-focus-within/dd:visible group-focus-within/dd:translate-y-0 group-focus-within/dd:opacity-100 group-hover/dd:visible group-hover/dd:translate-y-0 group-hover/dd:opacity-100 lg:mt-2">
+                    @foreach ([['profil', 'Profil', 'profil*'], ['document', 'Document', 'dokument*'], ['kegiatan', 'Kegiatan', 'kegiatan*'], ['gallery', 'Gallery', 'gallery*']] as [$route, $label, $pattern])
+                        <a href="{{ route($route) }}"
+                            class="flex h-10 items-center px-6 text-base text-[#222] hover:text-brand {{ request()->is($pattern) ? 'text-brand' : 'opacity-60 hover:opacity-100' }}">{{ $label }}</a>
+                    @endforeach
+                </div>
+            </li>
+            <li><a href="{{ route('unit-usaha') }}" class="{{ $link }} {{ request()->is('unit-usaha*') ? $active : '' }}">Unit Usaha</a></li>
+            @auth
+                <li>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="{{ $link }}">{{ __('Logout') }}</button>
+                    </form>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->is('unit-usaha*') ? 'active' : '' }}"
-                        href="{{ route('unit-usaha') }}">Unit Usaha</a>
-                </li>
-                {{-- Jika sdh auth maka tidak usah tampilkan --}}
-                @guest
-
-                @endguest
-                @auth
-                    <li class="nav-item">
-                        <a href="{{ route('logout') }}"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                            class="nav-link">{{ __('Logout') }}</a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </li>
-                @endauth
-            </ul>
-        </div>
+            @endauth
+        </ul>
     </div>
 </nav>
-<!-- Navbar -->

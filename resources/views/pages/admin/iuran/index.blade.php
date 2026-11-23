@@ -1,50 +1,62 @@
 @extends('layouts.admin')
 
 @section('title')
-    Admin Iuran
+    Iuran Anggota
 @endsection
 
+@php
+    $groups = $iuran->groupBy(fn($i) => $i->kelompok ?: 'Lainnya')->sortKeys();
+@endphp
+
 @section('content')
-    <div class="pages pt-4 pb-0 text-center">
-        <h3>Data Iuran PPGT JSK</h3>
-    </div>
-    <div class="pages">
-        <div class="card">
-            <div class="card-header">
-                <h4>Data Iuran</h4>
-                <a href="{{ route('iuran.create') }}" class="btn btn-primary">Tambah Iuran</a>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-striped" id="datatable">
-                        <thead>
-                            <tr>
-                                <th style="width: 10%">No</th>
-                                <th style="width: 20%">Nama</th>
-                                <th style="width: 15%">Kelompok</th>
-                                <th style="width: 20%">Keterangan</th>
-                                <th style="width: 20%">Jumlah</th>
-                                <th class="text-center" style="width: 20%">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($iuran as $item)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->nama }}</td>
-                                    <td>{{ $item->kelompok }}</td>
-                                    <td>{{ $item->keterangan }}</td>
-                                    <td>Rp. {{ number_format($item->jumlah, 0, ',', '.') }}</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('iuran.edit', $item->id) }}" class="btn btn-warning btn-sm"><i
-                                                class="fas fa-edit"></i></a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+    {{-- Header: dua kolom, total iuran sebagai "celengan" --}}
+    <header class="mb-8 grid gap-6 md:grid-cols-[1fr_auto]">
+        <div>
+            <h1 class="text-3xl font-extrabold text-admin-heading">Iuran Anggota</h1>
+            <p class="text-slate-500">Daftar ini juga tampil di halaman publik "Iuran". Pilih kelompok untuk melihat anggotanya.</p>
+            <a href="{{ route('iuran.create') }}"
+                class="mt-4 inline-flex items-center gap-2 rounded-xl bg-lime-600 px-5 py-3 font-semibold text-white shadow-lg shadow-lime-600/30 hover:bg-lime-700">
+                <i class="bx bx-user-plus text-xl"></i> Tambah Data Iuran
+            </a>
+        </div>
+        <div class="flex items-center gap-4 rounded-3xl bg-lime-100 p-6 text-lime-950">
+            <i class="bx bx-coin-stack text-5xl text-lime-600"></i>
+            <div>
+                <p class="text-sm font-semibold text-lime-800">Total terkumpul</p>
+                <p class="text-3xl font-black">Rp {{ number_format($iuran->sum(fn($i) => (int) $i->jumlah), 0, ',', '.') }}</p>
+                <p class="text-xs text-lime-700">{{ $iuran->count() }} anggota · {{ $groups->count() }} kelompok</p>
             </div>
         </div>
+    </header>
+
+    {{-- Tab per kelompok (radio, tanpa JS) --}}
+    <div class="rounded-3xl bg-white p-2 shadow-sm ring-1 ring-admin-border">
+        <div class="flex flex-wrap gap-1 border-b border-admin-border p-2">
+            @foreach ($groups as $kelompok => $rows)
+                <label class="cursor-pointer rounded-xl px-4 py-2 text-sm font-semibold text-slate-500 transition hover:bg-lime-50 has-[:checked]:bg-lime-600 has-[:checked]:text-white">
+                    <input type="radio" name="kelompok-tab" value="{{ $loop->index }}" class="peer sr-only" @checked($loop->first)
+                        onchange="document.querySelectorAll('[data-tab]').forEach(t => t.hidden = t.dataset.tab !== this.value)">
+                    {{ $kelompok }} <span class="ml-1 opacity-70">({{ $rows->count() }})</span>
+                </label>
+            @endforeach
+        </div>
+        @forelse ($groups as $kelompok => $rows)
+            <div data-tab="{{ $loop->index }}" @unless ($loop->first) hidden @endunless class="divide-y divide-admin-border">
+                @foreach ($rows as $item)
+                    <div class="flex flex-wrap items-center gap-4 px-4 py-3 hover:bg-lime-50/50">
+                        <span class="grid size-10 place-items-center rounded-full bg-lime-100 font-bold text-lime-700">{{ strtoupper(mb_substr($item->nama, 0, 1)) }}</span>
+                        <div class="min-w-0 flex-1">
+                            <p class="font-semibold text-admin-heading">{{ $item->nama }}</p>
+                            <p class="truncate text-sm text-slate-500">{{ $item->keterangan }}</p>
+                        </div>
+                        <p class="font-mono font-bold text-lime-700">Rp {{ number_format((int) $item->jumlah, 0, ',', '.') }}</p>
+                        <a href="{{ route('iuran.edit', $item->id) }}" title="Ubah"
+                            class="grid size-9 place-items-center rounded-xl text-slate-500 hover:bg-lime-100 hover:text-lime-700"><i class="bx bx-edit-alt text-lg"></i></a>
+                    </div>
+                @endforeach
+            </div>
+        @empty
+            <p class="p-10 text-center text-slate-400">Belum ada data iuran.</p>
+        @endforelse
     </div>
 @endsection

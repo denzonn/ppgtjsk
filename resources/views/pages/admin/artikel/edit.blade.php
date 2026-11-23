@@ -5,17 +5,20 @@
 @endsection
 
 @section('content')
-    <div class="pages">
-        <div class="card">
-            <div class="card-header">
-                <a href="{{ route('artikel.index') }}" class="back">
-                    <i class="fa-solid fa-arrow-left"></i>
-                </a>
-                <span class="title">Artikel PPGT</span>
+    <div class="mx-auto max-w-5xl">
+        <div class="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-admin-border">
+            <div class="flex items-center gap-4 border-b border-admin-border bg-linear-to-r from-fuchsia-50 to-white px-6 py-5 md:px-8">
+                <a href="{{ route('artikel.index') }}" title="Kembali"
+                    class="grid size-10 shrink-0 place-items-center rounded-xl bg-white text-slate-500 shadow-sm ring-1 ring-admin-border transition hover:text-fuchsia-600"><i class="bx bx-arrow-back text-xl"></i></a>
+                <span class="grid size-12 shrink-0 place-items-center rounded-2xl bg-fuchsia-500 text-2xl text-white shadow-lg shadow-fuchsia-500/30"><i class="bx bx-news"></i></span>
+                <div>
+                    <p class="text-xs font-bold uppercase tracking-[0.18em] text-fuchsia-600">Ubah data</p>
+                    <h1 class="text-xl font-extrabold text-admin-heading">Artikel PPGT</h1>
+                </div>
             </div>
-            <div class="card-body">
+            <div class="p-6 md:p-8">
                 @if ($errors->any())
-                    <div class="alert alert-danger">
+                    <div class="mb-6 rounded-2xl p-4 [&_ul]:list-disc [&_ul]:pl-5 bg-rose-50 text-rose-700 ring-1 ring-rose-200">
                         <ul>
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
@@ -27,43 +30,43 @@
                     id="artikel-form">
                     @csrf
                     @method('PUT')
-                    <div class="row">
-                        <div class="col-12 col-md-6">
-                            <label for="judul" class="mb-2">Judul Artikel <span class="star">*</span></label>
-                            <input type="text" name="judul" id="judul" class="form-control mb-4"
+                    <div class="-mx-3 flex flex-wrap">
+                        <div class="shrink-0 px-3 w-full md:w-6/12">
+                            <label for="judul" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Judul Artikel <span class="font-bold text-rose-500">*</span></label>
+                            <input type="text" name="judul" id="judul" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-fuchsia-400 focus:bg-white focus:ring-4 focus:ring-fuchsia-100 disabled:bg-slate-100 mb-6"
                                 placeholder="Tambahkan Judul Artikel" value="{{ $data->judul }}" required>
                         </div>
-                        <div class="col-12 col-md-6">
-                            <label for="tanggal" class="mb-2">Tanggal Artikel <span class="star">*</span></label>
-                            <input type="date" name="tanggal" id="tanggal" class="form-control mb-4"
+                        <div class="shrink-0 px-3 w-full md:w-6/12">
+                            <label for="tanggal" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Tanggal Artikel <span class="font-bold text-rose-500">*</span></label>
+                            <input type="date" name="tanggal" id="tanggal" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-fuchsia-400 focus:bg-white focus:ring-4 focus:ring-fuchsia-100 disabled:bg-slate-100 mb-6"
                                 value="{{ $data->tanggal }}" required>
                         </div>
                     </div>
 
-                    <label for="isi" class="mb-2">Isi Artikel <span class="star">*</span></label>
-                    <textarea name="isi" id="isi" cols="30" rows="10" class="form-control">{!! $data->isi !!}</textarea>
+                    <label for="isi" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Isi Artikel <span class="font-bold text-rose-500">*</span></label>
+                    <textarea name="isi" id="isi" cols="30" rows="10" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-fuchsia-400 focus:bg-white focus:ring-4 focus:ring-fuchsia-100 disabled:bg-slate-100">{!! $data->isi !!}</textarea>
 
-                    <label for="tags" class="mb-2 mt-4">Tags <span class="star">*</span></label>
-                    <div id="tags-container" class="d-flex flex-row">
+                    <label for="tags" class="inline-block mb-2 text-sm font-semibold text-admin-heading mt-6">Tags <span class="font-bold text-rose-500">*</span></label>
+                    <div id="tags-container" class="flex flex-row">
                         <div id="tagOutput"></div>
                         <input type="hidden" name="tags" id="tags-hidden" required>
-                        <input type="text" class="form-control mb-4" id="tags-input" placeholder="Tambahkan tag artikel">
+                        <input type="text" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-fuchsia-400 focus:bg-white focus:ring-4 focus:ring-fuchsia-100 disabled:bg-slate-100 mb-6" id="tags-input" placeholder="Tambahkan tag artikel">
                     </div>
 
-                    <div class="row">
-                        <div class="col-12 col-md-6">
-                            <label for="photo" class="mb-2 mt-4">Foto Artikel <span class="star">*</span></label>
-                            <input type="file" name="photo" class="form-control" accept="image/png,image/jpeg">
-                            <div class="font-semibold" style="color: #f00">Tidak perlu upload kalau tidak ingin mengganti
+                    <div class="-mx-3 flex flex-wrap">
+                        <div class="shrink-0 px-3 w-full md:w-6/12">
+                            <label for="photo" class="inline-block mb-2 text-sm font-semibold text-admin-heading mt-6">Foto Artikel <span class="font-bold text-rose-500">*</span></label>
+                            <input type="file" name="photo" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-fuchsia-400 focus:bg-white focus:ring-4 focus:ring-fuchsia-100 disabled:bg-slate-100" accept="image/png,image/jpeg">
+                            <div class="font-semibold text-[#f00]">Tidak perlu upload kalau tidak ingin mengganti
                                 gambar</div>
                         </div>
-                        <div class="mb-2 col-12 col-md-6">
+                        <div class="shrink-0 px-3 w-full mb-2 md:w-6/12">
                             <div>Image Preview</div>
-                            <img src="{{ Storage::url($data->photo) }}" alt="" style="height: 150px">
+                            <img class="h-[150px]" src="{{ Storage::url($data->photo) }}" alt="">
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-block w-100 mt-4">Simpan</button>
+                    <button type="submit" class="block w-full rounded-xl text-center font-semibold transition px-5 py-3 text-[0.9375rem] bg-fuchsia-600 text-white shadow-lg shadow-fuchsia-600/30 hover:bg-fuchsia-700 mt-6!">Simpan</button>
                 </form>
             </div>
         </div>
@@ -175,12 +178,12 @@
         function addTag(tagText) {
             var tagSpan = document.createElement('span');
             tagSpan.textContent = tagText;
-            tagSpan.className = 'badge bg-primary mx-1 mb-1';
+            tagSpan.className = 'badge mx-1 mb-1 inline-flex items-center rounded bg-admin px-2 py-1 text-xs font-bold text-white';
 
             // Menambahkan tombol "x" untuk menghapus tag
             var deleteButton = document.createElement('button');
             deleteButton.textContent = 'x';
-            deleteButton.className = 'bg-white rounded border ms-1 p-1';
+            deleteButton.className = 'ml-1 rounded border bg-white px-1.5 text-black';
             deleteButton.onclick = function() {
                 tagSpan.remove();
                 updateHiddenInput();

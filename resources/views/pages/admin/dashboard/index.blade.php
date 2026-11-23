@@ -1,68 +1,87 @@
 @extends('layouts.admin')
 
 @section('title')
-    Admin Dashboard
+    Dashboard
 @endsection
 
+@php
+    $total = $laki + $perempuan;
+    $hour = now()->hour;
+    $greet = $hour < 11 ? 'Selamat pagi' : ($hour < 15 ? 'Selamat siang' : ($hour < 18 ? 'Selamat sore' : 'Selamat malam'));
+@endphp
+
 @section('content')
-    <div class="pages">
-        <h2 class="text-center">DATA STATISTIK</h2>
-
-        <div class="dashboard">
-            <div class="row">
-                <div class="col-12 col-lg-6">
-                    <div class="grafik-keuangan">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="text-center">Grafik Anggota</h5>
-                                <div class="mt-3">
-                                    <div class="row">
-                                        <div class="col-6 mb-4">
-                                            <select name="filter" id="filter" class="form-select"
-                                                onchange="updateChart()">
-                                                <option value="jenis_kelamin">Jenis Kelamin</option>
-                                                <option value="pendidikan">Pendidikan</option>
-                                                <option value="pekerjaan">Pekerjaan</option>
-                                                <option value="keterangan_tinggal">Keterangan Tinggal</option>
-                                                <option value="keanggotaan">Keanggotaan</option>
-                                                <option value="kaderisasi">Kaderisasi</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <canvas id="myChart"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-6">
-                    <div class="grafik-keuangan">
-                        <div class="card align-items-center">
-                            <div class="card-body w-75 ">
-                                <h5 class="text-center flex-grow-1">Chart Pie Anggota PPGT JSK</h5>
-                                <div class="mt-3">
-                                    <div class="mb-4 text-center">
-                                        <select name="pieFilter" id="pieFilter" class="form-select" onchange="updatePie()">
-                                            <option value="domisili">Domisili</option>
-                                            <option value="wilayah">Wilayah Pelayanan</option>
-                                            <option value="golongan_darah">Golongan Darah</option>
-                                            <option value="status">Status</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div>
-                                    <canvas id="pieChart" width="300" height="300"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+    {{-- Hero sapaan --}}
+    <section class="relative mb-6 overflow-hidden rounded-3xl bg-linear-to-br from-indigo-600 via-violet-600 to-fuchsia-600 p-8 text-white shadow-xl shadow-indigo-500/30 md:p-10">
+        <span class="absolute -right-20 -top-24 size-80 rounded-full bg-white/10"></span>
+        <span class="absolute -bottom-32 right-40 size-72 rounded-full bg-fuchsia-300/20 blur-2xl"></span>
+        <div class="relative flex flex-wrap items-end justify-between gap-6">
+            <div>
+                <p class="text-indigo-100">{{ $greet }},</p>
+                <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">{{ Auth::user()->name ?? 'Admin' }} 👋</h1>
+                <p class="mt-2 max-w-lg text-indigo-100">Ringkasan data anggota PPGT Jemaat Satria Kasih hari ini.</p>
+            </div>
+            <div class="rounded-2xl bg-white/15 px-6 py-4 text-center backdrop-blur">
+                <p class="text-5xl font-black leading-none">{{ $total }}</p>
+                <p class="mt-1 text-sm text-indigo-100">anggota terdaftar</p>
             </div>
         </div>
-    </div>
+    </section>
+
+    {{-- Statistik singkat --}}
+    <section class="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
+        @foreach ([
+            ['Laki-laki', $laki, 'bx-male', 'bg-blue-50 text-blue-600'],
+            ['Perempuan', $perempuan, 'bx-female', 'bg-pink-50 text-pink-600'],
+            ['Dalam wilayah', $dalamWilayah, 'bx-map-pin', 'bg-emerald-50 text-emerald-600'],
+            ['Sudah menikah', $menikah, 'bx-heart', 'bg-amber-50 text-amber-600'],
+        ] as [$label, $value, $icon, $tone])
+            <div class="flex items-center gap-4 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-admin-border">
+                <span class="grid size-12 shrink-0 place-items-center rounded-xl text-2xl {{ $tone }}"><i class="bx {{ $icon }}"></i></span>
+                <div class="min-w-0">
+                    <p class="text-2xl font-black text-admin-heading">{{ $value }}</p>
+                    <p class="truncate text-sm text-slate-500">{{ $label }}</p>
+                </div>
+                @if ($total)
+                    <span class="ml-auto text-xs font-bold text-slate-400">{{ round($value / $total * 100) }}%</span>
+                @endif
+            </div>
+        @endforeach
+    </section>
+
+    {{-- Grafik --}}
+    <section class="grid gap-6 xl:grid-cols-[1.6fr_1fr]">
+        <div class="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-admin-border">
+            <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+                <h2 class="flex items-center gap-2 text-lg font-bold text-admin-heading"><i class="bx bx-bar-chart-alt-2 text-indigo-500"></i> Grafik Anggota</h2>
+                <select name="filter" id="filter" onchange="updateChart()"
+                    class="rounded-xl border-0 bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-indigo-400">
+                    <option value="jenis_kelamin">Jenis Kelamin</option>
+                    <option value="pendidikan">Pendidikan</option>
+                    <option value="pekerjaan">Pekerjaan</option>
+                    <option value="keterangan_tinggal">Keterangan Tinggal</option>
+                    <option value="keanggotaan">Keanggotaan</option>
+                    <option value="kaderisasi">Kaderisasi</option>
+                </select>
+            </div>
+            <canvas id="myChart"></canvas>
+        </div>
+        <div class="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-admin-border">
+            <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+                <h2 class="flex items-center gap-2 text-lg font-bold text-admin-heading"><i class="bx bx-pie-chart-alt-2 text-fuchsia-500"></i> Komposisi</h2>
+                <select name="pieFilter" id="pieFilter" onchange="updatePie()"
+                    class="rounded-xl border-0 bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-fuchsia-400">
+                    <option value="domisili">Domisili</option>
+                    <option value="wilayah">Wilayah Pelayanan</option>
+                    <option value="golongan_darah">Golongan Darah</option>
+                    <option value="status">Status</option>
+                </select>
+            </div>
+            <div class="mx-auto max-w-xs">
+                <canvas id="pieChart" width="300" height="300"></canvas>
+            </div>
+        </div>
+    </section>
 @endsection
 
 @push('addon-script')

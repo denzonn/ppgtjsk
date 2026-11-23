@@ -22,8 +22,8 @@ class DocumentController extends Controller
 
         $documents = Dokument::where('judul', 'LIKE', '%' . $searchQuery . '%')->get();
 
-        return view('pages.document-search', [
-            'documents' => $documents,
+        return view('pages.document', [
+            'documen' => $documents,
             'searchQuery' => $searchQuery
         ]);
     }

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="utf-8">
@@ -15,54 +15,42 @@
     <title>
         @yield('title')
     </title>
-    <link rel="shortcut icon" href="{{ asset('images/titlelogo.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ \App\Models\SiteImage::url('favicon') }}" type="image/x-icon">
 </head>
 
-<body>
-    <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-content-navbar">
-        <div class="layout-container">
-            <!-- Layout container -->
-            @include('includes.admin.sidebar')
-            <div class="layout-page">
-                @include('includes.admin.navbar')
-                <!-- Navbar -->
-                @yield('content')
-                {{-- tampilkan hanya ketika sudah login dan hanya 1 kali saja di baca --}}
-                @if (Auth::user() && Auth::user()->role == 'ADMIN')
-                    @php
-                        $user = Auth::user()->name ?? 'Admin';
-                        
-                        // Periksa apakah pesan selamat datang sudah ditampilkan sebelumnya
-                        if (!session('welcome_back')) {
-                            echo '
-                                <div class="notification">
-                                    <p>Welcome back, ' .
-                                $user .
-                                ' 👋</p>
-                                    <span class="notification__progress"></span>
-                                </div>
-                            ';
-                        
-                            // Set variabel session 'welcome_back' agar pesan hanya ditampilkan sekali saat login
-                            session(['welcome_back' => true]);
-                        }
-                    @endphp
-                @endif
-            </div>
-            <!-- / Layout page -->
-        </div>
+<body
+    class="group/admin bg-admin-body font-public text-[0.9375rem] text-admin-text antialiased [&_a:not([class])]:font-medium [&_a:not([class])]:text-admin">
+    @include('includes.admin.sidebar')
 
-        <!-- Overlay -->
-        <div class="layout-overlay layout-menu-toggle"></div>
-
+    <div class="min-h-screen xl:pl-[280px]">
+        @include('includes.admin.navbar')
+        <main class="mx-auto max-w-[1400px] px-4 pb-12 pt-6 md:px-8">
+            @yield('content')
+        </main>
     </div>
-    <!-- / Layout wrapper -->
+
+    {{-- Notifikasi: flash "success" dari controller + sapaan sekali setelah login --}}
+    @php
+        $toast = session('success');
+        if (!$toast && Auth::user()?->role == 'ADMIN' && !session('welcome_back')) {
+            session(['welcome_back' => true]);
+            $toast = 'Selamat datang kembali, ' . (Auth::user()->name ?? 'Admin') . ' 👋';
+        }
+    @endphp
+    @if ($toast)
+        <div role="status"
+            class="invisible fixed bottom-6 right-6 z-[9999] flex max-w-sm items-center gap-3 overflow-hidden rounded-2xl bg-admin-ink py-4 pl-4 pr-6 text-sm text-white opacity-0 shadow-2xl shadow-black/30 animate-toast">
+            <span class="grid size-9 shrink-0 place-items-center rounded-xl bg-emerald-500/20 text-emerald-300"><i
+                    class="bx bx-check text-xl"></i></span>
+            <p>{{ $toast }}</p>
+            <span
+                class="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-linear-to-r from-emerald-400 to-cyan-400 animate-toast-bar"></span>
+        </div>
+    @endif
 
     @stack('prepend-script')
     @include('includes.admin.script')
     @stack('addon-script')
-
 </body>
 
 </html>
