@@ -43,7 +43,7 @@
                                     <td>{{ $item->jumlah }}</td>
                                     <td>{{ $item->keterangan }}</td>
                                     <td>
-                                        <img src="{{ Storage::url($item->photo) }}" alt="" width="100px">
+                                        <img src="{{ $item->photo }}" alt="" width="100px">
                                     </td>
                                 </tr>
                             @endforeach

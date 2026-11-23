@@ -62,7 +62,7 @@
                         </div>
                         <div class="shrink-0 px-3 w-full mb-2 md:w-6/12">
                             <div>Image Preview</div>
-                            <img class="h-[150px]" src="{{ Storage::url($data->photo) }}" alt="">
+                            <img class="h-[150px]" src="{{ $data->photo }}" alt="">
                         </div>
                     </div>
 

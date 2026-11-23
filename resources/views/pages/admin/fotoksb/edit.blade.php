@@ -28,7 +28,7 @@
                 @endif
 
                 <div class="w-[100px] [&_img]:max-h-[400px] [&_img]:max-w-[400px] [&_img]:rounded-full [&_img]:object-cover">
-                    <img class="max-w-[400px]" src="{{ Storage::url($ksb->foto) }}" alt="">
+                    <img class="max-w-[400px]" src="{{ $ksb->foto }}" alt="">
                 </div>
 
                 <form action="{{ route('foto-ksb.update', $ksb->id) }}" method="POST" enctype="multipart/form-data">

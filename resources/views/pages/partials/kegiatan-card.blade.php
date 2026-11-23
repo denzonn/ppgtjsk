@@ -2,7 +2,7 @@
 <article
     class="m-2.5 flex flex-col rounded-lg bg-[#f2f2f2] p-4 shadow-[0_1.4rem_8rem_rgba(0,0,0,0.2)] md:min-h-52 md:flex-row md:items-center md:p-0">
     <div class="relative -translate-y-[20%] rounded-lg bg-[#efefef] md:-translate-x-[10%] md:translate-y-0">
-        <img src="{{ Storage::url($item->photo) }}" alt="" class="block h-52 w-full rounded-lg object-cover md:size-40" />
+        <img src="{{ $item->photo }}" alt="" class="block h-52 w-full rounded-lg object-cover md:size-40" />
     </div>
     <div class="pr-2.5">
         <span class="mt-1 block text-base font-semibold text-[#8e8c8c]">{{ $item->program->name }}</span>

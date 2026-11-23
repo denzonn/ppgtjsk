@@ -29,7 +29,7 @@ class NotulensiRapatController extends BaseController
             $data['file'] = $images->storeAs('file', $file_name, 'public');
         }
 
-        NotulensiRapat::create($data);
+        $data = NotulensiRapat::create($data);
 
         return $this->sendResponse($data, 'Successfully create Notulensi Rapat');
     }
@@ -61,7 +61,7 @@ class NotulensiRapatController extends BaseController
 
         $notulen->update($data);
 
-        return $this->sendResponse($data, 'Successfully update Notulensi Rapat');
+        return $this->sendResponse($notulen, 'Successfully update Notulensi Rapat');
     }
 
     public function destroy($id)

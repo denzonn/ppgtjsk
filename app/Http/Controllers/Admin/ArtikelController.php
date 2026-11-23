@@ -111,7 +111,7 @@ class ArtikelController extends Controller
         if ($request->hasFile('photo')) {
             // Hapus foto lama jika ada
             if ($artikel->photo) {
-                Storage::disk('public')->delete($artikel->photo);
+                Storage::disk('public')->delete($artikel->getRawOriginal('photo'));
             }
 
             // Upload foto baru
@@ -156,7 +156,7 @@ class ArtikelController extends Controller
     {
         // Delete photo
         $article = Artikel::findOrFail($id);
-        Storage::disk('public')->delete($article->photo);
+        Storage::disk('public')->delete($article->getRawOriginal('photo'));
         $article->delete();
 
         return redirect()->route('artikel.index');
@@ -171,7 +171,7 @@ class ArtikelController extends Controller
         $images = $request->file('upload')->store('ckeditor-image-artikel', 'public');
 
         return response()->json([
-            'url' => asset('storage/' . $images),
+            'url' => Storage::disk('public')->url($images),
         ]);
     }
 }

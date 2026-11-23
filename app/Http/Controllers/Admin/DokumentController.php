@@ -102,7 +102,7 @@ class DokumentController extends Controller
 
         if ($request->hasFile('file')) {
             if($document->file){
-                Storage::disk('public')->delete($document->file);
+                Storage::disk('public')->delete($document->getRawOriginal('file'));
             }
 
             $images = $request->file('file');
@@ -132,7 +132,7 @@ class DokumentController extends Controller
     {
         $document = Dokument::findOrFail($id);
 
-        Storage::disk('public')->delete($document->file);
+        Storage::disk('public')->delete($document->getRawOriginal('file'));
         
         $document->delete();
 

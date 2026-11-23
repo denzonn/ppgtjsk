@@ -104,7 +104,7 @@ class PengeluaranController extends Controller
 
         if ($request->hasFile('photo')) {
             //Hapus foto lama
-            Storage::disk('local')->delete('public/' . $item->photo);
+            Storage::disk('local')->delete('public/' . $item->getRawOriginal('photo'));
 
             $images = $request->file('photo');
 

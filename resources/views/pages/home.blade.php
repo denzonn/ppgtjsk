@@ -178,7 +178,7 @@
                     <div class="swiper-slide">
                         <!-- elements with  "swiper-carousel-animate-opacity" class will have animated opacity -->
                         <div class="swiper-carousel-animate-opacity">
-                            <img src="{{ Storage::url($item->photo) }}" alt="">
+                            <img src="{{ $item->photo }}" alt="">
                             <div class="slide-content text-white">
                                 <h2>{{ $item->kegiatan->name }}</h2>
                             </div>
@@ -207,7 +207,7 @@
                     @foreach ($ksb as $item)
                         <figure
                             class="group relative isolate flex h-[500px] flex-1 overflow-hidden rounded-lg bg-black p-[25px] opacity-75 transition-[flex,opacity] duration-500 hover:flex-[5] hover:opacity-100 max-md:hover:basis-full">
-                            <img src="{{ Storage::url($item->foto) }}" alt=""
+                            <img src="{{ $item->foto }}" alt=""
                                 class="absolute right-0 top-0 -z-10 size-full object-cover" />
                             <figcaption class="self-end uppercase text-white">
                                 <a href="{{ $item->instagram }}" target="_blank" class="text-white">
@@ -247,7 +247,7 @@
                     <div data-aos="fade-up" data-aos-duration="{{ $increment4 += 1000 }}">
                         <div class="p-[15px]" data-tilt data-tilt-max="10" data-tilt-speed="400"
                             data-tilt-perspective="700">
-                            <img src="{{ Storage::url($item->foto_bidang) }}" alt="" class="w-full rounded-[7px]">
+                            <img src="{{ $item->foto_bidang }}" alt="" class="w-full rounded-[7px]">
                         </div>
                         <div class="px-[15px]">
                             <div class="{{ $sector }}">{{ $item->nama_bidang }}</div>
@@ -264,7 +264,7 @@
                     <div data-aos="fade-up" data-aos-duration="{{ $increment4 += 1500 }}">
                         <div class="p-[15px]" data-tilt data-tilt-max="10" data-tilt-speed="400"
                             data-tilt-perspective="700">
-                            <img src="{{ Storage::url($item->foto_bidang) }}" alt="" class="w-full rounded-[7px]">
+                            <img src="{{ $item->foto_bidang }}" alt="" class="w-full rounded-[7px]">
                         </div>
                         <div class="px-[15px]">
                             <div class="{{ $sector }}">{{ $item->nama_bidang }}</div>

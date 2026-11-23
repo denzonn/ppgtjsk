@@ -31,7 +31,7 @@
         @forelse ($inventaris as $item)
             <article data-item class="group overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-admin-border transition hover:shadow-lg">
                 <div class="relative aspect-square bg-slate-100">
-                    <img src="{{ Storage::url($item->photo) }}" alt="" class="size-full object-cover">
+                    <img src="{{ $item->photo }}" alt="" class="size-full object-cover">
                     <span class="absolute left-3 top-3 rounded-md bg-slate-900/80 px-2 py-1 font-mono text-xs font-bold text-white">{{ $item->kode }}</span>
                     <span class="absolute bottom-3 right-3 grid min-w-14 place-items-center rounded-2xl bg-white px-3 py-1.5 text-center shadow-lg">
                         <span class="text-xl font-black leading-none text-slate-800">{{ $item->jumlah }}</span>

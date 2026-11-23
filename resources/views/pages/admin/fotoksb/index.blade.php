@@ -15,7 +15,7 @@
     <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
         @foreach ($data as $item)
             <article class="group relative aspect-[3/4] overflow-hidden rounded-[2rem] bg-slate-900 shadow-xl shadow-slate-300/50">
-                <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->nama }}"
+                <img src="{{ $item->foto }}" alt="{{ $item->nama }}"
                     class="absolute inset-0 size-full object-cover transition duration-700 group-hover:scale-110 group-hover:opacity-40">
                 <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent"></div>
                 <span class="absolute left-5 top-5 rounded-full bg-white/90 px-3 py-1 text-xs font-bold uppercase tracking-wider text-rose-600 backdrop-blur">{{ $item->jabatan }}</span>

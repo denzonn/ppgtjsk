@@ -2,6 +2,8 @@
 
 namespace App\Models\Admin;
 
+use App\Casts\PublicUrl;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
@@ -18,5 +20,10 @@ class Profil extends Model implements HasMedia
         'periode',
         'content',
         'photo'
+    ];
+
+    /** URL lengkap berbasis APP_URL saat dibaca; database tetap menyimpan path relatif. */
+    protected $casts = [
+        'photo' => PublicUrl::class,
     ];
 }

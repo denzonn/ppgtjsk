@@ -19,7 +19,7 @@
                     {{ $kegiatan->name }}</h2>
             </div>
             <div class="relative mb-[250px] flow-root" data-aos="fade-up" data-aos-duration="2000">
-                <img src="{{ Storage::url($kegiatan->photo) }}" alt=""
+                <img src="{{ $kegiatan->photo }}" alt=""
                     class="mb-2.5 h-[250px] w-full rounded-[5px] object-cover md:float-left md:mr-5 md:w-auto">
                 <div class="text-xl font-semibold" data-aos="fade-up" data-aos-duration="1500">Deskripsi Kegiatan : </div>
                 <div class="overflow-hidden text-[0.9rem] font-light md:text-base" data-aos="fade-up" data-aos-duration="2000">
@@ -54,11 +54,11 @@
                         <div class="swiper-wrapper">
                             @foreach ($gallery as $item)
                                 <div class="swiper-slide">
-                                    <img class="slide-image" src="{{ Storage::url($item->photo) }}" alt="">
+                                    <img class="slide-image" src="{{ $item->photo }}" alt="">
                                 </div>
                             @endforeach
                             <div class="swiper-slide">
-                                <img class="slide-image" src="{{ Storage::url($kegiatan->photo) }}" alt="">
+                                <img class="slide-image" src="{{ $kegiatan->photo }}" alt="">
                             </div>
                         </div>
                     </div>

@@ -37,7 +37,7 @@
         @forelse ($belum->concat($lunas) as $item)
             @php($paid = $item->status !== 'Belum Lunas')
             <article class="flex overflow-hidden rounded-2xl bg-white shadow-sm ring-1 {{ $paid ? 'ring-green-200 opacity-80' : 'ring-amber-200' }}">
-                <img src="{{ Storage::url($item->photo) }}" alt="bukti" class="w-28 shrink-0 object-cover">
+                <img src="{{ $item->photo }}" alt="bukti" class="w-28 shrink-0 object-cover">
                 <div class="flex flex-1 flex-col p-4">
                     <span class="w-fit rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wider {{ $paid ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700' }}">
                         <i class="bx {{ $paid ? 'bx-check-circle' : 'bx-time' }}"></i> {{ $item->status }}

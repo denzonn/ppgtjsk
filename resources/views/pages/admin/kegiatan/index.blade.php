@@ -22,7 +22,7 @@
         @forelse ($kegiatan as $item)
             <article class="group relative flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-admin-border transition has-[.checkbox:checked]:ring-2 has-[.checkbox:checked]:ring-teal-400">
                 <div class="relative aspect-[16/10] overflow-hidden">
-                    <img src="{{ Storage::url($item->photo) }}" alt="" class="size-full object-cover transition duration-500 group-hover:scale-105">
+                    <img src="{{ $item->photo }}" alt="" class="size-full object-cover transition duration-500 group-hover:scale-105">
                     <span class="absolute bottom-3 left-3 rounded-full bg-black/60 px-3 py-1 text-xs font-semibold text-white backdrop-blur">{{ $item->program->name ?? '-' }}</span>
                     {{-- Sakelar unggulan beranda --}}
                     <label class="absolute right-3 top-3 flex cursor-pointer items-center gap-2 rounded-full bg-white/95 py-1.5 pl-3 pr-1.5 text-xs font-bold text-slate-600 shadow-lg has-[:checked]:bg-teal-400 has-[:checked]:text-teal-950">

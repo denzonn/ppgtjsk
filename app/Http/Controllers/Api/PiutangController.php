@@ -36,7 +36,7 @@ class PiutangController extends BaseController
 
         $data['status'] = 'Belum Lunas';
 
-        PiutangKeuangan::create($data);
+        $data = PiutangKeuangan::create($data);
 
         return $this->sendResponse($data, 'Successfully create piutang');
     }
@@ -71,6 +71,6 @@ class PiutangController extends BaseController
 
         $item->update($data);
 
-        return $this->sendResponse($data, 'Successfully update piutang');
+        return $this->sendResponse($item, 'Successfully update piutang');
     }
 }

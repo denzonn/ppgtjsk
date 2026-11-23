@@ -31,7 +31,7 @@
             @foreach ($profil as $index => $item)
                 <div data-periode-page="{{ $item->id }}" @if ($index !== 0) hidden @endif>
                     <div class="w-full pt-2 text-center text-[22px]">{{ $item->periode }}</div>
-                    <img src="{{ Storage::url($item->photo) }}" alt="" class="mx-auto mt-5 h-auto w-[70vw] rounded-[5px]" />
+                    <img src="{{ $item->photo }}" alt="" class="mx-auto mt-5 h-auto w-[70vw] rounded-[5px]" />
                     <div class="rich-text mt-4 text-justify font-light [&_p]:indent-8">{!! $item->content !!}</div>
                 </div>
             @endforeach

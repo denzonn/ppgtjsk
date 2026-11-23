@@ -42,7 +42,7 @@
                     @foreach ($anggota as $item)
                         <article data-item class="group relative rounded-2xl bg-white p-5 pt-8 text-center shadow-sm ring-1 ring-admin-border transition hover:ring-amber-300">
                             <span class="absolute left-1/2 top-0 h-3 w-14 -translate-x-1/2 rounded-b-lg bg-amber-300"></span>
-                            <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->nama_anggota }}"
+                            <img src="{{ $item->foto }}" alt="{{ $item->nama_anggota }}"
                                 class="mx-auto size-24 rounded-full object-cover ring-4 ring-amber-100">
                             <h3 class="mt-3 font-bold text-admin-heading">{{ $item->nama_anggota }}</h3>
                             <p class="mt-1 inline-block rounded-full bg-slate-100 px-3 py-0.5 text-xs font-semibold text-slate-600">{{ $item->jabatan->nama_jabatan ?? '-' }}</p>

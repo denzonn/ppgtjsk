@@ -41,7 +41,7 @@ class InventarisController extends BaseController
             $data['photo'] = $images->storeAs('photo', $file_name, 'public');
         }
 
-        Inventaris::create($data);
+        $data = Inventaris::create($data);
 
         return $this->sendResponse($data, 'Success create invetaris');
     }
@@ -90,7 +90,7 @@ class InventarisController extends BaseController
 
         $inventaris->update($data);
 
-        return $this->sendResponse($data, 'Success update invetaris');
+        return $this->sendResponse($inventaris, 'Success update invetaris');
     }
 
     public function destroy($id)

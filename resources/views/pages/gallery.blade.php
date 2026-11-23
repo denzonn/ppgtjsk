@@ -48,10 +48,10 @@
                             $photos = $gallery[$kegiatanItem->id]->pluck('photo')->push($kegiatanItem->photo);
                         @endphp
                         @foreach ($photos as $photo)
-                            <a href="{{ Storage::url($photo) }}" data-lightbox="kegiatan-{{ $kegiatanItem->id }}"
+                            <a href="{{ $photo }}" data-lightbox="kegiatan-{{ $kegiatanItem->id }}"
                                 data-title="{{ $kegiatanItem->name }}" data-aos="fade-up"
                                 data-aos-delay="{{ $incrementProduct += 100 }}">
-                                <img src="{{ Storage::url($photo) }}" alt="{{ $kegiatanItem->name }}"
+                                <img src="{{ $photo }}" alt="{{ $kegiatanItem->name }}"
                                     class="h-[300px] w-full cursor-pointer rounded-[5px] object-cover shadow-[0.3rem_0.4rem_0.4rem_rgba(0,0,0,0.1)] transition-all duration-300 hover:scale-[1.03]" />
                             </a>
                         @endforeach

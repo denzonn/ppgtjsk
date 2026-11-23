@@ -34,7 +34,7 @@
                         <h5 class="mb-2 text-[17px] leading-7"><i class="fa-regular fa-folder-open text-brand"></i>
                             {{ $item->judul }}</h5>
                         <div class="text-end">
-                            <a href="{{ Storage::url($item->file) }}"
+                            <a href="{{ $item->file }}"
                                 class="inline-block rounded bg-brand px-3 py-1.5 text-white hover:bg-[#3c4e9e]">Download</a>
                         </div>
                     </div>

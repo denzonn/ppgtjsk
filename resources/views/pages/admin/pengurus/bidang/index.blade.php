@@ -27,7 +27,7 @@
         @foreach ($bidang as $item)
             <article class="group overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-admin-border">
                 <div class="relative aspect-video overflow-hidden">
-                    <img src="{{ Storage::url($item->foto_bidang) }}" alt="" class="size-full object-cover transition duration-500 group-hover:scale-105">
+                    <img src="{{ $item->foto_bidang }}" alt="" class="size-full object-cover transition duration-500 group-hover:scale-105">
                     <span class="absolute bottom-0 left-0 rounded-tr-3xl bg-white py-3 pl-5 pr-6 font-mono text-sm font-bold text-orange-600">#{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
                 </div>
                 <div class="flex items-center gap-3 p-5">

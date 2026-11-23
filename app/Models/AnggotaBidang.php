@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Casts\PublicUrl;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,6 +18,11 @@ class AnggotaBidang extends Model
         'foto',
         'jabatans_id',
         'bidangs_id',
+    ];
+
+    /** URL lengkap berbasis APP_URL saat dibaca; database tetap menyimpan path relatif. */
+    protected $casts = [
+        'foto' => PublicUrl::class,
     ];
 
     public function jabatan()

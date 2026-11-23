@@ -35,7 +35,7 @@ class PemasukanController extends BaseController
             $data['photo'] = asset('images/nodata.jpg');
         }
 
-        PemasukanKeuangan::create($data);
+        $data = PemasukanKeuangan::create($data);
 
         return $this->sendResponse($data, 'Successfully create Pemasukan');
     }
@@ -55,7 +55,7 @@ class PemasukanController extends BaseController
 
         if ($request->hasFile('photo')) {
             //Hapus foto lama
-            Storage::disk('local')->delete('public/' . $item->photo);
+            Storage::disk('local')->delete('public/' . $item->getRawOriginal('photo'));
 
             $images = $request->file('photo');
 
@@ -72,7 +72,7 @@ class PemasukanController extends BaseController
         }
         $item->update($data);
 
-        return $this->sendResponse($data, 'Successfully update Pemasukan');
+        return $this->sendResponse($item, 'Successfully update Pemasukan');
     }
 
     public function destroy($id)

@@ -98,7 +98,7 @@ class ProfilController extends Controller
 
         if ($request->hasFile('photo')) {
             if($profil->photo){
-                Storage::disk('public')->delete($profil->photo);
+                Storage::disk('public')->delete($profil->getRawOriginal('photo'));
             }
 
             $images = $request->file('photo');

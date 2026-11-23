@@ -36,7 +36,7 @@ class PengurusController extends BaseController
             $data['foto'] = $images->storeAs('assets/foto-pengurus', $file_name, 'public');
         }
 
-        AnggotaBidang::create($data);
+        $data = AnggotaBidang::create($data);
 
         return $this->sendResponse($data, 'Successfully create pengurus');
     }

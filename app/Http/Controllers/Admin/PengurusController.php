@@ -121,7 +121,7 @@ class PengurusController extends Controller
 
         if ($request->hasFile('foto')) {
             if($pengurus->foto){
-                Storage::disk('public')->delete($pengurus->foto);
+                Storage::disk('public')->delete($pengurus->getRawOriginal('foto'));
             }
 
             $images = $request->file('foto');
@@ -149,7 +149,7 @@ class PengurusController extends Controller
     public function destroy($id)
     {
         $pengurus = AnggotaBidang::findOrFail($id);
-        Storage::disk('public')->delete($pengurus->foto);
+        Storage::disk('public')->delete($pengurus->getRawOriginal('foto'));
 
         $pengurus->delete();
 

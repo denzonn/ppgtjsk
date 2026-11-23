@@ -110,7 +110,7 @@ class BidangController extends Controller
         if ($request->hasFile('foto_bidang')) {
 
             if ($bidang->foto_bidang) {
-                Storage::disk('public')->delete($bidang->foto_bidang);
+                Storage::disk('public')->delete($bidang->getRawOriginal('foto_bidang'));
             }
         
             $images = $request->file('foto_bidang');
@@ -143,7 +143,7 @@ class BidangController extends Controller
         // Cari data berdasarkan id
         $bidang = Bidang::findOrFail($id);
 
-        Storage::disk('public')->delete($bidang->foto_bidang);
+        Storage::disk('public')->delete($bidang->getRawOriginal('foto_bidang'));
 
         // Hapus data
         $bidang->delete();

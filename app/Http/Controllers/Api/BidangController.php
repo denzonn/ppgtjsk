@@ -35,7 +35,7 @@ class BidangController extends BaseController
             $data['foto_bidang'] = $images->storeAs('assets/foto_bidang', $file_name, 'public');
         }
 
-        Bidang::create($data);
+        $data = Bidang::create($data);
 
         return $this->sendResponse($data, 'Successfully create bidang');
     }

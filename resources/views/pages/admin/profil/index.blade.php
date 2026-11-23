@@ -23,7 +23,7 @@
                     <span class="absolute left-0 top-0 z-10 grid size-11 place-items-center rounded-full bg-violet-600 text-sm font-bold text-white ring-8 ring-admin-body md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
                         {{ $loop->iteration }}
                     </span>
-                    <img src="{{ Storage::url($item->photo) }}" alt=""
+                    <img src="{{ $item->photo }}" alt=""
                         class="aspect-video w-full rounded-3xl object-cover shadow-lg {{ $loop->even ? 'md:order-2 md:ml-8' : 'md:mr-8' }}">
                     <div class="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-admin-border {{ $loop->even ? 'md:order-1 md:mr-8' : 'md:ml-8' }}">
                         <p class="text-sm font-bold uppercase tracking-wider text-violet-600">Periode</p>

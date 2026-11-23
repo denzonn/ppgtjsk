@@ -28,7 +28,7 @@
             <article data-item
                 class="group flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-admin-border transition hover:shadow-xl hover:shadow-fuchsia-100 {{ $loop->first ? 'md:col-span-2 md:flex-row' : '' }}">
                 <div class="relative overflow-hidden {{ $loop->first ? 'aspect-video md:aspect-auto md:w-3/5' : 'aspect-video' }}">
-                    <img src="{{ Storage::url($item->photo) }}" alt="" class="absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-105">
+                    <img src="{{ $item->photo }}" alt="" class="absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-105">
                     @if ($loop->first)
                         <span class="absolute left-4 top-4 rounded-full bg-fuchsia-600 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">Terbaru</span>
                     @endif

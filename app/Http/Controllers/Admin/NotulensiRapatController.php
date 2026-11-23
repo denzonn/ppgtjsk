@@ -98,7 +98,7 @@ class NotulensiRapatController extends Controller
 
         if ($request->hasFile('file')) {
             if($notulen->file){
-                Storage::disk('public')->delete($notulen->file);
+                Storage::disk('public')->delete($notulen->getRawOriginal('file'));
             }
 
             $images = $request->file('file');
@@ -126,7 +126,7 @@ class NotulensiRapatController extends Controller
     public function destroy($id)
     {
         $notulen = NotulensiRapat::findOrFail($id);
-        Storage::disk('public')->delete($notulen->file);
+        Storage::disk('public')->delete($notulen->getRawOriginal('file'));
 
         $notulen->delete();
 

@@ -35,7 +35,7 @@ class SiteImage extends Model
 
         return isset(self::$paths[$key])
             ? Storage::url(self::$paths[$key])
-            : asset(self::SLOTS[$key][2]);
+            : rtrim(config('app.url'), '/') . '/' . self::SLOTS[$key][2];
     }
 
     /** Logo bank berdasarkan nama bank; bank tanpa slot memakai logo BCA seperti sebelumnya. */

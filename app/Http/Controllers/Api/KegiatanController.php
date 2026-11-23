@@ -44,7 +44,7 @@ class KegiatanController extends BaseController
         }
         $data['bidang_id'] = ProgramKerja::findOrFail($request->program_id)->bidang_id;
 
-        Kegiatan::create($data);
+        $data = Kegiatan::create($data);
 
         return $this->sendResponse($data, 'Successfully create kegiatan');
     }

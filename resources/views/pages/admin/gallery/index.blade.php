@@ -24,8 +24,8 @@
     <div class="lightgallery columns-2 gap-4 md:columns-3 2xl:columns-4">
         @forelse ($gallery as $item)
             <figure class="group relative mb-4 break-inside-avoid overflow-hidden rounded-2xl bg-slate-200">
-                <a href="{{ Storage::url($item->photo) }}" data-sub-html="{{ $item->kegiatan->name ?? '' }}">
-                    <img src="{{ Storage::url($item->photo) }}" alt="" class="w-full transition duration-500 group-hover:scale-105">
+                <a href="{{ $item->photo }}" data-sub-html="{{ $item->kegiatan->name ?? '' }}">
+                    <img src="{{ $item->photo }}" alt="" class="w-full transition duration-500 group-hover:scale-105">
                 </a>
                 <figcaption
                     class="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 bg-linear-to-t from-black/80 to-transparent p-4 pt-10 text-white opacity-0 transition group-hover:opacity-100 max-md:opacity-100">

@@ -43,7 +43,7 @@
                     </span>
                     <p class="mt-3 line-clamp-2 text-sm font-semibold text-admin-heading">{{ $item->judul }}</p>
                     <div class="mt-2 flex gap-1 opacity-0 transition group-hover:opacity-100 max-md:opacity-100">
-                        <a href="{{ Storage::url($item->file) }}" target="_blank" title="Unduh"
+                        <a href="{{ $item->file }}" target="_blank" title="Unduh"
                             class="grid size-8 place-items-center rounded-lg bg-white text-indigo-600 shadow-sm hover:bg-indigo-600 hover:text-white"><i class="bx bx-download"></i></a>
                         <a href="{{ route('document.edit', $item->id) }}" title="Ubah"
                             class="grid size-8 place-items-center rounded-lg bg-white text-slate-600 shadow-sm hover:bg-slate-700 hover:text-white"><i class="bx bx-edit-alt"></i></a>

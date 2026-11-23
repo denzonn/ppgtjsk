@@ -58,7 +58,7 @@ class GalleryController extends BaseController
     {
         // Delete photo
         $gallery = GalleryKegiatan::findOrFail($id);
-        Storage::disk('public')->delete($gallery->photo);
+        Storage::disk('public')->delete($gallery->getRawOriginal('photo'));
         $gallery->delete();
 
         return $this->sendResponse($gallery, 'Success delete gallery');

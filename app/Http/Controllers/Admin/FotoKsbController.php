@@ -88,7 +88,7 @@ class FotoKsbController extends Controller
 
         if ($request->hasFile('foto')) {
             if($ksb->foto){
-                Storage::disk('public')->delete($ksb->foto);
+                Storage::disk('public')->delete($ksb->getRawOriginal('foto'));
             }
             $images = $request->file('foto');
 

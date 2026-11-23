@@ -129,7 +129,7 @@ class KegiatanController extends Controller
 
         if ($request->hasFile('photo')) {
             if($kegiatan->photo){
-                Storage::disk('public')->delete($kegiatan->photo);
+                Storage::disk('public')->delete($kegiatan->getRawOriginal('photo'));
             }
 
             $images = $request->file('photo');

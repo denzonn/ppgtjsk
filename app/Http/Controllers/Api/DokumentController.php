@@ -33,7 +33,7 @@ class DokumentController extends BaseController
             $data['file'] = $images->storeAs('file', $file_name, 'public');
         }
 
-        Dokument::create($data);
+        $data = Dokument::create($data);
 
         return $this->sendResponse($data, 'Successfully create dokument');
     }

@@ -118,7 +118,7 @@ class GalleryKegiatanController extends Controller
     {
         // Delete photo
         $gallery = GalleryKegiatan::findOrFail($id);
-        Storage::disk('public')->delete($gallery->photo);
+        Storage::disk('public')->delete($gallery->getRawOriginal('photo'));
         $gallery->delete();
 
         return redirect()->route('gallery-kegiatan.index');

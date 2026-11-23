@@ -26,7 +26,7 @@
                             <p class="line-clamp-2 leading-8 text-slate-500">{{ strip_tags($item->isi) }}</p>
                             <div class="mt-2 flex flex-wrap items-center gap-2">
                                 @if ($item->file)
-                                    <a href="{{ Storage::url($item->file) }}" target="_blank"
+                                    <a href="{{ $item->file }}" target="_blank"
                                         class="inline-flex items-center gap-1.5 rounded-lg bg-blue-50 px-3 py-1.5 text-sm font-semibold text-blue-700 hover:bg-blue-100">
                                         <i class="bx bx-paperclip"></i> Lampiran
                                     </a>

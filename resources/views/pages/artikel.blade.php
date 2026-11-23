@@ -16,7 +16,7 @@
                 <div class="grid content-start gap-6 md:col-span-2 md:grid-cols-3">
                     @foreach ($artikel as $item)
                         <a href="{{ route('artikel-detail', $item->slug) }}">
-                            <img src="{{ Storage::url($item->photo) }}" alt=""
+                            <img src="{{ $item->photo }}" alt=""
                                 class="h-[250px] w-full rounded-lg object-cover">
                             <div class="mt-[5px] text-xl font-semibold text-[#393E46]">{{ $item->judul }}</div>
                             <div class="mt-[3px] text-sm text-[#393E46]">
