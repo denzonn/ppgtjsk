@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class JabatanBidang extends Model
 {
-    use BerPeriode, HasFactory;
+    use \App\Models\Concerns\TercatatDiLog, BerPeriode, HasFactory;
 
     protected $table = 'jabatan_bidangs';
 

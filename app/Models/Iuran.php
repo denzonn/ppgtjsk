@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Iuran extends Model
 {
+    use \App\Models\Concerns\TercatatDiLog;
     use HasFactory;
 
     protected $table = 'iurans';

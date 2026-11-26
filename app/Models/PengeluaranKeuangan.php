@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PengeluaranKeuangan extends Model
 {
+    use \App\Models\Concerns\TercatatDiLog;
     use HasFactory;
 
     protected $table = 'pengeluaran_keuangans';

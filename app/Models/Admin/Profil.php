@@ -12,6 +12,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Profil extends Model implements HasMedia
 {
+    use \App\Models\Concerns\TercatatDiLog;
     use HasFactory, InteractsWithMedia;
 
     protected $table = 'profils';

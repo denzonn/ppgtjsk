@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class KegiatanMingguan extends Model
 {
+    use \App\Models\Concerns\TercatatDiLog;
     use HasFactory;
 
     protected $table = 'kegiatan_mingguans';

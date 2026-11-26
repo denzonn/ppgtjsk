@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Schema;
  */
 class SiteImage extends Model
 {
+    use \App\Models\Concerns\TercatatDiLog;
     protected $fillable = ['key', 'path'];
 
     /** Disimpan sebagai URL lengkap berbasis APP_URL. */

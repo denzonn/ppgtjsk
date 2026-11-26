@@ -10,6 +10,7 @@ use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
+    use \App\Models\Concerns\TercatatDiLog;
     use HasApiTokens, HasFactory, Notifiable;
 
     /**

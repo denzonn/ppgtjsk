@@ -14,7 +14,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Artikel extends Model implements HasMedia
 {
-    use BerPeriode, HasFactory, InteractsWithMedia;
+    use \App\Models\Concerns\TercatatDiLog, BerPeriode, HasFactory, InteractsWithMedia;
 
     protected $fillable = [
         'periode_id',

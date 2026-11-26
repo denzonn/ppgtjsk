@@ -42,6 +42,7 @@
                     <p class="text-xs font-bold uppercase tracking-wider text-slate-400">{{ $item->jenis->nama ?? '-' }}</p>
                     <h2 class="font-bold text-admin-heading">{{ $item->nama }}</h2>
                     <p class="mt-1 line-clamp-2 text-sm text-slate-500">{{ strip_tags($item->keterangan) }}</p>
+                    <p class="mt-1 text-xs text-slate-400">Masuk Periode: {{ $item->periode?->label() ?? '-' }}</p>
                     <div class="mt-3 flex gap-2">
                         <a href="{{ route('inventaris.edit', $item->id) }}"
                             class="flex-1 rounded-xl bg-slate-100 py-2 text-center text-sm font-semibold text-slate-700 hover:bg-slate-200">Ubah</a>

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class GalleryKegiatan extends Model
 {
-    use BerPeriode, HasFactory;
+    use \App\Models\Concerns\TercatatDiLog, BerPeriode, HasFactory;
 
     protected $table = 'gallery_kegiatans';
 
