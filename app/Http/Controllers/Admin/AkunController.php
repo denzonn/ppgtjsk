@@ -57,7 +57,7 @@ class AkunController extends Controller
         if ($akun->id === auth()->id()) {
             return back()->with('error', 'Tidak bisa menghapus akun sendiri.');
         }
-        abort_unless(auth()->user()->bolehKelolaAkun($akun), 403);
+        abort_unless($akun->role === 'ADMIN' && $akun->periode_id !== null && auth()->user()->bolehKelolaAkun($akun), 403);
         $akun->delete();
 
         return back()->with('success', 'Akun berhasil dihapus.');

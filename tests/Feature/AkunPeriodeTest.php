@@ -90,4 +90,20 @@ class AkunPeriodeTest extends TestCase
         $this->actingAs($this->a1)->get(route('akun.index'))->assertOk();
         $this->actingAs($this->a1)->get(route('akun.create'))->assertOk();
     }
+
+    public function test_admin_periode_tidak_bisa_buat_periode_berikutnya_ganda()
+    {
+        $this->actingAs($this->a1)->post(route('periode.store'), ['tahun_mulai' => 2026, 'tahun_selesai' => 2030])
+            ->assertSessionHasErrors(['tahun_mulai' => 'Periode ini sudah ada.']);
+        $this->assertDatabaseMissing('periodes', ['tahun_selesai' => 2030]);
+    }
+
+    public function test_hapus_akun_dibatasi()
+    {
+        $lain = User::factory()->admin($this->p2)->create();
+        $this->actingAs($this->a1)->delete(route('akun.destroy', $lain->id))->assertForbidden();
+        $utama = User::factory()->admin()->create();
+        $this->actingAs($utama)->delete(route('akun.destroy', User::factory()->admin()->create()->id))->assertForbidden();
+        $this->assertDatabaseHas('users', ['id' => $lain->id]);
+    }
 }
