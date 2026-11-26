@@ -24,11 +24,18 @@ class IsolasiPeriodeTest extends TestCase
     {
         parent::setUp();
         $this->withoutVite();
+        \Illuminate\Support\Carbon::setTestNow('2027-06-01'); // periode 2027-2029 harus aktif
         $this->p1 = Periode::firstOrCreate(['tahun_mulai' => 2024, 'tahun_selesai' => 2026]);
         $this->p2 = Periode::firstOrCreate(['tahun_mulai' => 2027, 'tahun_selesai' => 2029]);
         $this->lama = Bidang::create(['nama_bidang' => 'Lama', 'foto_bidang' => 'a.jpg', 'periode_id' => $this->p1->id]);
         $this->baru = Bidang::create(['nama_bidang' => 'Baru', 'foto_bidang' => 'b.jpg', 'periode_id' => $this->p2->id]);
         $this->akun = User::factory()->admin($this->p2)->create();
+    }
+
+    protected function tearDown(): void
+    {
+        \Illuminate\Support\Carbon::setTestNow();
+        parent::tearDown();
     }
 
     public function test_admin_periode_hanya_melihat_bidang_periodenya()

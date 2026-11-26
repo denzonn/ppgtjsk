@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Middleware\PeriodeAktif;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,11 @@ class AuthController extends BaseController
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
+            if ($user->role === 'ADMIN' && ! $user->bolehMasuk()) {
+                Auth::logout();
+
+                return $this->sendError(PeriodeAktif::pesan($user), ['error' => 'Periode berakhir'], 403);
+            }
             $token = $user->createToken('YourAppTokenName')->accessToken;
 
             $response = [

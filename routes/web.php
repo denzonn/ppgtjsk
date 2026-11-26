@@ -84,7 +84,7 @@ Route::post('/form-anggota/create', [formDataAnggotaController::class, 'store'])
     ->name('form-anggota-store');
 
 Route::prefix('admin')
-    ->middleware(['auth', 'isAdmin'])
+    ->middleware(['auth', 'isAdmin', 'periode.aktif'])
     ->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])
             ->name('dashboard');

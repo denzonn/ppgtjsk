@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\PeriodeAktif;
+use Illuminate\Http\Request;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -34,6 +36,18 @@ class LoginController extends Controller
             return '/admin/dashboard';
         } else {
             return '/';
+        }
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->role === 'ADMIN' && ! $user->bolehMasuk()) {
+            $pesan = PeriodeAktif::pesan($user);
+            $this->guard()->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return redirect()->route('login')->withErrors(['email' => $pesan]);
         }
     }
 
