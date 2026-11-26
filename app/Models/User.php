@@ -59,4 +59,28 @@ class User extends Authenticatable
     {
         return $this->isAdminUtama() || (bool) $this->periode?->isAktif();
     }
+
+    public function bolehBuatPeriode(int $mulai, int $selesai): bool
+    {
+        return $this->isAdminUtama() || $mulai === $this->periode?->tahun_selesai;
+    }
+
+    public function bolehBuatAkunDi(Periode $p): bool
+    {
+        if ($this->isAdminUtama() || $p->id === $this->periode_id) {
+            return true;
+        }
+        if ($p->tahun_mulai !== $this->periode?->tahun_selesai) {
+            return false;
+        }
+
+        return ! static::where('periode_id', $p->id)
+            ->whereIn('dibuat_oleh', static::where('periode_id', $this->periode_id)->select('id'))
+            ->exists();
+    }
+
+    public function bolehKelolaAkun(User $u): bool
+    {
+        return $this->isAdminUtama() || $u->periode_id === $this->periode_id;
+    }
 }

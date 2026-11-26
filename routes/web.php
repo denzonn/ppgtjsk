@@ -88,6 +88,9 @@ Route::prefix('admin')
     ->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])
             ->name('dashboard');
+        Route::post('periode/pilih', [\App\Http\Controllers\Admin\PeriodeController::class, 'pilih'])->name('periode.pilih');
+        Route::resource('periode', \App\Http\Controllers\Admin\PeriodeController::class)->only(['index', 'create', 'store']);
+        Route::resource('akun', \App\Http\Controllers\Admin\AkunController::class)->only(['index', 'create', 'store', 'destroy']);
         Route::resource('renungan-harian', RenunganHarianController::class);
         Route::resource('foto-ksb', FotoKsbController::class);
         Route::resource('sekilas-anggota', SekilasAnggotaController::class);

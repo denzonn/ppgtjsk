@@ -9,6 +9,11 @@ class Periode extends Model
 {
     protected $fillable = ['tahun_mulai', 'tahun_selesai', 'dibuat_oleh'];
 
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
     public function isAktif(): bool
     {
         $tahun = now()->year;
