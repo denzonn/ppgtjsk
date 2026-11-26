@@ -28,14 +28,18 @@ class Profil extends Model implements HasMedia
         'photo' => PublicUrl::class,
     ];
 
+    protected $appends = ['periode'];
+
     public function periodeKepengurusan()
     {
         return $this->belongsTo(\App\Models\Periode::class, 'periode_id');
     }
 
-    /** Label teks periode, dipakai view publik. */
+    /** Teks periode format lama ("Periode 2013 - 2015") untuk view publik dan API. */
     public function getPeriodeAttribute()
     {
-        return $this->periodeKepengurusan?->label();
+        $p = $this->periodeKepengurusan;
+
+        return $p ? "Periode {$p->tahun_mulai} - {$p->tahun_selesai}" : null;
     }
 }

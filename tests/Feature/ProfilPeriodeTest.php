@@ -49,7 +49,32 @@ class ProfilPeriodeTest extends TestCase
 
     public function test_accessor_periode_untuk_halaman_publik()
     {
-        $this->assertSame('2018-2020', $this->profil->periode);
-        $this->get(route('profil'))->assertOk()->assertSee('2018-2020');
+        $this->assertSame('Periode 2018 - 2020', $this->profil->periode);
+        $this->get(route('profil'))->assertOk()->assertSee('Periode 2018 - 2020');
+    }
+
+    public function test_migrasi_membaca_format_periode_lama()
+    {
+        $this->artisan('migrate:rollback', ['--step' => 1]);
+        $this->assertSame('Periode 2018 - 2020', \DB::table('profils')->value('periode'));
+        \DB::table('profils')->insert([
+            ['periode' => 'Periode 2013 - 2015', 'content' => 'a', 'photo' => 'x'],
+            ['periode' => 'Periode 2016 - 2018', 'content' => 'b', 'photo' => 'x'],
+            ['periode' => 'aneh', 'content' => 'c', 'photo' => 'x'],
+        ]);
+        $this->artisan('migrate');
+
+        $label = fn ($c) => Profil::where('content', $c)->first()->periode;
+        $this->assertSame('Periode 2013 - 2015', $label('a'));
+        $this->assertSame('Periode 2016 - 2018', $label('b'));
+        $this->assertSame('Periode 2024 - 2026', $label('c'));
+        $this->assertSame('Periode 2018 - 2020', $this->profil->fresh()->periode);
+    }
+
+    public function test_log_tidak_memuat_kunci_periode()
+    {
+        $this->profil->update(['content' => 'z']);
+        $log = ActivityLog::where('model_id', $this->profil->id)->where('aksi', 'ubah')->first();
+        $this->assertArrayNotHasKey('periode', $log->sesudah);
     }
 }

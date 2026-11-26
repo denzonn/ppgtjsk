@@ -23,7 +23,7 @@ return new class extends Migration
         };
 
         foreach (DB::table('profils')->get(['id', 'periode']) as $row) {
-            preg_match('/^(\d{4})\s*-\s*(\d{4})$/', trim((string) $row->periode), $m);
+            preg_match('/(\d{4})\D+(\d{4})/', (string) $row->periode, $m);
             DB::table('profils')->where('id', $row->id)
                 ->update(['periode_id' => $m ? $cari($m[1], $m[2]) : $cari(2024, 2026)]);
         }
@@ -41,7 +41,7 @@ return new class extends Migration
 
         foreach (DB::table('periodes')->get() as $p) {
             DB::table('profils')->where('periode_id', $p->id)
-                ->update(['periode' => $p->tahun_mulai . '-' . $p->tahun_selesai]);
+                ->update(['periode' => 'Periode ' . $p->tahun_mulai . ' - ' . $p->tahun_selesai]);
         }
 
         Schema::table('profils', function (Blueprint $table) {
