@@ -24,7 +24,10 @@ class PeriodeController extends Controller
         $user = auth()->user();
         $bolehTambah = $user->isAdminUtama() || ! Periode::where('tahun_mulai', $user->periode->tahun_selesai)->exists();
 
-        return view('pages.admin.periode.index', compact('periode', 'bolehTambah'));
+        $pengurus = AnggotaBidang::withoutGlobalScope('periode')->selectRaw('periode_id, count(*) as jumlah')
+            ->groupBy('periode_id')->pluck('jumlah', 'periode_id');
+
+        return view('pages.admin.periode.index', compact('periode', 'bolehTambah', 'pengurus'));
     }
 
     public function create()
