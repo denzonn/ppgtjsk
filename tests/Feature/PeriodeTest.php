@@ -71,4 +71,17 @@ class PeriodeTest extends TestCase
         $this->actingAs(User::factory()->create(['role' => 'USER']));
         $this->assertNull(Periode::aktif());
     }
+
+    public function test_periode_yang_masih_punya_akun_tidak_bisa_dihapus()
+    {
+        $p = $this->periode(2030, 2032);
+        $u = User::factory()->admin($p)->create();
+
+        try {
+            $p->delete();
+            $this->fail('Periode terhapus padahal masih punya akun');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $this->assertSame($p->id, $u->fresh()->periode_id);
+        }
+    }
 }

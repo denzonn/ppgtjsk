@@ -24,7 +24,7 @@ return new class extends Migration
         ]);
 
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('periode_id')->nullable()->constrained('periodes')->nullOnDelete();
+            $table->foreignId('periode_id')->nullable()->constrained('periodes')->restrictOnDelete();
             $table->foreignId('dibuat_oleh')->nullable()->constrained('users')->nullOnDelete();
         });
     }
