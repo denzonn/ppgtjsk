@@ -1,26 +1,32 @@
-{{-- Topbar admin: breadcrumb dari judul halaman, tanggal, dan avatar --}}
-<header
-    class="sticky top-0 z-30 border-b border-admin-border/70 bg-admin-body/80 backdrop-blur-xl">
-    <div class="mx-auto flex h-16 max-w-[1400px] items-center gap-4 px-4 md:px-8">
-        <button type="button" data-sidebar-toggle aria-label="Buka menu"
-            class="grid size-10 place-items-center rounded-xl bg-white text-admin-heading shadow-sm ring-1 ring-admin-border xl:hidden">
-            <i class="bx bx-menu-alt-left text-2xl"></i>
+{{-- Topbar admin: breadcrumb, cari anggota (⌘K / Ctrl+K), tanggal, tautan ke situs --}}
+<header class="sticky top-0 z-20 flex items-center justify-between gap-4 border-b border-admin-border bg-white px-6 py-3">
+    <div class="flex min-w-0 items-center gap-2 text-sm">
+        <button type="button" data-sidebar-toggle aria-label="Buka menu navigasi"
+            class="mr-1 inline-flex size-8 items-center justify-center rounded-lg border border-admin-border text-admin-heading lg:hidden">
+            <span class="material-symbols-outlined text-[18px]!" aria-hidden="true">menu</span>
         </button>
-        <nav class="flex min-w-0 items-center gap-2 text-sm">
-            <a href="{{ route('dashboard') }}" class="text-slate-400 transition hover:text-admin"><i
-                    class="bx bx-home-alt text-lg"></i></a>
-            <i class="bx bx-chevron-right text-slate-300"></i>
-            <span class="truncate font-semibold text-admin-heading">@yield('title')</span>
-        </nav>
-        <div class="ml-auto flex items-center gap-3">
-            <span class="hidden items-center gap-2 rounded-xl bg-white px-3 py-2 text-xs font-medium text-slate-500 shadow-sm ring-1 ring-admin-border md:flex">
-                <i class="bx bx-calendar text-base text-admin"></i>
-                {{ now()->locale('id')->isoFormat('dddd, D MMMM YYYY') }}
+        <a href="{{ route('dashboard') }}" class="text-admin-text hover:text-admin-heading">SATKAS</a>
+        <span class="text-admin-text">/</span>
+        <span class="truncate font-semibold text-admin-heading">@yield('title')</span>
+    </div>
+
+    <div class="flex items-center gap-3">
+        <form action="{{ route('data-anggota.index') }}" method="GET" role="search"
+            class="hidden w-64 items-center justify-between gap-2 rounded-lg border border-admin-border bg-admin-body px-3 py-1.5 text-xs text-admin-text focus-within:border-admin md:flex">
+            <span class="flex min-w-0 flex-1 items-center gap-1.5">
+                <span class="material-symbols-outlined text-[15px]!" aria-hidden="true">search</span>
+                <input type="search" name="q" data-command-search placeholder="Cari data anggota..." value="{{ request('q') }}"
+                    class="w-full min-w-0 bg-transparent text-admin-heading outline-none placeholder:text-admin-text">
             </span>
-            <a href="{{ route('home') }}" target="_blank" title="Lihat situs"
-                class="grid size-10 place-items-center rounded-xl bg-white text-slate-500 shadow-sm ring-1 ring-admin-border transition hover:text-admin">
-                <i class="bx bx-globe text-xl"></i>
-            </a>
+            <kbd class="rounded border border-admin-border bg-white px-1.5 py-0.5 font-mono text-[10px] text-admin-text">⌘K</kbd>
+        </form>
+        <div class="hidden items-center gap-1.5 rounded-lg border border-admin-border bg-white px-3 py-1.5 text-xs font-medium text-admin-text tabular-nums sm:inline-flex">
+            <span class="material-symbols-outlined text-[15px]!" aria-hidden="true">calendar_today</span>
+            <span>{{ now()->locale('id')->isoFormat('dddd, D MMM YYYY') }}</span>
         </div>
+        <a href="{{ route('home') }}" target="_blank" aria-label="Lihat situs publik"
+            class="flex size-8 items-center justify-center rounded-lg border border-admin-border bg-white text-admin-text hover:text-admin-heading">
+            <span class="material-symbols-outlined text-[17px]!" aria-hidden="true">language</span>
+        </a>
     </div>
 </header>

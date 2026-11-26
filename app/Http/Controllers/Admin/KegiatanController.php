@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Casts\PublicUrl;
+
 use App\Http\Controllers\Controller;
 use App\Models\Kegiatan;
 use App\Models\ProgramKerja;
@@ -129,7 +131,7 @@ class KegiatanController extends Controller
 
         if ($request->hasFile('photo')) {
             if($kegiatan->photo){
-                Storage::disk('public')->delete($kegiatan->getRawOriginal('photo'));
+                Storage::disk('public')->delete(PublicUrl::toPath($kegiatan->getRawOriginal('photo')));
             }
 
             $images = $request->file('photo');

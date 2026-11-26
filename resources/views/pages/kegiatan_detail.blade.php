@@ -15,7 +15,7 @@
         <div class="mx-auto max-w-[1220px] px-3">
             <div class="mb-4 mt-12 flex flex-col items-center" data-aos="fade-up" data-aos-duration="1000">
                 <h2
-                    class="relative mb-2 inline-block pb-[5px] text-center text-[2rem] font-semibold after:absolute after:bottom-0 after:left-[40%] after:h-0.5 after:w-[60px] after:bg-[#227bff]">
+                    class="relative mb-2 inline-block pb-[5px] text-center text-[2rem] font-semibold after:absolute after:bottom-0 after:left-[40%] after:h-0.5 after:w-[60px] after:bg-ppgt-sky">
                     {{ $kegiatan->name }}</h2>
             </div>
             <div class="relative mb-[250px] flow-root" data-aos="fade-up" data-aos-duration="2000">
@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="bg-[#fdfdfd]">
-            <h4 class="relative flex items-center justify-center pt-5 text-2xl font-semibold after:absolute after:-bottom-5 after:h-0.5 after:w-[60px] after:bg-[#227bff]"
+            <h4 class="relative flex items-center justify-center pt-5 text-2xl font-semibold after:absolute after:-bottom-5 after:h-0.5 after:w-[60px] after:bg-ppgt-sky"
                 data-aos="fade-up" data-aos-duration="1000">Gallery Kegiatan</h4>
             <div id="app">
                 <!-- Panorama slider -->

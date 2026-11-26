@@ -19,20 +19,20 @@
 
                 <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email"
                     autofocus placeholder="Email"
-                    class="my-2 w-full bg-[#eee] px-[15px] py-3 outline-none focus:ring-2 focus:ring-[#0a53be]/30 @error('email') ring-2 ring-red-500 @enderror">
+                    class="my-2 w-full bg-[#eee] px-[15px] py-3 outline-none focus:ring-2 focus:ring-[#1e429c]/30 @error('email') ring-2 ring-red-500 @enderror">
                 @error('email')
                     <span class="w-full text-left text-sm font-bold text-red-600" role="alert">{{ $message }}</span>
                 @enderror
 
                 <input id="password" type="password" name="password" required autocomplete="current-password"
                     placeholder="Password"
-                    class="my-2 w-full bg-[#eee] px-[15px] py-3 outline-none focus:ring-2 focus:ring-[#0a53be]/30 @error('password') ring-2 ring-red-500 @enderror">
+                    class="my-2 w-full bg-[#eee] px-[15px] py-3 outline-none focus:ring-2 focus:ring-[#1e429c]/30 @error('password') ring-2 ring-red-500 @enderror">
                 @error('password')
                     <span class="w-full text-left text-sm font-bold text-red-600" role="alert">{{ $message }}</span>
                 @enderror
 
                 <button type="submit"
-                    class="mt-2 rounded-[20px] border border-[#0a53be] bg-[#0a53be] px-[45px] py-3 text-xs font-bold uppercase tracking-[1px] text-white transition-transform duration-75 active:scale-95">
+                    class="mt-2 rounded-[20px] border border-[#1e429c] bg-[#1e429c] px-[45px] py-3 text-xs font-bold uppercase tracking-[1px] text-white transition-transform duration-75 active:scale-95">
                     {{ __('Login') }}
                 </button>
 
@@ -44,7 +44,7 @@
             </form>
 
             <div
-                class="hidden flex-col items-center justify-center bg-linear-to-r from-[#002255] to-[#0a53be] px-10 text-center text-white md:flex">
+                class="hidden flex-col items-center justify-center bg-linear-to-r from-ppgt-950 to-ppgt-700 px-10 text-center text-white md:flex">
                 <h1 class="text-[2.5rem] font-bold">Hello, Friend!</h1>
                 <p class="mb-[30px] mt-5 text-sm font-thin leading-5 tracking-[0.5px]">Selamat Datang di Website Resmi PPGT
                     Jemaat Satria Kasih. Silahkan Masukkan Akun Anda!</p>

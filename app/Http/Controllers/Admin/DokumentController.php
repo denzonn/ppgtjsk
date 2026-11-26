@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Casts\PublicUrl;
+
 use App\Http\Controllers\Controller;
 use App\Models\Dokument;
 use Illuminate\Http\Request;
@@ -102,7 +104,7 @@ class DokumentController extends Controller
 
         if ($request->hasFile('file')) {
             if($document->file){
-                Storage::disk('public')->delete($document->getRawOriginal('file'));
+                Storage::disk('public')->delete(PublicUrl::toPath($document->getRawOriginal('file')));
             }
 
             $images = $request->file('file');
@@ -132,7 +134,7 @@ class DokumentController extends Controller
     {
         $document = Dokument::findOrFail($id);
 
-        Storage::disk('public')->delete($document->getRawOriginal('file'));
+        Storage::disk('public')->delete(PublicUrl::toPath($document->getRawOriginal('file')));
         
         $document->delete();
 

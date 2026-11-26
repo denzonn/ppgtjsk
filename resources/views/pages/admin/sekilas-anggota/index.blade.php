@@ -5,32 +5,34 @@
 @endsection
 
 @section('content')
-    {{-- Header: papan gabus --}}
-    <header class="mb-10 flex items-center gap-5">
-        <span class="grid size-16 rotate-[-6deg] place-items-center rounded-2xl bg-lime-300 text-3xl text-lime-900 shadow-lg shadow-lime-300/50">
-            <i class="bx bx-note"></i>
-        </span>
-        <div>
-            <h1 class="text-3xl font-extrabold text-admin-heading">Sekilas Anggota</h1>
-            <p class="text-slate-500">Catatan singkat yang muncul di kotak "Sekilas Info" pada beranda.</p>
+    <div class="flex flex-col gap-5">
+        {{-- Judul --}}
+        <div class="flex items-center gap-3">
+            <span class="grid size-10 -rotate-6 place-items-center rounded-lg bg-bronze-50 text-bronze-500 ring-1 ring-bronze-200">
+                <span class="material-symbols-outlined text-[20px]!" aria-hidden="true">sticky_note_2</span>
+            </span>
+            <div>
+                <h1 class="text-xl font-bold tracking-tight">Sekilas Anggota</h1>
+                <p class="text-sm text-admin-text">Catatan singkat yang muncul di kotak "Sekilas Info" pada beranda.</p>
+            </div>
         </div>
-    </header>
 
-    <div
-        class="grid gap-8 rounded-3xl bg-[#c9a77c] bg-[radial-gradient(rgba(0,0,0,0.08)_1px,transparent_1px)] bg-[length:6px_6px] p-6 shadow-inner sm:grid-cols-2 md:p-10 xl:grid-cols-3">
-        @forelse ($data as $item)
-            @php($tone = ['bg-lime-200', 'bg-yellow-200', 'bg-pink-200', 'bg-sky-200'][$loop->index % 4])
-            <article
-                class="relative flex min-h-56 flex-col p-6 pt-8 shadow-[0_12px_20px_-8px_rgba(0,0,0,0.35)] transition hover:rotate-0 hover:scale-[1.02] {{ $tone }} {{ $loop->even ? 'rotate-2' : '-rotate-2' }}">
-                <span class="absolute -top-3 left-1/2 size-6 -translate-x-1/2 rounded-full bg-rose-500 shadow-md ring-4 ring-rose-300/60"></span>
-                <div class="rich-text flex-1 font-medium text-slate-800">{!! $item->description !!}</div>
-                <a href="{{ route('sekilas-anggota.edit', $item->id) }}"
-                    class="mt-4 inline-flex items-center gap-1 self-end text-sm font-bold text-slate-700 underline decoration-2 underline-offset-4 hover:text-black">
-                    <i class="bx bx-pencil"></i> Ubah catatan
-                </a>
-            </article>
-        @empty
-            <p class="col-span-full p-10 text-center font-semibold text-white">Belum ada catatan.</p>
-        @endforelse
+        {{-- Papan catatan --}}
+        <div class="grid gap-6 rounded-xl border border-admin-border bg-white bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] bg-[length:14px_14px] p-6 sm:grid-cols-2 md:p-8 xl:grid-cols-3">
+            @forelse ($data as $item)
+                @php($tone = ['bg-ink-50 ring-ink-100', 'bg-bronze-50 ring-bronze-200', 'bg-white ring-admin-border'][$loop->index % 3])
+                <article
+                    class="relative flex min-h-48 flex-col rounded-lg p-5 pt-7 ring-1 transition-transform hover:rotate-0 hover:scale-[1.02] {{ $tone }} {{ $loop->even ? 'rotate-1' : '-rotate-1' }} shadow-[0_10px_18px_-12px_rgba(15,23,42,0.35)]">
+                    <span class="absolute -top-2 left-1/2 size-4 -translate-x-1/2 rounded-full ring-4 ring-white {{ $loop->even ? 'bg-bronze-400' : 'bg-admin' }}"></span>
+                    <div class="rich-text flex-1 text-sm font-medium text-admin-heading">{!! $item->description !!}</div>
+                    <a href="{{ route('sekilas-anggota.edit', $item->id) }}"
+                        class="mt-3 inline-flex items-center gap-1 self-end rounded-lg px-2 py-1 text-xs font-semibold text-admin transition-colors hover:bg-white">
+                        <span class="material-symbols-outlined text-[15px]!" aria-hidden="true">edit</span> Ubah catatan
+                    </a>
+                </article>
+            @empty
+                <p class="col-span-full p-10 text-center text-sm text-admin-text">Belum ada catatan.</p>
+            @endforelse
+        </div>
     </div>
 @endsection

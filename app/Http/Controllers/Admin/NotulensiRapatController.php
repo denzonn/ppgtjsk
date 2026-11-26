@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Casts\PublicUrl;
+
 use App\Http\Controllers\Controller;
 use App\Models\NotulensiRapat;
 use Illuminate\Http\Request;
@@ -98,7 +100,7 @@ class NotulensiRapatController extends Controller
 
         if ($request->hasFile('file')) {
             if($notulen->file){
-                Storage::disk('public')->delete($notulen->getRawOriginal('file'));
+                Storage::disk('public')->delete(PublicUrl::toPath($notulen->getRawOriginal('file')));
             }
 
             $images = $request->file('file');
@@ -126,7 +128,7 @@ class NotulensiRapatController extends Controller
     public function destroy($id)
     {
         $notulen = NotulensiRapat::findOrFail($id);
-        Storage::disk('public')->delete($notulen->getRawOriginal('file'));
+        Storage::disk('public')->delete(PublicUrl::toPath($notulen->getRawOriginal('file')));
 
         $notulen->delete();
 

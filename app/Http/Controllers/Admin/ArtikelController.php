@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Casts\PublicUrl;
+
 use App\Http\Controllers\Controller;
 use App\Models\Artikel;
 use Illuminate\Http\Request;
@@ -49,12 +51,7 @@ class ArtikelController extends Controller
             $data['photo'] = $images->storeAs('photo', $file_name, 'public');
         }
 
-        $tagsString = explode(',', $request->tags);
-        $newTagsArray = [];
-        foreach ($tagsString as $tag) {
-            $tag = substr($tag, 0, -1);
-            array_push($newTagsArray, $tag);
-        }
+        $newTagsArray = array_values(array_filter(array_map('trim', explode(',', (string) $request->tags))));
         $tagsJson = json_encode($newTagsArray);
 
         $artikel = Artikel::create([
@@ -111,7 +108,7 @@ class ArtikelController extends Controller
         if ($request->hasFile('photo')) {
             // Hapus foto lama jika ada
             if ($artikel->photo) {
-                Storage::disk('public')->delete($artikel->getRawOriginal('photo'));
+                Storage::disk('public')->delete(PublicUrl::toPath($artikel->getRawOriginal('photo')));
             }
 
             // Upload foto baru
@@ -124,13 +121,7 @@ class ArtikelController extends Controller
             $data['photo'] = $artikel->photo;
         }
 
-        $tagsString = explode(',', $request->tags); // Pisahkan string menjadi array
-
-        $newTagsArray = [];
-        foreach ($tagsString as $tag) {
-            $tag = substr($tag, 0, -1);
-            array_push($newTagsArray, $tag);
-        }
+        $newTagsArray = array_values(array_filter(array_map('trim', explode(',', (string) $request->tags))));
         $tagsJson = json_encode($newTagsArray);
 
         $artikel->update([
@@ -156,7 +147,7 @@ class ArtikelController extends Controller
     {
         // Delete photo
         $article = Artikel::findOrFail($id);
-        Storage::disk('public')->delete($article->getRawOriginal('photo'));
+        Storage::disk('public')->delete(PublicUrl::toPath($article->getRawOriginal('photo')));
         $article->delete();
 
         return redirect()->route('artikel.index');

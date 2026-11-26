@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Casts\PublicUrl;
+
 use App\Http\Controllers\Controller;
 use App\Models\GalleryKegiatan;
 use App\Models\Kegiatan;
@@ -118,7 +120,7 @@ class GalleryKegiatanController extends Controller
     {
         // Delete photo
         $gallery = GalleryKegiatan::findOrFail($id);
-        Storage::disk('public')->delete($gallery->getRawOriginal('photo'));
+        Storage::disk('public')->delete(PublicUrl::toPath($gallery->getRawOriginal('photo')));
         $gallery->delete();
 
         return redirect()->route('gallery-kegiatan.index');

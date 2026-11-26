@@ -5,15 +5,15 @@
 @endsection
 
 @section('content')
-    <div class="mx-auto max-w-5xl">
-        <div class="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-admin-border">
-            <div class="flex items-center gap-4 border-b border-admin-border bg-linear-to-r from-sky-50 to-white px-6 py-5 md:px-8">
+    <div class="mx-auto w-full max-w-5xl">
+        <div class="overflow-hidden rounded-xl bg-white border border-admin-border">
+            <div class="flex items-center gap-4 border-b border-admin-border bg-ink-50 px-6 py-5 md:px-8">
                 <a href="{{ route('data-anggota.index') }}" title="Kembali"
-                    class="grid size-10 shrink-0 place-items-center rounded-xl bg-white text-slate-500 shadow-sm ring-1 ring-admin-border transition hover:text-sky-600"><i class="bx bx-arrow-back text-xl"></i></a>
-                <span class="grid size-12 shrink-0 place-items-center rounded-2xl bg-sky-500 text-2xl text-white shadow-lg shadow-sky-500/30"><i class="bx bx-id-card"></i></span>
+                    class="grid size-10 shrink-0 place-items-center rounded-lg bg-white text-slate-500 border border-admin-border transition hover:text-ink-600"><i class="bx bx-arrow-back text-xl"></i></a>
+                <span class="grid size-12 shrink-0 place-items-center rounded-xl bg-ink-500 text-2xl text-white"><i class="bx bx-id-card"></i></span>
                 <div>
-                    <p class="text-xs font-bold uppercase tracking-[0.18em] text-sky-600">Detail data</p>
-                    <h1 class="text-xl font-extrabold text-admin-heading">Data Anggota</h1>
+                    <p class="text-xs font-bold uppercase tracking-[0.18em] text-ink-600">Detail data</p>
+                    <h1 class="text-xl font-semibold text-admin-heading">Data Anggota</h1>
                 </div>
             </div>
             <div class="p-6 md:p-8">
@@ -99,12 +99,12 @@
                 </div>
                 <div class="mt-6">
                     <a href="{{ route('data-anggota.accData', $data->id) }}"
-                        class="inline-block rounded-md text-center font-medium transition px-3.5 py-1 text-xs bg-sky-600 text-white shadow-lg shadow-sky-600/30 hover:bg-sky-700 px-6! py-1! text-[16px]">Approve</a>
+                        class="inline-block rounded-lg text-center font-medium transition px-3.5 py-1 text-xs bg-ink-600 text-white hover:bg-ink-700 px-6! py-1! text-[16px]">Approve</a>
                     <form action="{{ route('data-anggota.destroy', $data->id) }}" method="POST"
                         class="inline">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="inline-block rounded-md text-center font-medium transition px-3.5 py-1 text-xs bg-rose-500 text-white shadow-lg shadow-rose-500/30 hover:bg-rose-600 px-6! py-1! text-[16px]">Tolak</button>
+                        <button type="submit" class="inline-block rounded-lg text-center font-medium transition px-3.5 py-1 text-xs bg-danger-500 text-white hover:bg-danger-600 px-6! py-1! text-[16px]">Tolak</button>
                     </form>
                 </div>
             </div>

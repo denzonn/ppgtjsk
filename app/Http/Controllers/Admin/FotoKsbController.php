@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Casts\PublicUrl;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\KsbRequest;
 use App\Models\FotoKsb;
@@ -88,7 +90,7 @@ class FotoKsbController extends Controller
 
         if ($request->hasFile('foto')) {
             if($ksb->foto){
-                Storage::disk('public')->delete($ksb->getRawOriginal('foto'));
+                Storage::disk('public')->delete(PublicUrl::toPath($ksb->getRawOriginal('foto')));
             }
             $images = $request->file('foto');
 

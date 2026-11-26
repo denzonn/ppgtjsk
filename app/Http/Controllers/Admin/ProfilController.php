@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Casts\PublicUrl;
+
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Profil;
 use Illuminate\Http\Request;
@@ -98,7 +100,7 @@ class ProfilController extends Controller
 
         if ($request->hasFile('photo')) {
             if($profil->photo){
-                Storage::disk('public')->delete($profil->getRawOriginal('photo'));
+                Storage::disk('public')->delete(PublicUrl::toPath($profil->getRawOriginal('photo')));
             }
 
             $images = $request->file('photo');

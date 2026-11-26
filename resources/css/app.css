@@ -13,20 +13,94 @@
     /* Frontend */
     --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     --font-slab: 'Roboto Slab', serif;
-    --color-brand: #5064bd;
-    --color-brand-dark: #3950bb;
-    --color-navy: #1e3055;
+    /* Biru PPGT, diambil dari logo: ppgt-700 = lingkaran & tulisan, ppgt-sky = biru cerah. */
+    --color-ppgt-50: #eef3fc;
+    --color-ppgt-100: #dbe5f7;
+    --color-ppgt-200: #bccdef;
+    --color-ppgt-300: #8eaae2;
+    --color-ppgt-400: #5d80d0;
+    --color-ppgt-500: #3a60bd;
+    --color-ppgt-600: #284fae;
+    --color-ppgt-700: #1e429c;
+    --color-ppgt-800: #1b377e;
+    --color-ppgt-900: #1a3066;
+    --color-ppgt-950: #111d3f;
+    --color-ppgt-sky: #1baae1;
 
-    /* Admin panel. Warna aksen per halaman memakai palet bawaan Tailwind (rose, amber, emerald, dst). */
+    --color-brand: var(--color-ppgt-700);
+    --color-brand-dark: var(--color-ppgt-800);
+    --color-navy: var(--color-ppgt-900);
+
+    /*
+     * Admin panel: desain "Ruang Kerja Modern" — kartu putih bergaris tipis di atas canvas abu,
+     * primary cobalt, aksen amber. Halaman admin hanya memakai skala ink (cobalt) / bronze (amber)
+     * / success / danger + slate untuk netral.
+     */
     --font-public: 'Plus Jakarta Sans', -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
-    --color-admin: #4f46e5;
-    --color-admin-dark: #4338ca;
-    --color-admin-light: #eef2ff;
-    --color-admin-body: #f4f5fa;
+    --font-headline: 'Plus Jakarta Sans', -apple-system, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    --color-admin: #1e40af;
+    --color-admin-dark: #0f172a;
+    --color-admin-light: #eff6ff;
+    --color-admin-body: #f1f5f9;
     --color-admin-text: #475569;
     --color-admin-heading: #0f172a;
     --color-admin-border: #e2e8f0;
-    --color-admin-ink: #0b1020;
+    --color-admin-ink: #0f172a;
+    --color-surface-low: #f1f5f9;
+    --color-surface: #f1f5f9;
+    --color-chart-primary: #1e40af;
+    --color-chart-secondary: #b45309;
+    --color-chart-neutral: #e2e8f0;
+
+    /* Cobalt (primary) */
+    --color-ink-50: #eff6ff;
+    --color-ink-100: #dbeafe;
+    --color-ink-200: #bfdbfe;
+    --color-ink-300: #93c5fd;
+    --color-ink-400: #3b6fd8;
+    --color-ink-500: #1e40af;
+    --color-ink-600: #1e3a8a;
+    --color-ink-700: #172f6e;
+    --color-ink-800: #0f172a;
+    --color-ink-900: #0b1226;
+    --color-ink-950: #070b18;
+    /* Amber (secondary) */
+    --color-bronze-50: #fffbeb;
+    --color-bronze-100: #fef3c7;
+    --color-bronze-200: #fde68a;
+    --color-bronze-300: #f6c453;
+    --color-bronze-400: #d97706;
+    --color-bronze-500: #b45309;
+    --color-bronze-600: #92400e;
+    --color-bronze-700: #78350f;
+    --color-bronze-800: #5c2a0c;
+    --color-bronze-900: #451a03;
+    --color-bronze-950: #2b1002;
+    /* Status */
+    --color-success-50: #eef6f0;
+    --color-success-100: #d6ebdb;
+    --color-success-200: #add6b8;
+    --color-success-300: #7dbb8f;
+    --color-success-400: #4f9b66;
+    --color-success-500: #2f7d46;
+    --color-success-600: #256638;
+    --color-success-700: #1d502d;
+    --color-success-800: #163d22;
+    --color-success-900: #0f2a18;
+    --color-success-950: #08180d;
+    --color-danger-50: #fff4f2;
+    --color-danger-100: #ffdad6;
+    --color-danger-200: #ffb4ab;
+    --color-danger-300: #f08a80;
+    --color-danger-400: #db574c;
+    --color-danger-500: #ba1a1a;
+    --color-danger-600: #93000a;
+    --color-danger-700: #7a0008;
+    --color-danger-800: #5c0006;
+    --color-danger-900: #410004;
+    --color-danger-950: #2a0002;
 
     --animate-toast: toast 4s linear forwards;
     --animate-toast-bar: toast-bar 3s 0.25s linear forwards;
@@ -76,7 +150,7 @@ body.font-sans {
     & ol { list-style: decimal; padding-left: 2rem; }
     & h1 { font-size: 2rem; } & h2 { font-size: 1.75rem; } & h3 { font-size: 1.5rem; } & h4 { font-size: 1.25rem; }
     & :is(h1, h2, h3, h4, h5, h6) { margin-bottom: 0.5rem; font-weight: 500; }
-    & a { color: #0d6efd; text-decoration: underline; }
+    & a { color: var(--color-ppgt-700); text-decoration: underline; }
     & blockquote { border-left: 4px solid #d9dee3; padding-left: 1rem; font-style: italic; }
     & img { display: inline-block; max-width: 100%; height: auto; }
     & strong, & b { font-weight: 700; }
@@ -87,18 +161,32 @@ body.font-sans {
  * Markup yang dibuat oleh library pihak ketiga (DataTables, Owl Carousel) tidak bisa diberi class inline,
  * jadi diatur di sini.
  */
-.dataTables_wrapper { @apply text-sm text-admin-text; }
+.dataTables_wrapper { @apply font-public text-sm text-admin-text; }
 .dataTables_wrapper .dataTables_filter input,
-.dataTables_wrapper .dataTables_length select { @apply ml-2 rounded-xl border border-admin-border bg-white px-3 py-2 outline-none focus:border-admin focus:ring-4 focus:ring-admin-light; }
+.dataTables_wrapper .dataTables_length select { @apply ml-2 rounded border border-admin-border bg-surface-low px-2 py-1.5 outline-none focus:border-admin focus:ring-1 focus:ring-admin; }
 .dataTables_wrapper .dataTables_filter,
 .dataTables_wrapper .dataTables_length { @apply mb-4; }
 .dataTables_wrapper .dt-buttons { @apply mb-4 flex gap-2; }
-.dataTables_wrapper .dt-button { @apply m-0! rounded-xl! border-0! bg-admin-light! px-4! py-2! font-semibold! text-admin! transition hover:bg-admin! hover:text-white!; background-image: none !important; }
+.dataTables_wrapper .dt-button { @apply m-0! rounded! border! border-admin-border! bg-white! px-3! py-1.5! text-xs! font-semibold! text-admin-heading! transition hover:bg-surface-low!; background-image: none !important; }
 .dataTables_wrapper .dataTables_info { @apply pt-4! text-slate-400; }
 .dataTables_wrapper .dataTables_paginate { @apply pt-4!; }
-.dataTables_wrapper .dataTables_paginate .paginate_button { @apply mx-0.5! rounded-lg! border-0! px-3! py-1.5! text-slate-500!; background: none !important; }
+.dataTables_wrapper .dataTables_paginate .paginate_button { @apply mx-0.5! rounded! border-0! px-3! py-1.5! text-slate-500!; background: none !important; }
 .dataTables_wrapper .dataTables_paginate .paginate_button.current { @apply bg-admin! text-white!; }
 .dataTables_wrapper .dataTables_paginate .paginate_button:not(.current):not(.disabled):hover { @apply bg-admin-light! text-admin!; }
 table.dataTable thead th, table.dataTable thead td, table.dataTable.no-footer { @apply border-b-0!; }
 .owl-carousel .owl-nav { @apply !mt-0 text-5xl; }
 .owl-carousel .owl-nav span { @apply !p-0; }
+
+/*
+ * Ikon Material Symbols (admin). CSS bawaan Google Fonts tidak ber-layer sehingga ukuran 24px-nya
+ * mengalahkan utility; ukuran ikon di view memakai text-[..px]! (important).
+ */
+.material-symbols-outlined {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    line-height: 1 !important;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: middle;
+}

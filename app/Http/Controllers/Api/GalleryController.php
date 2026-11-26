@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Casts\PublicUrl;
+
 use App\Http\Controllers\Controller;
 use App\Models\GalleryKegiatan;
 use App\Models\Kegiatan;
@@ -58,7 +60,7 @@ class GalleryController extends BaseController
     {
         // Delete photo
         $gallery = GalleryKegiatan::findOrFail($id);
-        Storage::disk('public')->delete($gallery->getRawOriginal('photo'));
+        Storage::disk('public')->delete(PublicUrl::toPath($gallery->getRawOriginal('photo')));
         $gallery->delete();
 
         return $this->sendResponse($gallery, 'Success delete gallery');

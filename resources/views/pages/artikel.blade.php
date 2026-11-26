@@ -9,7 +9,7 @@
         <div class="mx-auto max-w-[1400px] px-3">
             <div class="mb-4 mt-12 flex flex-col items-center" data-aos="fade-up" data-aos-duration="1000">
                 <h2
-                    class="relative mb-2 inline-block pb-[5px] text-center text-[2rem] font-semibold after:absolute after:bottom-0 after:left-[40%] after:h-0.5 after:w-[60px] after:bg-[#227bff]">
+                    class="relative mb-2 inline-block pb-[5px] text-center text-[2rem] font-semibold after:absolute after:bottom-0 after:left-[40%] after:h-0.5 after:w-[60px] after:bg-ppgt-sky">
                     Artikel PPGT JSK</h2>
             </div>
             <div class="grid gap-6 md:grid-cols-3">

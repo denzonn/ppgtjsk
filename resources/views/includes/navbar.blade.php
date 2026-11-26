@@ -2,8 +2,12 @@
     // transparent = navbar beranda: teks putih di atas hero, jadi putih solid saat di-scroll / dibuka.
     $transparent = $transparent ?? false;
     $text = $transparent ? 'text-white group-data-solid/nav:text-black' : 'text-black';
-    $link = "block py-2 text-lg font-light lg:py-0 hover:text-brand-dark focus:text-brand-dark $text";
-    $active = 'text-brand-dark!';
+    // Di atas foto hero pakai biru cerah logo agar terbaca; di latar putih pakai biru PPGT.
+    $accent = $transparent
+        ? 'hover:text-ppgt-sky focus:text-ppgt-sky group-data-solid/nav:hover:text-brand group-data-solid/nav:focus:text-brand'
+        : 'hover:text-brand focus:text-brand';
+    $link = "block py-2 text-lg font-light lg:py-0 $accent $text";
+    $active = $transparent ? 'text-ppgt-sky! group-data-solid/nav:text-brand!' : 'text-brand!';
     $ppgtActive = request()->is('kegiatan*', 'gallery*', 'profil*', 'dokument*');
 @endphp
 <nav data-navbar

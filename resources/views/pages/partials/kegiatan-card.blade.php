@@ -6,7 +6,7 @@
     </div>
     <div class="pr-2.5">
         <span class="mt-1 block text-base font-semibold text-[#8e8c8c]">{{ $item->program->name }}</span>
-        <h2 class="mb-2 text-2xl uppercase text-[#4facfe]">{{ $item->name }}</h2>
+        <h2 class="mb-2 text-2xl uppercase text-ppgt-sky">{{ $item->name }}</h2>
         <p class="mb-2 text-base font-light text-black/70">
             @if (strlen($item->description) > 100)
                 {!! substr($item->description, 0, 100) !!}....
@@ -16,7 +16,7 @@
         </p>
         <div>
             <a href="{{ route('kegiatan-detail', $item->slug) }}"
-                class="mb-2 inline-block rounded-lg bg-linear-to-r from-[#4facfe] to-[#0a53be] px-3 py-2 text-[0.7rem] uppercase tracking-[1px] text-white transition-all duration-300 hover:translate-x-2.5">Read
+                class="mb-2 inline-block rounded-lg bg-linear-to-r from-ppgt-sky to-ppgt-700 px-3 py-2 text-[0.7rem] uppercase tracking-[1px] text-white transition-all duration-300 hover:translate-x-2.5">Read
                 More</a>
         </div>
     </div>

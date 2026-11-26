@@ -86,7 +86,7 @@
 
     <!-- All Acitivity -->
     <section class="relative my-12" id="kegiatan">
-        <div class="absolute -mt-10 h-[40vh] w-[40vh] rounded-[60%_40%_30%_70%/60%_30%_70%_40%] bg-linear-45 from-[#88d5bf] to-[#5d6bf8] md:mt-0 md:h-[30vh] md:w-[30vh]"
+        <div class="absolute -mt-10 h-[40vh] w-[40vh] rounded-[60%_40%_30%_70%/60%_30%_70%_40%] bg-linear-45 from-ppgt-sky to-ppgt-700 md:mt-0 md:h-[30vh] md:w-[30vh]"
             data-aos="fade-up" data-aos-duration="1000"></div>
         <div class="relative mx-auto max-w-[1220px] px-3">
             <div class="flex flex-col items-end" data-aos="fade-up" data-aos-duration="1000">
@@ -212,16 +212,16 @@
                             <figcaption class="self-end uppercase text-white">
                                 <a href="{{ $item->instagram }}" target="_blank" class="text-white">
                                     <h2
-                                        class="mb-0 -translate-y-2.5 rounded-[5px] bg-linear-to-r from-[#0d6efd] to-[#032658] px-2.5 text-xl opacity-0 transition-[opacity,transform] delay-0 duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-hover:delay-[350ms]">
+                                        class="mb-0 -translate-y-2.5 rounded-[5px] bg-linear-to-r from-ppgt-700 to-ppgt-950 px-2.5 text-xl opacity-0 transition-[opacity,transform] delay-0 duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-hover:delay-[350ms]">
                                         {{ $item->nama }}</h2>
                                 </a>
                                 <br>
                                 <div
-                                    class="inline-block translate-y-2.5 rounded-[5px] bg-linear-to-r from-[#4136d9] to-[#0086c7] px-[5px] text-[0.8rem] text-white opacity-0 shadow-[0_1px_10px_rgba(0,0,0,0.2)] transition-[opacity,transform] delay-0 duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-hover:delay-[350ms]">
+                                    class="inline-block translate-y-2.5 rounded-[5px] bg-linear-to-r from-ppgt-700 to-ppgt-sky px-[5px] text-[0.8rem] text-white opacity-0 shadow-[0_1px_10px_rgba(0,0,0,0.2)] transition-[opacity,transform] delay-0 duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-hover:delay-[350ms]">
                                     {{ $item->jabatan }}</div>
                                 <br>
                                 <div
-                                    class="inline-block translate-y-2.5 rounded-[5px] bg-linear-to-r from-white to-[#f0f0f0] px-[5px] text-[0.7rem] text-[#4136d9] opacity-0 shadow-[0_1px_10px_rgba(0,0,0,0.2)] transition-[opacity,transform] delay-[350ms] duration-300 group-hover:translate-y-0 group-hover:opacity-100 [&_p]:mb-0">
+                                    class="inline-block translate-y-2.5 rounded-[5px] bg-linear-to-r from-white to-[#f0f0f0] px-[5px] text-[0.7rem] text-ppgt-700 opacity-0 shadow-[0_1px_10px_rgba(0,0,0,0.2)] transition-[opacity,transform] delay-[350ms] duration-300 group-hover:translate-y-0 group-hover:opacity-100 [&_p]:mb-0">
                                     {!! $item->motto !!}</div>
                             </figcaption>
                         </figure>
@@ -230,7 +230,7 @@
             </section>
             <hr class="mt-12 border-gray-300">
             <div class="relative mb-6 mt-12 text-center" data-aos="fade-up" data-aos-duration="1000">
-                <div class="absolute right-0 mt-[45px] h-[40vh] w-[40vh] rounded-[60%_40%_30%_70%/60%_30%_70%_40%] bg-linear-45 from-[#88d5bf] to-[#5d6bf8] md:-right-[130px] md:mt-0 md:h-[30vh] md:w-[30vh] md:rounded-[30%_70%_70%_30%/30%_30%_70%_70%]"
+                <div class="absolute right-0 mt-[45px] h-[40vh] w-[40vh] rounded-[60%_40%_30%_70%/60%_30%_70%_40%] bg-linear-45 from-ppgt-sky to-ppgt-700 md:-right-[130px] md:mt-0 md:h-[30vh] md:w-[30vh] md:rounded-[30%_70%_70%_30%/30%_30%_70%_70%]"
                     data-aos="fade-up" data-aos-duration="1000"></div>
                 <h2 class="relative mb-2 font-slab text-2xl font-medium text-brand lg:text-[2rem]">Pengurus PPGT
                     <br>
@@ -382,7 +382,7 @@
             <section class="my-12">
                 <div class="pb-4 text-center" data-aos="fade-up" data-aos-duration="1000">
                     <h2
-                        class="relative mb-[45px] mt-5 inline-block text-[2rem] font-semibold leading-none after:absolute after:-bottom-[25px] after:left-1/2 after:h-0.5 after:w-[60px] after:-translate-x-1/2 after:bg-[#227bff] md:mt-0">
+                        class="relative mb-[45px] mt-5 inline-block text-[2rem] font-semibold leading-none after:absolute after:-bottom-[25px] after:left-1/2 after:h-0.5 after:w-[60px] after:-translate-x-1/2 after:bg-ppgt-sky md:mt-0">
                         FAQ</h2>
                 </div>
                 <div class="rounded bg-white shadow-[0_2px_48px_0_rgba(0,0,0,0.06)] max-lg:mb-[30px]" data-aos="fade-up"
@@ -391,15 +391,15 @@
                         $increment5 = 0;
                     @endphp
                     @foreach ($faq as $item)
-                        <details name="faq" class="group border-b border-dashed border-[#cee1f8]" data-aos="fade-up"
+                        <details name="faq" class="group border-b border-dashed border-ppgt-100" data-aos="fade-up"
                             data-aos-duration="{{ $increment5 += 1000 }}">
                             <summary
-                                class="flex cursor-pointer list-none gap-2 px-[30px] py-5 text-base tracking-[1px] text-[#3b566e] transition-all duration-300 hover:bg-[#0b69f51c] hover:pl-10 [&::-webkit-details-marker]:hidden">
-                                <i class="fa-solid fa-plus mt-1 text-[#006eff] transition-transform group-open:rotate-45"></i>
+                                class="flex cursor-pointer list-none gap-2 px-[30px] py-5 text-base tracking-[1px] text-[#3b566e] transition-all duration-300 hover:bg-ppgt-50 hover:pl-10 [&::-webkit-details-marker]:hidden">
+                                <i class="fa-solid fa-plus mt-1 text-ppgt-sky transition-transform group-open:rotate-45"></i>
                                 {{ $item->pertanyaan }}
                             </summary>
                             <div
-                                class="border-t border-[#f3f8ff] px-[30px] pb-4 pl-[35px] pt-[30px] text-[0.9rem] leading-7 tracking-[1px] text-[#6f8ba4] rich-text">
+                                class="border-t border-ppgt-50 px-[30px] pb-4 pl-[35px] pt-[30px] text-[0.9rem] leading-7 tracking-[1px] text-[#6f8ba4] rich-text">
                                 <p>{!! $item->jawaban !!}</p>
                             </div>
                         </details>

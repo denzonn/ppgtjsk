@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Casts\PublicUrl;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Storage;
 
 /**
  * Gambar situs yang bisa diganti dari admin (menu Home > Gambar Situs).
@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Storage;
 class SiteImage extends Model
 {
     protected $fillable = ['key', 'path'];
+
+    /** Disimpan sebagai URL lengkap berbasis APP_URL. */
+    protected $casts = ['path' => PublicUrl::class];
 
     /** key => [label, keterangan, gambar bawaan, grup] */
     public const SLOTS = [
@@ -34,7 +37,7 @@ class SiteImage extends Model
         self::$paths ??= Schema::hasTable('site_images') ? static::pluck('path', 'key')->all() : [];
 
         return isset(self::$paths[$key])
-            ? Storage::url(self::$paths[$key])
+            ? PublicUrl::toUrl(self::$paths[$key])
             : rtrim(config('app.url'), '/') . '/' . self::SLOTS[$key][2];
     }
 

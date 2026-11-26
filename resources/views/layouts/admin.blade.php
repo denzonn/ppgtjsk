@@ -19,14 +19,16 @@
 </head>
 
 <body
-    class="group/admin bg-admin-body font-public text-[0.9375rem] text-admin-text antialiased [&_a:not([class])]:font-medium [&_a:not([class])]:text-admin">
-    @include('includes.admin.sidebar')
+    class="group/admin bg-admin-body font-public text-[15px] leading-[22px] text-admin-heading antialiased [&_:is(h1,h2,h3)]:font-headline [&_a:not([class])]:font-semibold [&_a:not([class])]:text-admin">
+    <div class="flex min-h-screen">
+        @include('includes.admin.sidebar')
 
-    <div class="min-h-screen xl:pl-[280px]">
-        @include('includes.admin.navbar')
-        <main class="mx-auto max-w-[1400px] px-4 pb-12 pt-6 md:px-8">
-            @yield('content')
-        </main>
+        <div class="flex min-w-0 flex-1 flex-col">
+            @include('includes.admin.navbar')
+            <main class="mx-auto flex w-full max-w-[1200px] flex-1 flex-col p-6">
+                @yield('content')
+            </main>
+        </div>
     </div>
 
     {{-- Notifikasi: flash "success" dari controller + sapaan sekali setelah login --}}
@@ -34,17 +36,15 @@
         $toast = session('success');
         if (!$toast && Auth::user()?->role == 'ADMIN' && !session('welcome_back')) {
             session(['welcome_back' => true]);
-            $toast = 'Selamat datang kembali, ' . (Auth::user()->name ?? 'Admin') . ' 👋';
+            $toast = 'Selamat datang kembali, ' . (Auth::user()->name ?? 'Admin');
         }
     @endphp
     @if ($toast)
         <div role="status"
-            class="invisible fixed bottom-6 right-6 z-[9999] flex max-w-sm items-center gap-3 overflow-hidden rounded-2xl bg-admin-ink py-4 pl-4 pr-6 text-sm text-white opacity-0 shadow-2xl shadow-black/30 animate-toast">
-            <span class="grid size-9 shrink-0 place-items-center rounded-xl bg-emerald-500/20 text-emerald-300"><i
-                    class="bx bx-check text-xl"></i></span>
+            class="invisible fixed bottom-6 right-6 z-[9999] flex max-w-sm items-center gap-3 overflow-hidden rounded-xl bg-admin-ink py-3 pl-3 pr-5 text-sm text-[#f1f0f4] opacity-0 animate-toast">
+            <span class="material-symbols-outlined text-[20px]! text-[#aec7f7]">check_circle</span>
             <p>{{ $toast }}</p>
-            <span
-                class="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-linear-to-r from-emerald-400 to-cyan-400 animate-toast-bar"></span>
+            <span class="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-[#aec7f7] animate-toast-bar"></span>
         </div>
     @endif
 

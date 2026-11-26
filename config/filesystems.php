@@ -39,7 +39,8 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            // Alamat file upload. Kosong = ikut APP_URL. Isi FILE_URL untuk memakai file dari server lain (mis. produksi).
+            'url' => rtrim(env('FILE_URL') ?: env('APP_URL'), '/').'/storage',
             'visibility' => 'public',
             'throw' => false,
         ],

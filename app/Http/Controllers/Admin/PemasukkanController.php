@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Casts\PublicUrl;
+
 use App\Http\Controllers\Controller;
 use App\Models\PemasukanKeuangan;
 use Illuminate\Http\Request;
@@ -104,7 +106,7 @@ class PemasukkanController extends Controller
 
         if ($request->hasFile('photo')) {
             //Hapus foto lama
-            Storage::disk('local')->delete('public/' . $item->getRawOriginal('photo'));
+            Storage::disk('local')->delete('public/' . PublicUrl::toPath($item->getRawOriginal('photo')));
 
             $images = $request->file('photo');
 

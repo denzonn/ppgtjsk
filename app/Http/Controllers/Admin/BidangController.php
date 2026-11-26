@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Casts\PublicUrl;
+
 use App\Http\Controllers\Controller;
 use App\Models\Bidang;
 use Illuminate\Http\Request;
@@ -110,7 +112,7 @@ class BidangController extends Controller
         if ($request->hasFile('foto_bidang')) {
 
             if ($bidang->foto_bidang) {
-                Storage::disk('public')->delete($bidang->getRawOriginal('foto_bidang'));
+                Storage::disk('public')->delete(PublicUrl::toPath($bidang->getRawOriginal('foto_bidang')));
             }
         
             $images = $request->file('foto_bidang');
@@ -143,7 +145,7 @@ class BidangController extends Controller
         // Cari data berdasarkan id
         $bidang = Bidang::findOrFail($id);
 
-        Storage::disk('public')->delete($bidang->getRawOriginal('foto_bidang'));
+        Storage::disk('public')->delete(PublicUrl::toPath($bidang->getRawOriginal('foto_bidang')));
 
         // Hapus data
         $bidang->delete();

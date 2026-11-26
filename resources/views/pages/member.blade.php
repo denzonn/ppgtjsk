@@ -13,7 +13,7 @@
         <div class="mx-auto max-w-[1220px] px-3">
             <div class="text-center" data-aos="fade-up" data-aos-duration="1000">
                 <h2
-                    class="relative mb-2 inline-block pb-[15px] text-[2rem] font-semibold after:absolute after:bottom-0 after:left-[30%] after:h-0.5 after:w-20 after:bg-[#227bff]">
+                    class="relative mb-2 inline-block pb-[15px] text-[2rem] font-semibold after:absolute after:bottom-0 after:left-[30%] after:h-0.5 after:w-20 after:bg-ppgt-sky">
                     Iuran Anggota</h2>
             </div>
             <div class="mt-5 p-4">

@@ -5,13 +5,13 @@
 @endsection
 
 @section('content')
-    <div class="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-admin-border">
+    <div class="overflow-hidden rounded-xl bg-white border border-admin-border">
         {{-- Header: bilah inbox --}}
-        <header class="flex flex-wrap items-center gap-4 bg-linear-to-r from-cyan-500 to-blue-500 px-6 py-5 text-white">
-            <span class="grid size-12 place-items-center rounded-2xl bg-white/20 text-2xl"><i class="bx bx-envelope-open"></i></span>
+        <header class="flex flex-wrap items-center gap-4 bg-ink-500 px-6 py-5 text-white">
+            <span class="grid size-12 place-items-center rounded-xl bg-white/20 text-2xl"><i class="bx bx-envelope-open"></i></span>
             <div class="flex-1">
-                <h1 class="text-xl font-extrabold">Kotak Saran</h1>
-                <p class="text-sm text-cyan-50">Masukan dari pengunjung lewat formulir "Saran" di beranda.</p>
+                <h1 class="text-xl font-semibold">Kotak Saran</h1>
+                <p class="text-sm text-ink-50">Masukan dari pengunjung lewat formulir "Saran" di beranda.</p>
             </div>
             <span class="rounded-full bg-white/20 px-4 py-1.5 text-sm font-bold">{{ $saran->count() }} pesan</span>
         </header>
@@ -24,13 +24,13 @@
         <div id="inbox" class="space-y-6 bg-slate-50/60 p-6 md:p-8">
             @forelse ($saran->sortByDesc('created_at') as $item)
                 <div data-item class="flex max-w-3xl items-end gap-3 {{ $loop->even ? 'ml-auto flex-row-reverse' : '' }}">
-                    <span class="grid size-10 shrink-0 place-items-center rounded-full font-bold text-white {{ ['bg-cyan-500', 'bg-violet-500', 'bg-amber-500', 'bg-rose-500'][$loop->index % 4] }}">
+                    <span class="grid size-10 shrink-0 place-items-center rounded-full font-bold text-white {{ ['bg-ink-500', 'bg-ink-500', 'bg-bronze-500', 'bg-danger-500'][$loop->index % 4] }}">
                         {{ strtoupper(mb_substr($item->nama ?: '?', 0, 1)) }}
                     </span>
-                    <div class="{{ $loop->even ? 'rounded-br-md bg-cyan-500 text-white' : 'rounded-bl-md bg-white text-slate-700 ring-1 ring-admin-border' }} rounded-3xl px-5 py-3 shadow-sm">
-                        <p class="text-xs font-bold {{ $loop->even ? 'text-cyan-50' : 'text-cyan-600' }}">{{ $item->nama ?: 'Anonim' }}</p>
+                    <div class="{{ $loop->even ? 'rounded-br-lg bg-ink-500 text-white' : 'rounded-bl-lg bg-white text-slate-700 border border-admin-border' }} rounded-xl px-5 py-3">
+                        <p class="text-xs font-bold {{ $loop->even ? 'text-ink-50' : 'text-ink-600' }}">{{ $item->nama ?: 'Anonim' }}</p>
                         <p class="mt-1 whitespace-pre-line">{{ $item->saran }}</p>
-                        <p class="mt-2 text-right text-[0.7rem] {{ $loop->even ? 'text-cyan-100' : 'text-slate-400' }}">
+                        <p class="mt-2 text-right text-[0.7rem] {{ $loop->even ? 'text-ink-100' : 'text-slate-400' }}">
                             {{ $item->created_at?->locale('id')->diffForHumans() }}</p>
                     </div>
                 </div>

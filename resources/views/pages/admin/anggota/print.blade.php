@@ -8,15 +8,15 @@
     <div class="py-2.5 pl-2.5 md:p-5 pt-6! pb-0! text-center">
         <h3 class="mb-2 font-medium leading-[1.1] text-admin-heading text-[1.625rem]">Data Anggota PPGT JSK</h3>
     </div>
-    <div class="mx-auto max-w-5xl">
-        <div class="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-admin-border">
-            <div class="flex items-center gap-4 border-b border-admin-border bg-linear-to-r from-sky-50 to-white px-6 py-5 md:px-8">
+    <div class="mx-auto w-full max-w-5xl">
+        <div class="overflow-hidden rounded-xl bg-white border border-admin-border">
+            <div class="flex items-center gap-4 border-b border-admin-border bg-ink-50 px-6 py-5 md:px-8">
                 <a href="{{ route('data-anggota.index') }}" title="Kembali"
-                    class="grid size-10 shrink-0 place-items-center rounded-xl bg-white text-slate-500 shadow-sm ring-1 ring-admin-border transition hover:text-sky-600"><i class="bx bx-arrow-back text-xl"></i></a>
-                <span class="grid size-12 shrink-0 place-items-center rounded-2xl bg-sky-500 text-2xl text-white shadow-lg shadow-sky-500/30"><i class="bx bx-id-card"></i></span>
+                    class="grid size-10 shrink-0 place-items-center rounded-lg bg-white text-slate-500 border border-admin-border transition hover:text-ink-600"><i class="bx bx-arrow-back text-xl"></i></a>
+                <span class="grid size-12 shrink-0 place-items-center rounded-xl bg-ink-500 text-2xl text-white"><i class="bx bx-id-card"></i></span>
                 <div>
-                    <p class="text-xs font-bold uppercase tracking-[0.18em] text-sky-600">Cetak / ekspor</p>
-                    <h1 class="text-xl font-extrabold text-admin-heading">Data Anggota</h1>
+                    <p class="text-xs font-bold uppercase tracking-[0.18em] text-ink-600">Cetak / ekspor</p>
+                    <h1 class="text-xl font-semibold text-admin-heading">Data Anggota</h1>
                 </div>
             </div>
             <div class="p-6 md:p-8">

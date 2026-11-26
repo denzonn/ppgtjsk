@@ -20,7 +20,7 @@
                 <input type="text" name="search" placeholder="Cari Dokumen" value="{{ $searchQuery ?? '' }}"
                     class="min-w-0 flex-1 rounded-l-[5px] bg-[#eee] p-2.5 outline-none focus:ring-2 focus:ring-brand/30">
                 <button type="submit"
-                    class="w-[15%] min-w-20 rounded-r-[5px] bg-brand text-white hover:bg-[#3c4e9e]">Cari</button>
+                    class="w-[15%] min-w-20 rounded-r-[5px] bg-brand text-white hover:bg-brand-dark">Cari</button>
             </form>
 
             <!-- Document -->
@@ -35,7 +35,7 @@
                             {{ $item->judul }}</h5>
                         <div class="text-end">
                             <a href="{{ $item->file }}"
-                                class="inline-block rounded bg-brand px-3 py-1.5 text-white hover:bg-[#3c4e9e]">Download</a>
+                                class="inline-block rounded bg-brand px-3 py-1.5 text-white hover:bg-brand-dark">Download</a>
                         </div>
                     </div>
                 @empty

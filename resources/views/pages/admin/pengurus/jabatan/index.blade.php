@@ -5,39 +5,42 @@
 @endsection
 
 @section('content')
-    <div class="mx-auto max-w-4xl">
-        {{-- Header: medali --}}
-        <header class="mb-8 flex flex-wrap items-center gap-5">
+    <div class="mx-auto flex w-full max-w-4xl flex-col gap-5">
+        {{-- Judul --}}
+        <header class="flex items-center gap-3">
             <a href="{{ route('pengurus.index') }}" title="Kembali ke Pengurus"
-                class="grid size-11 place-items-center rounded-full bg-white text-slate-500 shadow-sm ring-1 ring-admin-border hover:text-yellow-600"><i class="bx bx-arrow-back text-xl"></i></a>
-            <span class="relative grid size-16 place-items-center rounded-full bg-linear-to-b from-yellow-300 to-amber-500 text-3xl text-white shadow-lg shadow-amber-500/40 ring-4 ring-yellow-100">
-                <i class="bx bx-medal"></i>
+                class="flex size-8 items-center justify-center rounded-lg border border-admin-border bg-white text-admin-text hover:text-admin-heading">
+                <span class="material-symbols-outlined text-[18px]!" aria-hidden="true">arrow_back</span></a>
+            <span class="grid size-10 place-items-center rounded-full bg-bronze-50 text-bronze-500 ring-1 ring-bronze-200">
+                <span class="material-symbols-outlined text-[20px]! [font-variation-settings:'FILL'_1]" aria-hidden="true">military_tech</span>
             </span>
-            <div class="flex-1">
-                <h1 class="text-2xl font-extrabold text-admin-heading">Daftar Jabatan</h1>
-                <p class="text-sm text-slate-500">Dipakai saat menempatkan pengurus ke dalam bidang.</p>
+            <div>
+                <h1 class="text-xl font-bold tracking-tight">Daftar Jabatan</h1>
+                <p class="text-sm text-admin-text">Dipakai saat menempatkan pengurus ke dalam bidang.</p>
             </div>
         </header>
 
-        <div class="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-admin-border md:p-8">
-            <div class="flex flex-wrap gap-3">
+        <div class="rounded-xl border border-admin-border bg-white p-5">
+            <div class="flex flex-wrap gap-2">
                 @foreach ($jabatan as $item)
-                    <span class="group inline-flex items-center gap-2 rounded-full bg-yellow-50 py-2 pl-4 pr-2 font-semibold text-yellow-900 ring-1 ring-yellow-200 transition hover:bg-yellow-100">
-                        <i class="bx bxs-star text-yellow-500"></i>
+                    <span class="group inline-flex items-center gap-1.5 rounded-full bg-admin-light py-1 pl-3 pr-1 text-sm font-semibold text-admin">
+                        <span class="material-symbols-outlined text-[14px]! text-bronze-400 [font-variation-settings:'FILL'_1]" aria-hidden="true">star</span>
                         {{ $item->nama_jabatan }}
                         <a href="{{ route('jabatan.edit', $item->id) }}" title="Ubah"
-                            class="grid size-7 place-items-center rounded-full text-yellow-700 hover:bg-white"><i class="bx bx-pencil"></i></a>
+                            class="grid size-6 place-items-center rounded-full text-admin hover:bg-white">
+                            <span class="material-symbols-outlined text-[14px]!" aria-hidden="true">edit</span></a>
                         <form action="{{ route('jabatan.destroy', $item->id) }}" method="POST" class="-ml-1">
                             @csrf
                             @method('DELETE')
                             <button type="submit" title="Hapus" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"
-                                class="grid size-7 place-items-center rounded-full text-yellow-700 hover:bg-rose-500 hover:text-white"><i class="bx bx-x"></i></button>
+                                class="grid size-6 place-items-center rounded-full text-admin hover:bg-danger-500 hover:text-white">
+                                <span class="material-symbols-outlined text-[14px]!" aria-hidden="true">close</span></button>
                         </form>
                     </span>
                 @endforeach
                 <a href="{{ route('jabatan.create') }}"
-                    class="inline-flex items-center gap-2 rounded-full border-2 border-dashed border-yellow-300 px-4 py-2 font-semibold text-yellow-700 transition hover:border-yellow-500 hover:bg-yellow-50">
-                    <i class="bx bx-plus"></i> Jabatan baru
+                    class="inline-flex items-center gap-1 rounded-full border border-dashed border-ink-300 px-3 py-1 text-sm font-semibold text-admin transition-colors hover:border-admin hover:bg-admin-light">
+                    <span class="material-symbols-outlined text-[15px]!" aria-hidden="true">add</span> Jabatan baru
                 </a>
             </div>
         </div>

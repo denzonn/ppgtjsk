@@ -24,7 +24,7 @@
 
             <details data-kegiatan-menu class="relative z-20 w-full md:w-fit" data-aos="fade-up" data-aos-duration="2000">
                 <summary
-                    class="flex min-w-[260px] cursor-pointer list-none items-center justify-between gap-4 rounded bg-[#5380f7] px-5 py-4 text-xs font-semibold uppercase tracking-[1.2px] text-white shadow-[0_4px_12px_rgba(0,0,0,0.1)] [&::-webkit-details-marker]:hidden">
+                    class="flex min-w-[260px] cursor-pointer list-none items-center justify-between gap-4 rounded bg-brand px-5 py-4 text-xs font-semibold uppercase tracking-[1.2px] text-white shadow-[0_4px_12px_rgba(0,0,0,0.1)] [&::-webkit-details-marker]:hidden">
                     <span>Pilih Kegiatan</span><i class="fa-solid fa-earth-asia text-base"></i>
                 </summary>
                 <ul
@@ -32,7 +32,7 @@
                     @foreach ($kegiatan as $item)
                         <li class="px-5 text-[#666]">
                             <a href="#" data-kegiatan="{{ $item->id }}"
-                                class="block border-b border-black/5 py-4 text-[0.7rem] hover:text-[#5380f7]">{{ $item->name }}</a>
+                                class="block border-b border-black/5 py-4 text-[0.7rem] hover:text-brand">{{ $item->name }}</a>
                         </li>
                     @endforeach
                 </ul>

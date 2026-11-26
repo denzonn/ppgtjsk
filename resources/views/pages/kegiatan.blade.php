@@ -9,13 +9,13 @@
         <div class="mx-auto max-w-[1220px] px-3">
             <div class="mb-4 mt-12 flex flex-col items-center" data-aos="fade-up" data-aos-duration="1000">
                 <h2
-                    class="relative mb-2 inline-block pb-[5px] text-center text-[2rem] font-semibold after:absolute after:bottom-0 after:left-[40%] after:h-0.5 after:w-[60px] after:bg-[#227bff]">
+                    class="relative mb-2 inline-block pb-[5px] text-center text-[2rem] font-semibold after:absolute after:bottom-0 after:left-[40%] after:h-0.5 after:w-[60px] after:bg-ppgt-sky">
                     Kegiatan PPGT JSK</h2>
             </div>
 
             <details data-bidang-menu class="relative z-20 w-full md:w-fit" data-aos="fade-up" data-aos-duration="1000">
                 <summary
-                    class="flex min-w-[260px] cursor-pointer list-none items-center justify-between gap-4 rounded bg-[#5380f7] px-5 py-4 text-xs font-semibold uppercase tracking-[1.2px] text-white shadow-[0_4px_12px_rgba(0,0,0,0.1)] [&::-webkit-details-marker]:hidden">
+                    class="flex min-w-[260px] cursor-pointer list-none items-center justify-between gap-4 rounded bg-brand px-5 py-4 text-xs font-semibold uppercase tracking-[1.2px] text-white shadow-[0_4px_12px_rgba(0,0,0,0.1)] [&::-webkit-details-marker]:hidden">
                     <span>Pilih Bidang</span><i class="fa-solid fa-earth-asia text-base"></i>
                 </summary>
                 <ul
@@ -23,7 +23,7 @@
                     @foreach ($bidang as $item)
                         <li class="relative px-5 text-[#666]">
                             <a href="#" data-bidang="{{ $item->nama_bidang }}"
-                                class="block border-b border-black/5 py-4 text-[0.7rem] hover:text-[#5380f7]">{{ $item->nama_bidang }}</a>
+                                class="block border-b border-black/5 py-4 text-[0.7rem] hover:text-brand">{{ $item->nama_bidang }}</a>
                         </li>
                     @endforeach
                 </ul>

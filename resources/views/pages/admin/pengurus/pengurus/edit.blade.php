@@ -5,20 +5,20 @@
 @endsection
 
 @section('content')
-    <div class="mx-auto max-w-5xl">
-        <div class="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-admin-border">
-            <div class="flex items-center gap-4 border-b border-admin-border bg-linear-to-r from-amber-50 to-white px-6 py-5 md:px-8">
+    <div class="mx-auto w-full max-w-5xl">
+        <div class="overflow-hidden rounded-xl bg-white border border-admin-border">
+            <div class="flex items-center gap-4 border-b border-admin-border bg-admin-light/60 px-5 py-4 md:px-6">
                 <a href="{{ route('pengurus.index') }}" title="Kembali"
-                    class="grid size-10 shrink-0 place-items-center rounded-xl bg-white text-slate-500 shadow-sm ring-1 ring-admin-border transition hover:text-amber-600"><i class="bx bx-arrow-back text-xl"></i></a>
-                <span class="grid size-12 shrink-0 place-items-center rounded-2xl bg-amber-500 text-2xl text-white shadow-lg shadow-amber-500/30"><i class="bx bx-user-plus"></i></span>
+                    class="grid size-8 shrink-0 place-items-center rounded-lg border border-admin-border bg-white text-admin-text transition-colors hover:text-admin-heading"><i class="bx bx-arrow-back text-xl"></i></a>
+                <span class="grid size-9 shrink-0 place-items-center rounded-lg bg-admin text-lg text-white"><i class="bx bx-user-plus"></i></span>
                 <div>
-                    <p class="text-xs font-bold uppercase tracking-[0.18em] text-amber-600">Ubah data</p>
-                    <h1 class="text-xl font-extrabold text-admin-heading">Edit Pengurus</h1>
+                    <p class="font-mono text-[10px] uppercase tracking-wider text-admin">Ubah data</p>
+                    <h1 class="text-base font-bold text-admin-heading">Edit Pengurus</h1>
                 </div>
             </div>
-            <div class="p-6 md:p-8">
+            <div class="p-5 md:p-6">
                 @if ($errors->any())
-                    <div class="mb-6 rounded-2xl p-4 [&_ul]:list-disc [&_ul]:pl-5 bg-rose-50 text-rose-700 ring-1 ring-rose-200">
+                    <div class="mb-6 rounded-xl p-4 [&_ul]:list-disc [&_ul]:pl-5 bg-danger-50 text-danger-700 ring-1 ring-danger-200">
                         <ul>
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
@@ -31,30 +31,29 @@
                     @csrf
                     @method('put')
 
-                    <label for="nama_anggota" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Nama <span class="font-bold text-rose-500">*</span></label>
-                    <input type="text" name="nama_anggota" id="nama_anggota" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-amber-400 focus:bg-white focus:ring-4 focus:ring-amber-100 disabled:bg-slate-100 mb-6"
+                    <label for="nama_anggota" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Nama <span class="font-bold text-danger-500">*</span></label>
+                    <input type="text" name="nama_anggota" id="nama_anggota" class="block w-full rounded-lg border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-admin focus:bg-white focus:ring-2 focus:ring-admin-light disabled:bg-slate-100 mb-6"
                         placeholder="Masukkan Nama Pengurus" value="{{ $pengurus->nama_anggota }}">
 
-                    <label for="jabatan" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Jabatan <span class="font-bold text-rose-500">*</span></label>
-                    <select name="jabatans_id" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-amber-400 focus:bg-white focus:ring-4 focus:ring-amber-100 disabled:bg-slate-100 mb-6">
+                    <label for="jabatan" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Jabatan <span class="font-bold text-danger-500">*</span></label>
+                    <select name="jabatans_id" class="block w-full rounded-lg border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-admin focus:bg-white focus:ring-2 focus:ring-admin-light disabled:bg-slate-100 mb-6">
                         <option value="{{ $pengurus->jabatans_id }}">{{ $pengurus->jabatan->nama_jabatan }}</option>
                         @foreach ($jabatan as $item)
                             <option value="{{ $item->id }}">{{ $item->nama_jabatan }}</option>
                         @endforeach
                     </select>
 
-                    <label for="bidang" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Bidang <span class="font-bold text-rose-500">*</span></label>
-                    <select name="bidangs_id" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-amber-400 focus:bg-white focus:ring-4 focus:ring-amber-100 disabled:bg-slate-100 mb-6">
+                    <label for="bidang" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Bidang <span class="font-bold text-danger-500">*</span></label>
+                    <select name="bidangs_id" class="block w-full rounded-lg border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-admin focus:bg-white focus:ring-2 focus:ring-admin-light disabled:bg-slate-100 mb-6">
                         <option value="{{ $pengurus->bidangs_id }}">{{ $pengurus->bidang->nama_bidang }}</option>
                         @foreach ($bidang as $item)
                             <option value="{{ $item->id }}">{{ $item->nama_bidang }}</option>
                         @endforeach
                     </select>
 
-                    <label for="foto" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Foto <span class="font-bold text-rose-500">*</span></label>
-                    <input type="file" class="block w-full rounded-xl border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-amber-400 focus:bg-white focus:ring-4 focus:ring-amber-100 disabled:bg-slate-100 mb-6" name="foto">
+                    @include('pages.admin.partials.photo-picker', ['name' => 'foto', 'label' => 'Foto', 'current' => $pengurus->foto, 'shape' => 'circle', 'hint' => 'Foto wajah pengurus, maks 5 MB. Biarkan jika tidak ingin mengganti.'])
 
-                    <button type="submit" class="block w-full rounded-xl text-center font-semibold transition px-5 py-3 text-[0.9375rem] bg-amber-600 text-white shadow-lg shadow-amber-600/30 hover:bg-amber-700">Ubah</button>
+                    <button type="submit" class="block w-full rounded-lg text-center text-sm font-semibold transition-colors px-5 py-2.5 bg-admin text-white hover:bg-admin-dark">Ubah</button>
                 </form>
             </div>
         </div>

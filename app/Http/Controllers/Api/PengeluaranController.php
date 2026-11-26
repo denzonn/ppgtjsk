@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Casts\PublicUrl;
+
 use App\Http\Controllers\Controller;
 use App\Models\PengeluaranKeuangan;
 use Illuminate\Http\Request;
@@ -55,7 +57,7 @@ class PengeluaranController extends BaseController
 
         if ($request->hasFile('photo')) {
             //Hapus foto lama
-            Storage::disk('local')->delete('public/' . $item->getRawOriginal('photo'));
+            Storage::disk('local')->delete('public/' . PublicUrl::toPath($item->getRawOriginal('photo')));
 
             $images = $request->file('photo');
 

@@ -5,58 +5,58 @@
 @endsection
 
 @section('content')
-    <div class="grid gap-8 lg:grid-cols-[320px_1fr]">
+    <div class="grid gap-5 lg:grid-cols-[300px_1fr]">
         {{-- Panel kiri: identitas halaman --}}
-        <aside class="lg:sticky lg:top-24 lg:self-start">
-            <div class="relative overflow-hidden rounded-3xl bg-sky-500 p-7 text-white shadow-xl shadow-sky-500/25">
-                <span class="pointer-events-none absolute -right-4 -top-10 select-none text-[11rem] font-black leading-none text-white/15">?</span>
-                <p class="text-sm font-semibold uppercase tracking-[0.2em] text-sky-100">Beranda</p>
-                <h1 class="mt-1 text-3xl font-extrabold">Tanya Jawab</h1>
-                <p class="mt-2 text-sm text-sky-50">Pertanyaan yang sering diajukan pengunjung, tampil di bagian FAQ beranda.</p>
-                <p class="mt-6 text-5xl font-black">{{ $faq->count() }}<span class="ml-2 text-base font-medium text-sky-100">pertanyaan</span></p>
+        <aside class="flex flex-col gap-3 lg:sticky lg:top-20 lg:self-start">
+            <div class="relative overflow-hidden rounded-xl bg-admin p-5 text-white">
+                <span class="pointer-events-none absolute -right-3 -top-8 select-none text-[9rem] font-bold leading-none text-white/10">?</span>
+                <span class="font-mono text-[10px] uppercase tracking-wider text-ink-200">Beranda</span>
+                <h1 class="mt-1 text-xl font-bold tracking-tight">Tanya Jawab</h1>
+                <p class="mt-1 text-sm text-ink-100">Pertanyaan yang sering diajukan pengunjung, tampil di bagian FAQ beranda.</p>
+                <p class="mt-5 flex items-baseline gap-1.5"><span class="text-3xl font-bold tabular-nums">{{ $faq->count() }}</span><span class="text-xs text-ink-200">pertanyaan</span></p>
             </div>
             <a href="{{ route('faq.create') }}"
-                class="mt-4 flex items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-sky-300 bg-sky-50 py-4 font-semibold text-sky-700 transition hover:border-sky-500 hover:bg-sky-100">
-                <i class="bx bx-plus-circle text-xl"></i> Tambah FAQ
+                class="flex items-center justify-center gap-1.5 rounded-xl border border-dashed border-ink-300 bg-white py-3 text-xs font-semibold text-admin transition-colors hover:border-admin hover:bg-admin-light">
+                <span class="material-symbols-outlined text-[16px]!" aria-hidden="true">add</span> Tambah FAQ
             </a>
         </aside>
 
         {{-- Daftar accordion --}}
-        <section>
-            <label class="mb-4 flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-sm ring-1 ring-admin-border focus-within:ring-2 focus-within:ring-sky-400">
-                <i class="bx bx-search text-xl text-slate-400"></i>
-                <input type="search" data-filter="#faq-list" placeholder="Cari pertanyaan…" class="w-full bg-transparent outline-none">
+        <section class="flex flex-col gap-3">
+            <label class="flex items-center gap-2 rounded-xl border border-admin-border bg-white px-4 py-2.5 focus-within:border-admin">
+                <span class="material-symbols-outlined text-[18px]! text-admin-text" aria-hidden="true">search</span>
+                <input type="search" data-filter="#faq-list" placeholder="Cari pertanyaan…" class="w-full bg-transparent text-sm outline-none placeholder:text-admin-text">
             </label>
-            <div id="faq-list" class="space-y-3">
+            <div id="faq-list" class="flex flex-col gap-2">
                 @forelse ($faq as $item)
-                    <details data-item class="group rounded-2xl bg-white shadow-sm ring-1 ring-admin-border open:ring-2 open:ring-sky-400">
-                        <summary class="flex cursor-pointer list-none items-center gap-4 p-5 [&::-webkit-details-marker]:hidden">
-                            <span class="grid size-10 shrink-0 place-items-center rounded-xl bg-sky-100 font-bold text-sky-700 group-open:bg-sky-500 group-open:text-white">
+                    <details data-item class="group rounded-xl border border-admin-border bg-white open:border-admin">
+                        <summary class="flex cursor-pointer list-none items-center gap-3 px-4 py-3.5 [&::-webkit-details-marker]:hidden">
+                            <span class="grid size-8 shrink-0 place-items-center rounded-lg bg-admin-body font-mono text-xs font-semibold text-admin-text group-open:bg-admin group-open:text-white">
                                 {{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}
                             </span>
-                            <span class="flex-1 font-semibold text-admin-heading">{{ $item->pertanyaan }}</span>
-                            <i class="bx bx-chevron-down text-2xl text-slate-400 transition group-open:rotate-180"></i>
+                            <span class="flex-1 text-sm font-semibold">{{ $item->pertanyaan }}</span>
+                            <span class="material-symbols-outlined text-[18px]! text-admin-text transition-transform group-open:rotate-180" aria-hidden="true">expand_more</span>
                         </summary>
-                        <div class="border-t border-dashed border-admin-border px-5 pb-5 pt-4 sm:pl-[4.75rem]">
-                            <div class="rich-text text-slate-600">{!! $item->jawaban !!}</div>
-                            <div class="mt-4 flex gap-2">
+                        <div class="border-t border-admin-border px-4 pb-4 pt-3 sm:pl-[3.75rem]">
+                            <div class="rich-text text-sm text-admin-text">{!! $item->jawaban !!}</div>
+                            <div class="mt-3 flex gap-2">
                                 <a href="{{ route('faq.edit', $item->id) }}"
-                                    class="inline-flex items-center gap-1.5 rounded-xl bg-sky-50 px-3 py-2 text-sm font-semibold text-sky-700 transition hover:bg-sky-100">
-                                    <i class="bx bx-edit-alt"></i> Ubah
+                                    class="inline-flex items-center gap-1 rounded-lg border border-admin-border px-3 py-1.5 text-xs font-semibold text-admin-heading transition-colors hover:bg-admin-body">
+                                    <span class="material-symbols-outlined text-[15px]!" aria-hidden="true">edit</span> Ubah
                                 </a>
                                 <form action="{{ route('faq.destroy', $item->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"
-                                        class="inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-semibold text-rose-600 transition hover:bg-rose-50">
-                                        <i class="bx bx-trash"></i> Hapus
+                                        class="inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-semibold text-danger-600 transition-colors hover:bg-danger-50">
+                                        <span class="material-symbols-outlined text-[15px]!" aria-hidden="true">delete</span> Hapus
                                     </button>
                                 </form>
                             </div>
                         </div>
                     </details>
                 @empty
-                    <p class="rounded-2xl bg-white p-10 text-center text-slate-400 ring-1 ring-admin-border">Belum ada FAQ.</p>
+                    <p class="rounded-xl border border-admin-border bg-white p-10 text-center text-sm text-admin-text">Belum ada FAQ.</p>
                 @endforelse
             </div>
         </section>

@@ -5,36 +5,43 @@
 @endsection
 
 @section('content')
-    <div class="mx-auto max-w-5xl">
-        {{-- Header: tengah dengan garis waktu --}}
-        <header class="mb-12 text-center">
-            <span class="mx-auto grid size-16 place-items-center rounded-full bg-violet-100 text-3xl text-violet-600 ring-8 ring-violet-50"><i class="bx bx-history"></i></span>
-            <h1 class="mt-4 text-3xl font-extrabold text-admin-heading">Sejarah & Profil per Periode</h1>
-            <p class="mt-1 text-slate-500">Setiap periode punya foto pengurus dan kisahnya sendiri di halaman Profil.</p>
+    <div class="mx-auto flex w-full max-w-5xl flex-col gap-6">
+        {{-- Judul tengah --}}
+        <header class="flex flex-col items-center gap-2 text-center">
+            <span class="grid size-11 place-items-center rounded-full bg-admin-light text-admin ring-4 ring-white">
+                <span class="material-symbols-outlined text-[22px]!" aria-hidden="true">history_edu</span>
+            </span>
+            <div>
+                <h1 class="text-xl font-bold tracking-tight">Sejarah & Profil per Periode</h1>
+                <p class="text-sm text-admin-text">Setiap periode punya foto pengurus dan kisahnya sendiri di halaman Profil.</p>
+            </div>
             <a href="{{ route('profil-ppgt.create') }}"
-                class="mt-5 inline-flex items-center gap-2 rounded-full bg-violet-600 px-6 py-3 font-semibold text-white shadow-lg shadow-violet-600/30 hover:bg-violet-700">
-                <i class="bx bx-plus"></i> Tambah Periode
+                class="inline-flex items-center gap-1.5 rounded-lg bg-admin px-3.5 py-2 text-xs font-semibold text-white transition-colors hover:bg-admin-dark">
+                <span class="material-symbols-outlined text-[16px]!" aria-hidden="true">add</span> Tambah Periode
             </a>
         </header>
 
-        <ol class="relative space-y-12 before:absolute before:inset-y-0 before:left-5 before:w-1 before:rounded before:bg-linear-to-b before:from-violet-300 before:to-violet-50 md:before:left-1/2 md:before:-translate-x-1/2">
+        {{-- Garis waktu --}}
+        <ol class="relative flex flex-col gap-8 before:absolute before:inset-y-0 before:left-4 before:w-px before:bg-admin-border md:before:left-1/2">
             @forelse ($profil as $item)
-                <li class="relative grid items-center gap-6 pl-14 md:grid-cols-2 md:pl-0">
-                    <span class="absolute left-0 top-0 z-10 grid size-11 place-items-center rounded-full bg-violet-600 text-sm font-bold text-white ring-8 ring-admin-body md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
+                <li class="relative grid items-center gap-4 pl-12 md:grid-cols-2 md:gap-16 md:pl-0">
+                    <span class="absolute left-0 top-0 z-10 grid size-8 place-items-center rounded-full bg-admin font-mono text-xs font-semibold text-white ring-4 ring-admin-body md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
                         {{ $loop->iteration }}
                     </span>
                     <img src="{{ $item->photo }}" alt=""
-                        class="aspect-video w-full rounded-3xl object-cover shadow-lg {{ $loop->even ? 'md:order-2 md:ml-8' : 'md:mr-8' }}">
-                    <div class="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-admin-border {{ $loop->even ? 'md:order-1 md:mr-8' : 'md:ml-8' }}">
-                        <p class="text-sm font-bold uppercase tracking-wider text-violet-600">Periode</p>
-                        <h2 class="text-2xl font-extrabold text-admin-heading">{{ $item->periode }}</h2>
-                        <p class="mt-2 line-clamp-4 text-sm text-slate-500">{{ strip_tags($item->content) }}</p>
+                        class="aspect-video w-full rounded-xl border border-admin-border object-cover {{ $loop->even ? 'md:order-2' : '' }}">
+                    <div class="flex flex-col gap-1 rounded-xl border border-admin-border bg-white p-5 {{ $loop->even ? 'md:order-1' : '' }}">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-bronze-500">Periode</span>
+                        <h2 class="text-base font-bold">{{ $item->periode }}</h2>
+                        <p class="line-clamp-4 text-sm text-admin-text">{{ strip_tags($item->content) }}</p>
                         <a href="{{ route('profil-ppgt.edit', $item->id) }}"
-                            class="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-violet-600 hover:underline"><i class="bx bx-edit-alt"></i> Ubah periode ini</a>
+                            class="mt-2 inline-flex items-center gap-1 self-start rounded-lg border border-admin-border px-3 py-1.5 text-xs font-semibold text-admin-heading transition-colors hover:bg-admin-body">
+                            <span class="material-symbols-outlined text-[15px]!" aria-hidden="true">edit</span> Ubah periode
+                        </a>
                     </div>
                 </li>
             @empty
-                <li class="rounded-2xl bg-white p-10 text-center text-slate-400 ring-1 ring-admin-border">Belum ada periode.</li>
+                <li class="rounded-xl border border-admin-border bg-white p-10 text-center text-sm text-admin-text">Belum ada periode.</li>
             @endforelse
         </ol>
     </div>

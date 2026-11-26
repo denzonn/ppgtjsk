@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Casts\PublicUrl;
+
 use App\Http\Controllers\Controller;
 use App\Models\Inventaris;
 use App\Models\JenisInventaris;
@@ -119,7 +121,7 @@ class InventarisController extends Controller
 
         if ($request->hasFile('photo')) {
             if($inventaris->photo){
-                Storage::disk('public')->delete($inventaris->getRawOriginal('photo'));
+                Storage::disk('public')->delete(PublicUrl::toPath($inventaris->getRawOriginal('photo')));
             }
             $images = $request->file('photo');
 
@@ -148,7 +150,7 @@ class InventarisController extends Controller
     {
         $inventaris = Inventaris::findOrFail($id);
 
-        Storage::disk('public')->delete($inventaris->getRawOriginal('photo'));
+        Storage::disk('public')->delete(PublicUrl::toPath($inventaris->getRawOriginal('photo')));
 
         $inventaris->delete();
 
