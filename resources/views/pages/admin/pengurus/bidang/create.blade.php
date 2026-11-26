@@ -33,6 +33,10 @@
                     <input type="text" name="nama_bidang" id="nama_bidang" class="block w-full rounded-lg border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-admin focus:bg-white focus:ring-2 focus:ring-admin-light disabled:bg-slate-100 mb-6"
                         placeholder="Masukkan Nama Bidang">
 
+                    <label for="maksimal_orang" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Maksimal orang</label>
+                    <input type="number" min="1" name="maksimal_orang" id="maksimal_orang" class="block w-full rounded-lg border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-admin focus:bg-white focus:ring-2 focus:ring-admin-light disabled:bg-slate-100 mb-6"
+                        placeholder="Kosongkan kalau tanpa batas" value="{{ old('maksimal_orang') }}">
+
                     @include('pages.admin.partials.photo-picker', ['name' => 'foto_bidang', 'label' => 'Foto', 'required' => true, 'shape' => 'wide', 'hint' => 'Foto kegiatan bidang (landscape), maks 5 MB.'])
 
                     <button type="submit" class="block w-full rounded-lg text-center text-sm font-semibold transition-colors px-5 py-2.5 bg-admin text-white hover:bg-admin-dark">Simpan</button>

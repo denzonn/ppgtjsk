@@ -22,6 +22,16 @@
             </a>
         </header>
 
+        @if (session('error'))
+            <div class="rounded-xl p-4 bg-danger-50 text-danger-700">{{ session('error') }}</div>
+        @endif
+        @if ($bidang->isEmpty() && \App\Models\Periode::aktif()?->sebelumnya())
+            <form action="{{ route('bidang.salin-format') }}" method="POST">
+                @csrf
+                <button type="submit" class="rounded-lg border border-admin-border bg-white px-3.5 py-2 text-xs font-semibold text-admin-heading hover:bg-admin-light">Pakai format periode sebelumnya</button>
+            </form>
+        @endif
+
         <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             @foreach ($bidang as $item)
                 <article class="group overflow-hidden rounded-xl border border-admin-border bg-white">
@@ -30,7 +40,7 @@
                         <span class="absolute bottom-0 left-0 rounded-tr-xl bg-white py-1.5 pl-4 pr-3 font-mono text-xs font-semibold text-admin">#{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
                     </div>
                     <div class="flex items-center gap-2 p-4">
-                        <h2 class="flex-1 text-sm font-bold">{{ $item->nama_bidang }}</h2>
+                        <h2 class="flex-1 text-sm font-bold">{{ $item->nama_bidang }}@if ($item->maksimal_orang) <span class="font-normal text-admin-text">(maks {{ $item->maksimal_orang }})</span>@endif</h2>
                         <a href="{{ route('bidang.edit', $item->id) }}" title="Ubah"
                             class="flex size-8 items-center justify-center rounded-lg text-admin-text hover:bg-admin-body hover:text-admin-heading">
                             <span class="material-symbols-outlined text-[17px]!" aria-hidden="true">edit</span></a>

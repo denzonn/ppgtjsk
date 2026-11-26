@@ -25,6 +25,7 @@ class PengurusController extends BaseController
         ]);
 
         $data = $request->all();
+        Bidang::pastikanMuat($data['bidangs_id'] ?? null);
 
         if ($request->hasFile('foto')) {
             $images = $request->file('foto');
@@ -73,6 +74,7 @@ class PengurusController extends BaseController
         $data = $request->all();
 
         $pengurus = AnggotaBidang::findOrFail($id);
+        Bidang::pastikanMuat($data['bidangs_id'] ?? null, $pengurus->id);
 
         if ($request->hasFile('foto')) {
             $images = $request->file('foto');

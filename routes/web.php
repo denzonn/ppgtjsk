@@ -95,6 +95,8 @@ Route::prefix('admin')
         Route::resource('foto-ksb', FotoKsbController::class);
         Route::resource('sekilas-anggota', SekilasAnggotaController::class);
         Route::resource('pengurus', PengurusController::class);
+        Route::post('jabatan-salin-format', [JabatanController::class, 'salinFormat'])->name('jabatan.salin-format');
+        Route::post('bidang-salin-format', [BidangController::class, 'salinFormat'])->name('bidang.salin-format');
         Route::resource('jabatan', JabatanController::class);
         Route::resource('bidang', BidangController::class);
         Route::resource('artikel', ArtikelController::class);

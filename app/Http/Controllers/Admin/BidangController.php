@@ -6,6 +6,8 @@ use App\Casts\PublicUrl;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bidang;
+use App\Models\Periode;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -45,7 +47,8 @@ class BidangController extends Controller
     {
         //Validasi 
         $this->validate($request, [
-            'foto_bidang' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120'
+            'foto_bidang' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
+            'maksimal_orang' => 'nullable|integer|min:1',
         ]);
 
         $data = $request->all();
@@ -104,7 +107,8 @@ class BidangController extends Controller
     {
         //Validasi 
         $this->validate($request, [
-            'foto_bidang' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5120'
+            'foto_bidang' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5120',
+            'maksimal_orang' => 'nullable|integer|min:1',
         ]);
         $bidang = Bidang::findOrFail($id);
         $data = $request->all();
@@ -132,6 +136,31 @@ class BidangController extends Controller
         $bidang->update($data);
 
         return redirect()->route('bidang.index');
+    }
+
+    public function salinFormat()
+    {
+        $aktif = Periode::aktif();
+        $sebelumnya = $aktif?->sebelumnya();
+        if (! $sebelumnya) {
+            return back()->with('error', 'Tidak ada periode sebelumnya untuk disalin.');
+        }
+        if (Bidang::exists()) {
+            return back()->with('error', 'Daftar sudah berisi data, format tidak disalin.');
+        }
+
+        DB::transaction(function () use ($aktif, $sebelumnya) {
+            Bidang::withoutGlobalScope('periode')->where('periode_id', $sebelumnya->id)->get()->each(
+                fn ($b) => Bidang::create([
+                    'periode_id' => $aktif->id,
+                    'nama_bidang' => $b->nama_bidang,
+                    'foto_bidang' => $b->getRawOriginal('foto_bidang'),
+                    'maksimal_orang' => $b->maksimal_orang,
+                ])
+            );
+        });
+
+        return back()->with('success', 'Format periode sebelumnya berhasil disalin.');
     }
 
     /**

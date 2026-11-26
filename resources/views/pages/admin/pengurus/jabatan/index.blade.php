@@ -20,6 +20,16 @@
             </div>
         </header>
 
+        @if (session('error'))
+            <div class="rounded-xl p-4 bg-danger-50 text-danger-700">{{ session('error') }}</div>
+        @endif
+        @if ($jabatan->isEmpty() && \App\Models\Periode::aktif()?->sebelumnya())
+            <form action="{{ route('jabatan.salin-format') }}" method="POST">
+                @csrf
+                <button type="submit" class="rounded-lg border border-admin-border bg-white px-3.5 py-2 text-xs font-semibold text-admin-heading hover:bg-admin-light">Pakai format periode sebelumnya</button>
+            </form>
+        @endif
+
         <div class="rounded-xl border border-admin-border bg-white p-5">
             <div class="flex flex-wrap gap-2">
                 @foreach ($jabatan as $item)

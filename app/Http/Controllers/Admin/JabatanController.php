@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\JabatanBidang;
+use App\Models\Periode;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class JabatanController extends Controller
@@ -88,6 +90,26 @@ class JabatanController extends Controller
         $item->update($data);
 
         return redirect()->route('jabatan.index');
+    }
+
+    public function salinFormat()
+    {
+        $aktif = Periode::aktif();
+        $sebelumnya = $aktif?->sebelumnya();
+        if (! $sebelumnya) {
+            return back()->with('error', 'Tidak ada periode sebelumnya untuk disalin.');
+        }
+        if (JabatanBidang::exists()) {
+            return back()->with('error', 'Daftar sudah berisi data, format tidak disalin.');
+        }
+
+        DB::transaction(function () use ($aktif, $sebelumnya) {
+            JabatanBidang::withoutGlobalScope('periode')->where('periode_id', $sebelumnya->id)->get()->each(
+                fn ($x) => JabatanBidang::create(['periode_id' => $aktif->id, 'nama_jabatan' => $x->nama_jabatan])
+            );
+        });
+
+        return back()->with('success', 'Format periode sebelumnya berhasil disalin.');
     }
 
     /**
