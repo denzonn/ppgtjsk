@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'periode_id',
+        'dibuat_oleh',
     ];
 
     /**
@@ -41,4 +43,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function periode()
+    {
+        return $this->belongsTo(Periode::class);
+    }
+
+    public function isAdminUtama(): bool
+    {
+        return $this->role === 'ADMIN' && $this->periode_id === null;
+    }
+
+    public function bolehMasuk(): bool
+    {
+        return $this->isAdminUtama() || (bool) $this->periode?->isAktif();
+    }
 }

@@ -26,6 +26,11 @@ class UserFactory extends Factory
         ];
     }
 
+    public function admin(?\App\Models\Periode $p = null)
+    {
+        return $this->state(fn () => ['role' => 'ADMIN', 'periode_id' => $p?->id]);
+    }
+
     /**
      * Indicate that the model's email address should be unverified.
      *
