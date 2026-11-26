@@ -91,6 +91,7 @@ Route::prefix('admin')
         Route::post('periode/pilih', [\App\Http\Controllers\Admin\PeriodeController::class, 'pilih'])->name('periode.pilih');
         Route::resource('periode', \App\Http\Controllers\Admin\PeriodeController::class)->only(['index', 'create', 'store']);
         Route::resource('akun', \App\Http\Controllers\Admin\AkunController::class)->only(['index', 'create', 'store', 'destroy']);
+        Route::get('log', [\App\Http\Controllers\Admin\LogController::class, 'index'])->name('log.index');
         Route::resource('renungan-harian', RenunganHarianController::class);
         Route::resource('foto-ksb', FotoKsbController::class);
         Route::resource('sekilas-anggota', SekilasAnggotaController::class);

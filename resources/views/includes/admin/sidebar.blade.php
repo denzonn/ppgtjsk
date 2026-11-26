@@ -16,6 +16,8 @@
         'Organisasi' => [
             ['Pengurus', 'account_tree', null, ['admin/foto-ksb*', 'admin/pengurus*', 'admin/jabatan*', 'admin/bidang*', 'admin/program-kerja*', 'admin/notulensi-rapat*'], [
                 'Foto KSB' => 'foto-ksb.index',
+                'Bidang' => 'bidang.index',
+                'Jabatan' => 'jabatan.index',
                 'Pengurus' => 'pengurus.index',
                 'Program Kerja' => 'program-kerja.index',
                 'Notulensi Rapat' => 'notulensi-rapat.index',
@@ -41,6 +43,11 @@
             ]],
             ['Unit Usaha', 'storefront', null, [], ['Segera Hadir' => null]],
             ['Saran', 'chat_bubble_outline', 'saran.index', ['admin/saran*']],
+        ],
+        'Sistem' => [
+            ['Periode', 'calendar_month', 'periode.index', ['admin/periode*']],
+            ['Akun', 'manage_accounts', 'akun.index', ['admin/akun*']],
+            ['Log', 'history', 'log.index', ['admin/log*']],
         ],
     ];
     $base = 'flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors';

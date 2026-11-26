@@ -11,6 +11,21 @@
     </div>
 
     <div class="flex items-center gap-3">
+        @php $periodeAktif = \App\Models\Periode::aktif(); @endphp
+        @if ($periodeAktif)
+            <span class="rounded-lg border border-admin-border bg-white px-3 py-1.5 text-xs font-medium text-admin-heading">Periode {{ $periodeAktif->label() }}</span>
+            @if (auth()->user()->isAdminUtama())
+                <form action="{{ route('periode.pilih') }}" method="POST">
+                    @csrf
+                    <select name="periode_id" onchange="this.form.submit()" aria-label="Pilih periode"
+                        class="rounded-lg border border-admin-border bg-white px-2 py-1.5 text-xs text-admin-heading">
+                        @foreach (\App\Models\Periode::orderByDesc('tahun_mulai')->get() as $p)
+                            <option value="{{ $p->id }}" @selected($p->id === $periodeAktif->id)>{{ $p->label() }}</option>
+                        @endforeach
+                    </select>
+                </form>
+            @endif
+        @endif
         <form action="{{ route('data-anggota.index') }}" method="GET" role="search"
             class="hidden w-64 items-center justify-between gap-2 rounded-lg border border-admin-border bg-admin-body px-3 py-1.5 text-xs text-admin-text focus-within:border-admin md:flex">
             <span class="flex min-w-0 flex-1 items-center gap-1.5">
