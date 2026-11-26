@@ -97,6 +97,7 @@ Route::prefix('admin')
         Route::resource('artikel', ArtikelController::class);
         Route::resource('link-terkait', LinkTerkaitController::class);
         Route::resource('data-anggota', DataAnggotaController::class);
+        Route::delete('kegiatan/checked', [KegiatanControllerAdmin::class, 'checkedActivity'])->name('checked-activity');
         Route::resource('kegiatan', KegiatanControllerAdmin::class);
         Route::resource('program-kerja', ProgramKerjaController::class);
         Route::resource('gallery-kegiatan', GalleryKegiatanController::class);
@@ -130,5 +131,4 @@ Route::prefix('admin')
         Route::post('upload-artikel', [ArtikelController::class, 'uploadImage'])->name('ckeditor.upload');
     });
 
-Route::delete('kegiatan/checked', [KegiatanControllerAdmin::class, 'checkedActivity'])->name('checked-activity');
 Auth::routes();

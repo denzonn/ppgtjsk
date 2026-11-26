@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\BerPeriode;
+
 use App\Casts\PublicUrl;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,9 +14,10 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Artikel extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia;
+    use BerPeriode, HasFactory, InteractsWithMedia;
 
     protected $fillable = [
+        'periode_id',
         'judul',
         'slug',
         'photo',

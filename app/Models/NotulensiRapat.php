@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\BerPeriode;
+
 use App\Casts\PublicUrl;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,11 +11,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class NotulensiRapat extends Model
 {
-    use HasFactory;
+    use BerPeriode, HasFactory;
 
     protected $table = 'notulensi_rapats';
 
     protected $fillable = [
+        'periode_id',
         'tanggal',
         'judul',
         'isi',

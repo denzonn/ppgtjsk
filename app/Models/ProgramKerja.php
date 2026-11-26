@@ -2,16 +2,19 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\BerPeriode;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ProgramKerja extends Model
 {
-    use HasFactory;
+    use BerPeriode, HasFactory;
 
     protected $table = 'program_kerjas';
 
     protected $fillable = [
+        'periode_id',
         'name',
         'description',
         'bidang_id'

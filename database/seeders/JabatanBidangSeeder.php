@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Periode;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -15,7 +16,8 @@ class JabatanBidangSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('jabatan_bidangs')->insert([
+        $periodeId = Periode::firstOrCreate(['tahun_mulai' => 2024, 'tahun_selesai' => 2026])->id;
+        DB::table('jabatan_bidangs')->insert(array_map(fn ($baris) => $baris + ['periode_id' => $periodeId], [
             [
                 'nama_jabatan' => 'Ketua'
             ],
@@ -46,6 +48,6 @@ class JabatanBidangSeeder extends Seeder
             [
                 'nama_jabatan' => 'Wakil Koodinator Kelompok 2'
             ],
-        ]);
+        ]));
     }
 }
