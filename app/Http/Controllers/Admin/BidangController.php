@@ -138,6 +138,20 @@ class BidangController extends Controller
         return redirect()->route('bidang.index');
     }
 
+    /** Duplikat file foto supaya menghapus/mengganti foto di satu periode tidak merusak periode lain. */
+    private function salinFoto(?string $raw): ?string
+    {
+        $disk = Storage::disk('public');
+        $src = $raw ? PublicUrl::toPath($raw) : null;
+        if (! $src || ! $disk->exists($src)) {
+            return $raw; // file tidak ada: tidak ada yang bisa disalin, jaga kolom NOT NULL
+        }
+        $baru = 'foto_bidang/foto_bidang'.uniqid().'.'.pathinfo($src, PATHINFO_EXTENSION);
+        $disk->copy($src, $baru);
+
+        return $baru;
+    }
+
     public function salinFormat()
     {
         $aktif = Periode::aktif();
@@ -154,7 +168,7 @@ class BidangController extends Controller
                 fn ($b) => Bidang::create([
                     'periode_id' => $aktif->id,
                     'nama_bidang' => $b->nama_bidang,
-                    'foto_bidang' => $b->getRawOriginal('foto_bidang'),
+                    'foto_bidang' => $this->salinFoto($b->getRawOriginal('foto_bidang')),
                     'maksimal_orang' => $b->maksimal_orang,
                 ])
             );

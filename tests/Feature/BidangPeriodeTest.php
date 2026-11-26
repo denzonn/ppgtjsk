@@ -8,7 +8,10 @@ use App\Models\JabatanBidang;
 use App\Models\Periode;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Casts\PublicUrl;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Passport\Passport;
 use Tests\TestCase;
 
@@ -63,6 +66,33 @@ class BidangPeriodeTest extends TestCase
         $b3 = $baru->firstWhere('nama_bidang', 'B3');
         $this->assertSame(3, $b3->maksimal_orang);
         $this->assertSame($asal->getRawOriginal('foto_bidang'), $b3->getRawOriginal('foto_bidang'));
+    }
+
+    public function test_salin_format_menduplikasi_foto()
+    {
+        Storage::fake('public');
+        Storage::disk('public')->put('foto_bidang/a.jpg', 'x');
+        Bidang::create(['nama_bidang' => 'A', 'foto_bidang' => 'foto_bidang/a.jpg', 'periode_id' => $this->p1->id]);
+        $this->actingAs($this->akun)->post(route('bidang.salin-format'));
+
+        $salinan = Bidang::first();
+        $pathBaru = PublicUrl::toPath($salinan->getRawOriginal('foto_bidang'));
+        $this->assertNotSame('foto_bidang/a.jpg', $pathBaru);
+        Storage::disk('public')->assertExists([$pathBaru, 'foto_bidang/a.jpg']);
+
+        $this->actingAs($this->akun)->delete(route('bidang.destroy', $salinan->id));
+        Storage::disk('public')->assertMissing($pathBaru);
+        Storage::disk('public')->assertExists('foto_bidang/a.jpg');
+    }
+
+    public function test_pengurus_ditolak_kalau_bidang_periode_lain()
+    {
+        $lama = $this->bidang('Lama', $this->p1);
+        $j = JabatanBidang::create(['nama_jabatan' => 'K', 'periode_id' => $this->p2->id]);
+        $this->actingAs($this->akun)->post(route('pengurus.store'), ['nama_anggota' => 'Ani', 'jabatans_id' => $j->id,
+            'bidangs_id' => $lama->id, 'foto' => UploadedFile::fake()->image('a.jpg')])
+            ->assertSessionHasErrors('bidangs_id');
+        $this->assertSame(0, AnggotaBidang::count());
     }
 
     public function test_salin_format_ditolak_kalau_sudah_ada_isi()

@@ -45,8 +45,14 @@ class Bidang extends Model
     /** Lempar ValidationException (web: kembali ke form, API: 422) kalau bidang sudah penuh. */
     public static function pastikanMuat($bidangId, ?int $kecualiPengurusId = null): void
     {
-        $bidang = $bidangId ? static::find($bidangId) : null;
-        if ($bidang && $bidang->sudahPenuh($kecualiPengurusId)) {
+        if (! $bidangId) {
+            return;
+        }
+        $bidang = static::find($bidangId); // global scope: hanya bidang periode aktif
+        if (! $bidang) {
+            throw \Illuminate\Validation\ValidationException::withMessages(['bidangs_id' => 'Bidang tidak ditemukan di periode ini.']);
+        }
+        if ($bidang->sudahPenuh($kecualiPengurusId)) {
             throw \Illuminate\Validation\ValidationException::withMessages([
                 'bidangs_id' => "Bidang {$bidang->nama_bidang} sudah penuh ({$bidang->maksimal_orang} orang).",
             ]);
