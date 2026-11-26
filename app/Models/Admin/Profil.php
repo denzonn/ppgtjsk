@@ -18,7 +18,7 @@ class Profil extends Model implements HasMedia
     protected $table = 'profils';
 
     protected $fillable = [
-        'periode',
+        'periode_id',
         'content',
         'photo'
     ];
@@ -27,4 +27,15 @@ class Profil extends Model implements HasMedia
     protected $casts = [
         'photo' => PublicUrl::class,
     ];
+
+    public function periodeKepengurusan()
+    {
+        return $this->belongsTo(\App\Models\Periode::class, 'periode_id');
+    }
+
+    /** Label teks periode, dipakai view publik. */
+    public function getPeriodeAttribute()
+    {
+        return $this->periodeKepengurusan?->label();
+    }
 }

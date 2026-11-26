@@ -28,8 +28,12 @@
                 @endif
                 <form action="{{ route('profil-ppgt.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <label for="periode" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Periode Kepengurusan <span class="font-bold text-danger-500">*</label>
-                        <input type="text" name="periode" id="periode" class="block w-full rounded-lg border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-admin focus:bg-white focus:ring-2 focus:ring-admin-light disabled:bg-slate-100 mb-6">
+                    <label for="periode_id" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Periode Kepengurusan <span class="font-bold text-danger-500">*</label>
+                        <select name="periode_id" id="periode_id" required class="block w-full rounded-lg border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition focus:border-admin focus:bg-white focus:ring-2 focus:ring-admin-light mb-6">
+                        @foreach ($periodes as $periode)
+                            <option value="{{ $periode->id }}" @selected(old('periode_id', null) == $periode->id)>{{ $periode->label() }}</option>
+                        @endforeach
+                    </select>
 
                     <label for="content" class="inline-block mb-2 text-sm font-semibold text-admin-heading">Sejarah Kepengurusan</label>
                     <textarea name="content" id="content" cols="30" rows="10" class="block w-full rounded-lg border border-admin-border bg-slate-50/60 px-4 py-2.5 text-[0.9375rem] leading-[1.53] text-admin-heading outline-none transition placeholder:text-slate-400 focus:border-admin focus:bg-white focus:ring-2 focus:ring-admin-light disabled:bg-slate-100"></textarea>

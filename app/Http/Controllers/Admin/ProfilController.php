@@ -6,6 +6,7 @@ use App\Casts\PublicUrl;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Profil;
+use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -18,7 +19,8 @@ class ProfilController extends Controller
      */
     public function index()
     {
-        $profil = Profil::all();
+        $profil = Profil::with('periodeKepengurusan')->get()
+            ->sortByDesc(fn ($p) => $p->periodeKepengurusan?->tahun_mulai)->values();
 
         return view('pages.admin.profil.index', [
             'profil' => $profil
@@ -32,7 +34,9 @@ class ProfilController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.profil.create');
+        return view('pages.admin.profil.create', [
+            'periodes' => Periode::orderByDesc('tahun_mulai')->get()
+        ]);
     }
 
     /**
@@ -43,6 +47,7 @@ class ProfilController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate(['periode_id' => 'required|exists:periodes,id']);
         $data = $request->all();
 
         if ($request->hasFile('photo')) {
@@ -50,7 +55,7 @@ class ProfilController extends Controller
 
             $extension = $images->getClientOriginalExtension();
 
-            $file_name = "periode-" . $data['periode'] . "." . $extension;
+            $file_name = "periode-" . Periode::find($data['periode_id'])->label() . "." . $extension;
 
             $data['photo'] = $images->storeAs('photo', $file_name, 'public');
         }
@@ -82,7 +87,8 @@ class ProfilController extends Controller
         $profil = Profil::findOrFail($id);
 
         return view('pages.admin.profil.edit', [
-            'profil' => $profil
+            'profil' => $profil,
+            'periodes' => Periode::orderByDesc('tahun_mulai')->get()
         ]);
     }
 
@@ -95,6 +101,7 @@ class ProfilController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate(['periode_id' => 'required|exists:periodes,id']);
         $data = $request->all();
         $profil = Profil::findOrFail($id);
 
@@ -107,7 +114,7 @@ class ProfilController extends Controller
 
             $extension = $images->getClientOriginalExtension();
 
-            $file_name = "periode-" . $data['periode'] . "." . $extension;
+            $file_name = "periode-" . Periode::find($data['periode_id'])->label() . "." . $extension;
 
             $data['photo'] = $images->storeAs('photo', $file_name, 'public');
         }else {
