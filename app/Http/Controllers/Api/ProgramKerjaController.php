@@ -25,6 +25,8 @@ class ProgramKerjaController extends BaseController
 
     public function store(Request $request)
     {
+        Bidang::pastikanAda($request->bidang_id, 'bidang_id', 'Bidang tidak ditemukan di periode ini.');
+
         $program = ProgramKerja::create([
             'name' => $request->name,
             'bidang_id' => $request->bidang_id,
@@ -51,6 +53,8 @@ class ProgramKerjaController extends BaseController
 
     public function update(Request $request, $id)
     {
+        Bidang::pastikanAda($request->bidang_id, 'bidang_id', 'Bidang tidak ditemukan di periode ini.');
+
         $program = ProgramKerja::findOrFail($id);
         
         $program->update([

@@ -49,7 +49,7 @@ class GalleryKegiatanController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $kegiatan = Kegiatan::where('id', $data['kegiatan_id'])->first();
+        $kegiatan = Kegiatan::pastikanAda($data['kegiatan_id'] ?? null, 'kegiatan_id', 'Kegiatan tidak ditemukan di periode ini.');
         $name = $kegiatan->name;
 
         $this->validate($request, [

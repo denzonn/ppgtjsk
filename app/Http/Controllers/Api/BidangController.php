@@ -18,7 +18,8 @@ class BidangController extends BaseController
     public function store(Request $request)
     {
         $this->validate($request, [
-            'foto_bidang' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120'
+            'foto_bidang' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
+            'maksimal_orang' => 'nullable|integer|min:1',
         ]);
 
         $data = $request->all();
@@ -51,7 +52,8 @@ class BidangController extends BaseController
     {
         //Validasi 
         $this->validate($request, [
-            'foto_bidang' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5120'
+            'foto_bidang' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5120',
+            'maksimal_orang' => 'nullable|integer|min:1',
         ]);
 
         $data = $request->all();

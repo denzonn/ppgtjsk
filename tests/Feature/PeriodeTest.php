@@ -53,6 +53,7 @@ class PeriodeTest extends TestCase
         $pb = $this->periode(2026, 2028);
         $a = User::factory()->admin($pa)->create();
         $utama = User::factory()->admin()->create();
+        $this->app->instance("request", \Illuminate\Http\Request::create("/admin/dashboard"));
 
         $this->assertNull(Periode::aktif());
 

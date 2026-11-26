@@ -4,6 +4,7 @@ namespace App\Models\Concerns;
 
 use App\Models\ActivityLog;
 use App\Models\Periode;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 trait TercatatDiLog
@@ -27,8 +28,8 @@ trait TercatatDiLog
         $buang = array_flip(['password', 'remember_token']);
         ActivityLog::create([
             'user_id' => Auth::id(),
-            'periode_id' => Periode::aktif()?->id,
-            'per_periode' => in_array(BerPeriode::class, class_uses_recursive($this)),
+            'periode_id' => ($this instanceof User ? $this->periode_id : null) ?? Periode::aktif()?->id,
+            'per_periode' => $this instanceof User || in_array(BerPeriode::class, class_uses_recursive($this)),
             'aksi' => $aksi,
             'model' => static::class,
             'model_id' => $this->getKey(),

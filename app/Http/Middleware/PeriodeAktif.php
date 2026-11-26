@@ -17,6 +17,10 @@ class PeriodeAktif
     {
         $user = $request->user();
 
+        if ($user && $user->role !== 'ADMIN' && ($request->expectsJson() || $request->is('api/*'))) {
+            return response()->json(['success' => false, 'message' => 'Hanya admin yang bisa mengakses.'], 403);
+        }
+
         if (! $user || $user->role !== 'ADMIN' || $user->bolehMasuk()) {
             return $next($request);
         }

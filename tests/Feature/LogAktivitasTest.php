@@ -118,6 +118,7 @@ class LogAktivitasTest extends TestCase
     public function test_visibilitas_log()
     {
         $this->actingAs($this->akun1);
+        $this->app->instance("request", \Illuminate\Http\Request::create("/admin/dashboard"));
         $this->barang();
         \App\Models\Bidang::create(['nama_bidang' => 'B1', 'foto_bidang' => 'a.jpg']);
 

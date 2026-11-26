@@ -21,7 +21,6 @@ class Inventaris extends Model
         'jumlah',
         'keterangan',
         'photo',
-        'periode_id',
     ];
 
     /** URL lengkap berbasis APP_URL saat dibaca; database tetap menyimpan path relatif. */

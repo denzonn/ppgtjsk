@@ -32,6 +32,9 @@ class PeriodeController extends Controller
             'tahun_selesai' => 'required|integer|between:2000,2100|gt:tahun_mulai',
         ]);
         abort_unless(auth()->user()->bolehBuatPeriode($data['tahun_mulai'], $data['tahun_selesai']), 403);
+        if (! auth()->user()->isAdminUtama() && $data['tahun_selesai'] - $data['tahun_mulai'] > 5) {
+            throw ValidationException::withMessages(['tahun_selesai' => 'Periode maksimal 5 tahun.']);
+        }
         if (Periode::where($data)->exists()
             || (! auth()->user()->isAdminUtama() && Periode::where('tahun_mulai', $data['tahun_mulai'])->exists())) {
             throw ValidationException::withMessages(['tahun_mulai' => 'Periode ini sudah ada.']);

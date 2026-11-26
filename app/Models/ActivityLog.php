@@ -44,6 +44,7 @@ class ActivityLog extends Model
         Kegiatan::class => 'Kegiatan',
         GalleryKegiatan::class => 'Galeri Kegiatan',
         User::class => 'Akun',
+        Periode::class => 'Periode',
     ];
 
     public function user()

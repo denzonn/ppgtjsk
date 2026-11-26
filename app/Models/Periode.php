@@ -34,7 +34,7 @@ class Periode extends Model
     public static function aktif(): ?Periode
     {
         $user = Auth::user();
-        if (! $user || $user->role !== 'ADMIN') {
+        if (! $user || $user->role !== 'ADMIN' || ! request()->is('admin', 'admin/*', 'api/*')) {
             return null;
         }
         if ($user->periode_id) {

@@ -57,6 +57,9 @@ class PengurusController extends Controller
 
         $data = $request->all();
         Bidang::pastikanMuat($data['bidangs_id'] ?? null);
+        if ($data['jabatans_id'] ?? null) {
+            JabatanBidang::pastikanAda($data['jabatans_id'], 'jabatans_id', 'Jabatan tidak ditemukan di periode ini.');
+        }
 
         if ($request->hasFile('foto')) {
             $images = $request->file('foto');
@@ -122,6 +125,9 @@ class PengurusController extends Controller
 
         $pengurus = AnggotaBidang::findOrFail($id);
         Bidang::pastikanMuat($data['bidangs_id'] ?? null, $pengurus->id);
+        if ($data['jabatans_id'] ?? null) {
+            JabatanBidang::pastikanAda($data['jabatans_id'], 'jabatans_id', 'Jabatan tidak ditemukan di periode ini.');
+        }
 
         if ($request->hasFile('foto')) {
             if($pengurus->foto){
