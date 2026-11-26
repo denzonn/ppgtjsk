@@ -24,6 +24,7 @@ class User extends Authenticatable
         'password',
         'periode_id',
         'dibuat_oleh',
+        'data_anggota_id',
     ];
 
     /**

@@ -55,11 +55,12 @@ class LogPageTest extends TestCase
             ->assertDontSee('KursiUnik');
     }
 
-    public function test_navbar_admin_utama_punya_pemilih_periode()
+    public function test_menu_admin_utama_ringkas_dan_admin_periode_lengkap()
     {
         $this->actingAs(User::factory()->admin(null)->create())->get(route('dashboard'))
-            ->assertSee('name="periode_id"', false);
+            ->assertSee('Admin Utama')->assertSee('Data Bersama')
+            ->assertDontSee(route('pengurus.index'))->assertDontSee('name="periode_id"', false);
         $this->actingAs(User::factory()->admin($this->p1)->create())->get(route('dashboard'))
-            ->assertDontSee('name="periode_id"', false);
+            ->assertSee(route('pengurus.index'))->assertDontSee('Data Bersama');
     }
 }

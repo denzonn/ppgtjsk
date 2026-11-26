@@ -11,6 +11,18 @@
     @stack('prepend-style')
     @include('includes.admin.style')
     @stack('addon-style')
+    @if (Auth::user()?->isAdminUtama())
+        {{-- Admin utama hanya melihat: sembunyikan tombol tambah/ubah/hapus, kecuali Periode & Akun.
+             ponytail: disembunyikan lewat CSS (server tetap menolak via middleware hanya.lihat);
+             pindah ke @can per view kalau ada tombol yang lolos. --}}
+        <style>
+            main a[href$="/create"]:not([href*="/admin/periode"]):not([href*="/admin/akun"]),
+            main a[href$="/edit"]:not([href*="/admin/periode"]):not([href*="/admin/akun"]),
+            main form[method="POST" i]:not([action*="/admin/periode"]):not([action*="/admin/akun"]) {
+                display: none !important;
+            }
+        </style>
+    @endif
 
     <title>
         @yield('title')
@@ -33,7 +45,7 @@
 
     {{-- Notifikasi: flash "success" dari controller + sapaan sekali setelah login --}}
     @php
-        $toast = session('success');
+        $toast = session('success') ?? session('error');
         if (!$toast && Auth::user()?->role == 'ADMIN' && !session('welcome_back')) {
             session(['welcome_back' => true]);
             $toast = 'Selamat datang kembali, ' . (Auth::user()->name ?? 'Admin');

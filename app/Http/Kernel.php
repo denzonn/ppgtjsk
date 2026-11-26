@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'isAdmin' => isAdmin::class,
         'periode.aktif' => \App\Http\Middleware\PeriodeAktif::class,
+        'hanya.lihat' => \App\Http\Middleware\HanyaLihat::class,
     ];
 }

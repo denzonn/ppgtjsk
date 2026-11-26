@@ -38,7 +38,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', [AuthController::class, 'login']);
 
-Route::middleware(['auth:api', 'periode.aktif'])->group( function () {
+Route::middleware(['auth:api', 'periode.aktif', 'hanya.lihat'])->group( function () {
     Route::get('renungan', [RenunganController::class, 'index']);
     Route::get('renungan/{id}', [RenunganController::class, 'edit']);
     Route::put('renungan/{id}', [RenunganController::class, 'update']);

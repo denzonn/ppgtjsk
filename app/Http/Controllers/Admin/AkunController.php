@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\DataAnggota;
 use App\Models\Periode;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -27,24 +28,35 @@ class AkunController extends Controller
         $user = auth()->user();
         $periode = Periode::orderByDesc('tahun_mulai')->get()->filter(fn ($p) => $user->bolehBuatAkunDi($p));
 
-        return view('pages.admin.akun.create', compact('periode'));
+        $anggota = $this->anggotaBisaDipilih()->orderBy('nama')->get(['id', 'nama', 'email']);
+
+        return view('pages.admin.akun.create', compact('periode', 'anggota'));
+    }
+
+    /** Anggota yang sudah di-ACC dan emailnya belum dipakai akun mana pun. */
+    private function anggotaBisaDipilih()
+    {
+        return DataAnggota::where('status_active', true)->whereNotIn('email', User::select('email'));
     }
 
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email',
+            'data_anggota_id' => 'required|integer',
             'password' => 'required|string|min:8|confirmed',
             'periode_id' => 'required|exists:periodes,id',
         ]);
+        $anggota = $this->anggotaBisaDipilih()->find($data['data_anggota_id']);
+        if (! $anggota) {
+            throw ValidationException::withMessages(['data_anggota_id' => 'Anggota belum di-ACC atau sudah punya akun.']);
+        }
         $user = auth()->user();
         $periode = Periode::findOrFail($data['periode_id']);
         if (! $user->bolehBuatAkunDi($periode)) {
             abort_unless($periode->tahun_mulai === $user->periode?->tahun_selesai, 403);
             throw ValidationException::withMessages(['periode_id' => 'Akun serah terima untuk periode ini sudah dibuat.']);
         }
-        $baru = new User(['name' => $data['name'], 'email' => $data['email'],
+        $baru = new User(['name' => $anggota->nama, 'email' => $anggota->email, 'data_anggota_id' => $anggota->id,
             'password' => Hash::make($data['password']), 'periode_id' => $periode->id, 'dibuat_oleh' => $user->id]);
         $baru->role = 'ADMIN';
         $baru->save();

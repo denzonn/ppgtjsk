@@ -26,7 +26,13 @@
                 <tbody>
                     @foreach ($periode as $p)
                         <tr class="border-t border-admin-border">
-                            <td class="px-4 py-3 font-semibold">{{ $p->label() }}</td>
+                            <td class="px-4 py-3 font-semibold">
+                                @if (auth()->user()->isAdminUtama())
+                                    <a href="{{ route('periode.show', $p) }}" class="text-admin hover:underline">{{ $p->label() }}</a>
+                                @else
+                                    {{ $p->label() }}
+                                @endif
+                            </td>
                             <td class="px-4 py-3">{{ $p->users_count }}</td>
                         </tr>
                     @endforeach

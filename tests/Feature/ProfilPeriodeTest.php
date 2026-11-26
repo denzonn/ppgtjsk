@@ -55,7 +55,7 @@ class ProfilPeriodeTest extends TestCase
 
     public function test_migrasi_membaca_format_periode_lama()
     {
-        $this->artisan('migrate:rollback', ['--step' => 1]);
+        $this->artisan('migrate:rollback', ['--path' => 'database/migrations/2026_11_26_000005_profils_pakai_periode_id.php']);
         $this->assertSame('Periode 2018 - 2020', \DB::table('profils')->value('periode'));
         \DB::table('profils')->insert([
             ['periode' => 'Periode 2013 - 2015', 'content' => 'a', 'photo' => 'x'],

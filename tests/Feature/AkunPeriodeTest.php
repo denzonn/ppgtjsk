@@ -34,8 +34,40 @@ class AkunPeriodeTest extends TestCase
 
     private function data($periode, $email)
     {
-        return ['name' => 'Baru', 'email' => $email, 'password' => 'rahasia123',
+        return ['data_anggota_id' => $this->anggota($email)->id, 'password' => 'rahasia123',
             'password_confirmation' => 'rahasia123', 'periode_id' => $periode->id];
+    }
+
+    public function test_akun_diambil_dari_data_anggota()
+    {
+        $anggota = $this->anggota('budi@x.com');
+        $this->actingAs($this->a1)->post(route('akun.store'), ['data_anggota_id' => $anggota->id,
+            'password' => 'rahasia123', 'password_confirmation' => 'rahasia123', 'periode_id' => $this->p1->id])
+            ->assertSessionHasNoErrors();
+
+        $akun = User::where('email', 'budi@x.com')->first();
+        $this->assertSame('Anggota budi@x.com', $akun->name);
+        $this->assertSame($anggota->id, $akun->data_anggota_id);
+    }
+
+    public function test_anggota_belum_acc_atau_sudah_punya_akun_ditolak()
+    {
+        $belum = $this->anggota('belum@x.com', false);
+        $sudah = $this->anggota($this->a1->email);
+        foreach ([$belum, $sudah] as $a) {
+            $this->actingAs($this->a1)->post(route('akun.store'), ['data_anggota_id' => $a->id,
+                'password' => 'rahasia123', 'password_confirmation' => 'rahasia123', 'periode_id' => $this->p1->id])
+                ->assertSessionHasErrors('data_anggota_id');
+        }
+        $this->assertFalse(User::where('email', 'belum@x.com')->exists());
+    }
+
+    public function test_form_akun_hanya_menampilkan_anggota_yang_bisa_dipilih()
+    {
+        $this->anggota('pilih@x.com');
+        $this->anggota('belum@x.com', false);
+        $this->actingAs($this->a1)->get(route('akun.create'))
+            ->assertOk()->assertSee('pilih@x.com')->assertDontSee('belum@x.com');
     }
 
     public function test_admin_periode_buat_akun_periode_sendiri_berkali_kali()

@@ -50,6 +50,20 @@
             ['Log', 'history', 'log.index', ['admin/log*']],
         ],
     ];
+    // Admin utama hanya melihat: data per periode dibuka lewat menu Periode, sisanya data bersama.
+    if (Auth::user()?->isAdminUtama()) {
+        $groups = [
+            null => [$groups[null][0], ['Periode', 'calendar_month', 'periode.index', ['admin/periode*']]],
+            'Data Bersama' => [
+                $groups[null][1],
+                $groups['Organisasi'][1],
+                $groups['Organisasi'][2],
+                $groups['Aset & Keuangan'][0],
+                $groups['Aset & Keuangan'][2],
+            ],
+            'Sistem' => [$groups['Sistem'][1], $groups['Sistem'][2]],
+        ];
+    }
     $base = 'flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors';
     $idle = 'font-medium text-admin-text hover:bg-admin-body hover:text-admin-heading';
     $current = 'bg-admin-light font-semibold text-admin';

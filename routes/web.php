@@ -84,12 +84,12 @@ Route::post('/form-anggota/create', [formDataAnggotaController::class, 'store'])
     ->name('form-anggota-store');
 
 Route::prefix('admin')
-    ->middleware(['auth', 'isAdmin', 'periode.aktif'])
+    ->middleware(['auth', 'isAdmin', 'periode.aktif', 'hanya.lihat'])
     ->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])
             ->name('dashboard');
         Route::post('periode/pilih', [\App\Http\Controllers\Admin\PeriodeController::class, 'pilih'])->name('periode.pilih');
-        Route::resource('periode', \App\Http\Controllers\Admin\PeriodeController::class)->only(['index', 'create', 'store']);
+        Route::resource('periode', \App\Http\Controllers\Admin\PeriodeController::class)->only(['index', 'create', 'store', 'show']);
         Route::resource('akun', \App\Http\Controllers\Admin\AkunController::class)->only(['index', 'create', 'store', 'destroy']);
         Route::get('log', [\App\Http\Controllers\Admin\LogController::class, 'index'])->name('log.index');
         Route::resource('renungan-harian', RenunganHarianController::class);
